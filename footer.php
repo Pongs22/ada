@@ -12,19 +12,48 @@
 ?>
 
 <footer id="colophon" class="relative bg-ada_red-70 leading-6 text-gray-600">
-	<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>" class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
+	<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
+		class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
 	<div class="ff-c-container relative z-10 flex flex-col gap-y-10 py-10">
-			<div class="site-branding size-[160px]">
-				<?php
-				the_custom_logo();
-				?>
-			</div>
+		<div class="site-branding size-[160px]">
+			<?php
+			the_custom_logo();
+			?>
+		</div>
 		<p class="max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
 	</div>
 	<div class="relative z-10 bg-[#d6d6d6]/10 px-8 py-3">
 		<div class="ff-c-container flex flex-row justify-between">
 			<p class="my-auto text-base leading-[120%] text-white">© 2025 Apex Digital Academy. All rights reserved.</p>
 			<div class="h-12"></div>
+			<div class="flex ">
+				<nav id="privacy-menu" class="z-50 relative text-white my-auto px-4 mr-2">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'privacy-menu',
+							'menu_id'        => 'privacy-menu',
+
+						)
+					);
+					?>
+				</nav>
+				<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-divider.svg' ); ?>"
+					class="my-auto mr-6" />
+				<nav id="social-menu" class="z-50 relative text-white my-auto">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'social-menu',
+							'menu_id'        => 'social-menu',
+							'menu_class'     => 'flex gap-4',
+						)
+					);
+					?>
+				</nav>
+			</div>
+
+
 		</div>
 	</div>
 </footer><!-- #colophon -->
