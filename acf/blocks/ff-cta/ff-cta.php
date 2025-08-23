@@ -9,7 +9,7 @@
  */
 
 $ff_cta = get_field( 'cta_style' );
-$style       = $block['className'] ?? '';
+$style  = $block['className'] ?? '';
 ?>
 <div class="ff-b-cta-section">
 	<?php if ( 'simple' === $ff_cta ) : ?>
