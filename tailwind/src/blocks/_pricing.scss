@@ -1,0 +1,168 @@
+.ff-b-pricing-section {
+
+	.two-tier.light .highlighted-style,
+	.two-tier.emp-dark .highlighted-style {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 relative bg-white shadow-2xl;
+
+		.primary-color {
+
+			@apply !text-gray-900;
+		}
+
+		.secondary-color {
+
+			@apply !text-gray-600;
+		}
+
+		.label-color {
+
+			@apply !text-indigo-500;
+		}
+
+		.button-color {
+
+			@apply bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600;
+		}
+
+	}
+
+	.two-tier.light .normal-style.two-tier-class:first-child,
+	.two-tier.emp-light .normal-style.two-tier-class:first-child {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 bg-white/60 sm:mx-8 lg:mx-0 sm:rounded-t-none lg:rounded-tl-3xl lg:rounded-r-none;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-white/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-10 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	.two-tier.light .normal-style.two-tier-class:last-child,
+	.two-tier.emp-light .normal-style.two-tier-class:last-child {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 bg-white/60 sm:mx-8 lg:mx-0 sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-l-none;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-white/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-10 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	.two-tier.light .default-1,
+	.two-tier.emp-light .default-1 {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 relative bg-white/60 lg:rounded-tl-3xl lg:rounded-r-none ;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-white/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-10 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	.two-tier.light .default-2,
+	.two-tier.emp-light .default-2 {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 relative bg-white/60 lg:rounded-tr-3xl lg:rounded-l-none;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-white/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-10 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300;
+
+		}
+	}
+
+	.two-tier.dark .highlighted-style,
+	.two-tier.emp-light .highlighted-style {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 relative bg-gray-800 shadow-2xl;
+
+		.primary-color {
+
+			@apply !text-white;
+
+		}
+
+		.secondary-color {
+
+			@apply !text-gray-300;
+
+		}
+
+		.label-color {
+
+			@apply !text-indigo-400;
+
+		}
+
+		.button-color {
+
+			@apply bg-indigo-500 hover:bg-indigo-400 focus-visible:outline-indigo-500;
+		}
+
+	}
+
+	.two-tier.dark .normal-style.two-tier-class:first-child,
+	.two-tier.emp-dark .normal-style.two-tier-class:first-child {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 bg-gray-800/80 sm:mx-8 lg:mx-0 sm:rounded-t-none lg:rounded-tl-3xl lg:rounded-r-none;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-gray-800/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10 text-indigo-500 ring-1 ring-inset ring-indigo-400 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	.two-tier.dark .normal-style.two-tier-class:last-child,
+	.two-tier.emp-dark .normal-style.two-tier-class:last-child {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 bg-gray-800/80 sm:mx-8 lg:mx-0 sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-l-none;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-gray-800/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10 text-indigo-500 ring-1 ring-inset ring-indigo-400 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	.two-tier.dark .default-1,
+	.two-tier.emp-dark .default-1 {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 relative bg-gray-800/80 lg:rounded-tl-3xl lg:rounded-r-none ;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-gray-800/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10 text-indigo-500 ring-1 ring-inset ring-indigo-400 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	.two-tier.dark .default-2,
+	.two-tier.emp-dark .default-2 {
+
+		@apply rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 relative bg-gray-800/80 lg:rounded-tr-3xl lg:rounded-l-none;
+
+		a {
+
+			@apply mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold bg-gray-800/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10 text-indigo-500 ring-1 ring-inset ring-indigo-400 hover:ring-indigo-300;
+
+		}
+
+	}
+
+	tr:last-child .bd-separate {
+
+		@apply hidden;
+	}
+
+}

@@ -1,0 +1,163 @@
+
+.toggle-simple form .wpcf7-checkbox input[type="checkbox"] {
+
+	@apply appearance-none w-11 h-6 border-0 bg-gray-200 hover:ring-indigo-600 rounded-full transition-all cursor-pointer;
+}
+
+.toggle-simple form .wpcf7-list-item.first.last {
+
+	@apply bg-white relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-0 border-transparent transition-colors duration-200 ease-in-out outline-none ring-0 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2;
+}
+
+.toggle-simple form .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all mt-0.5 absolute;
+	content: "";
+	left: 2px;
+}
+
+.toggle-simple form .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all;
+	left: 22px;
+}
+
+.toggle-simple form .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+	@apply bg-indigo-600 appearance-none;
+	background-image: none;
+}
+
+.toggle-right form .wpcf7-checkbox input[type="checkbox"] {
+
+	@apply appearance-none w-11 h-6 border-0 bg-gray-200 hover:ring-indigo-600 rounded-full transition-all cursor-pointer;
+}
+
+.toggle-right form .wpcf7-list-item.first.last {
+
+	@apply bg-white relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-0 border-transparent transition-colors duration-200 ease-in-out outline-none ring-0 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2;
+}
+
+.toggle-right form .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all mt-0.5 absolute;
+	content: "";
+	left: 2px;
+}
+
+.toggle-right form .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all;
+	left: 22px;
+}
+
+.toggle-right form .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+	@apply bg-indigo-600 appearance-none;
+	background-image: none;
+}
+
+.toggle-description form .wpcf7-checkbox input[type="checkbox"] {
+
+	@apply appearance-none w-11 h-6 border-0 bg-gray-200 hover:ring-indigo-600 rounded-full transition-all cursor-pointer;
+}
+
+.toggle-description form .wpcf7-list-item.first.last {
+
+	@apply bg-white relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-0 border-transparent transition-colors duration-200 ease-in-out outline-none ring-0 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2;
+}
+
+.toggle-description form .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all mt-0.5 absolute;
+	content: "";
+	left: 2px;
+}
+
+.toggle-description form .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all;
+	left: 22px;
+}
+
+.toggle-description form .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+	@apply bg-indigo-600 appearance-none;
+	background-image: none;
+}
+
+.toggle-short form .wpcf7-checkbox input[type="checkbox"] {
+
+	@apply appearance-none w-9 h-4 border-0 bg-gray-200 hover:ring-indigo-600 ring-offset-4 rounded-full transition-all cursor-pointer;
+}
+
+.toggle-short form .wpcf7-list-item.first.last {
+
+	@apply bg-white relative inline-flex h-4 w-9 flex-shrink-0 cursor-pointer rounded-full border-0 border-transparent transition-colors duration-200 ease-in-out outline-none ring-0 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2;
+}
+
+.toggle-short form .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all absolute border border-gray-200 shadow;
+	content: "";
+	left: -2px;
+	top: -3px;
+}
+
+.toggle-short form .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all border border-gray-200 shadow;
+	left: 18px;
+	top: -3px;
+}
+
+.toggle-short form .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+	@apply bg-indigo-600 appearance-none;
+	background-image: none;
+}
+
+.toggle-icon form .wpcf7-checkbox input[type="checkbox"] {
+
+	@apply appearance-none w-11 h-6 border-0 bg-gray-200 text-gray-400 hover:ring-indigo-600 rounded-full transition-all cursor-pointer;
+}
+
+.toggle-icon form .wpcf7-list-item.first.last {
+
+	@apply bg-white relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-0 border-transparent transition-colors duration-200 ease-in-out outline-none ring-0 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2;
+}
+
+.toggle-icon form .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all mt-0.5 absolute ;
+	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='rgb(156, 163, 175)' viewBox='-3.5 -1.5 15 15'%3E%3Cpath d='M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='%239CA3AF' /%3E%3C/svg%3E"); /* stylelint-disable-line */
+	left: 2px;
+}
+
+.toggle-icon form .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+	@apply w-5 h-5 bg-white rounded-full transition-all;
+	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='-4 -1.5 15 15' fill='rgb(156, 163, 175)'%3E%3Cpath d='M3.70741 5.29341C3.5188 5.11125 3.2662 5.01045 3.00401 5.01273C2.74181 5.01501 2.491 5.12018 2.30559 5.30559C2.12018 5.491 2.01501 5.74181 2.01273 6.00401C2.01045 6.2662 2.11125 6.5188 2.29341 6.70741L3.70741 5.29341ZM5.00041 8.00041L4.29341 8.70741C4.48094 8.89488 4.73524 9.00019 5.00041 9.00019C5.26557 9.00019 5.51988 8.89488 5.70741 8.70741L5.00041 8.00041ZM9.70741 4.70741C9.88957 4.5188 9.99036 4.2662 9.98808 4.00401C9.9858 3.74181 9.88063 3.491 9.69523 3.30559C9.50982 3.12018 9.259 3.01501 8.99681 3.01273C8.73461 3.01045 8.48201 3.11125 8.29341 3.29341L9.70741 4.70741ZM2.29341 6.70741L4.29341 8.70741L5.70741 7.29341L3.70741 5.29341L2.29341 6.70741ZM5.70741 8.70741L9.70741 4.70741L8.29341 3.29341L4.29341 7.29341L5.70741 8.70741Z' fill='%234338CA'/%3E%3C/svg%3E"); /* stylelint-disable-line */
+	left: 22px;
+}
+
+.toggle-icon form .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+	@apply bg-indigo-600 appearance-none;
+	background-image: none;
+}
+
+.input-field .wpcf7-text {
+
+	@apply block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+}
+
+.input-field.error input {
+
+	@apply block w-full rounded-md border-0 py-1.5 pr-10 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6;
+}
+
+.input-field .wpcf7-textarea {
+
+	@apply block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+}

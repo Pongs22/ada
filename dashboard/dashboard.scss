@@ -1,0 +1,95 @@
+@import "../frontend/resources/sass/variables/colors";
+@import "../frontend/resources/sass/mixins/mixins";
+
+.wp-block-acf-header {
+  width: 100%;
+}
+
+.block-editor__container img {
+  max-width: initial;
+}
+
+html :where(.wp-block)[data-align=left]>*,
+html :where(.wp-block)[data-align=right]>* {
+  float: none;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.block-editor__container {
+
+  div[class*="ff-b-"],
+  section [class*="ff-b-"] {
+
+    img {
+
+      &.absolute {
+        height: initial;
+      }
+    }
+  }
+}
+
+html :where(.wp-block)[data-align=left],
+html :where(.wp-block)[data-align=right] {
+  height: auto;
+}
+
+html :where(.editor-styles-wrapper) div[class^="ff-b-"] {
+
+  p.text-base,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: inherit;
+  }
+}
+
+.acf-block-component {
+
+  .ff-b-featured-block .grid img {
+    height: auto;
+    width: 100%;
+  }
+}
+
+/*
+ * Optional styles
+ */
+
+.stacked-flyout-menu-header {
+
+	@include ff-menu-style;
+}
+
+.full-width-flyout-menu-header {
+
+	@include ff-menu-full-width;
+}
+
+
+.constrained {
+
+	@include ff-menu-style;
+}
+
+header.dark {
+
+	@include header-on-background($dark, $dark, $white, $white, $dark-hover);
+}
+
+header.brand {
+
+	@include header-on-background($brand-color, $white, $white, $dark, $gray-50);
+}
+
+footer {
+
+	@include footer-style;
+}
+
+
+// End of Optional styles

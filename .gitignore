@@ -1,0 +1,13 @@
+vendor
+node_modules
+.DS_Store
+frontend/static/css/
+frontend/static/fonts/
+acf/blocks/**/**/style.min.css
+acf/blocks/**/**/script.min.js
+frontend/static/js/*.js
+acf/**/test-*
+acf/**/wip-*
+tailwind/dist
+dashboard/*.min.css
+.vscode

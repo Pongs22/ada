@@ -1,0 +1,72 @@
+.ff-b-stats-section {
+
+	.stepped-stats:first-child {
+
+		@apply flex flex-col-reverse justify-between gap-x-16 gap-y-8 rounded-2xl bg-gray-50 p-8 sm:w-3/4 sm:max-w-md sm:flex-row-reverse sm:items-end lg:w-72 lg:max-w-none lg:flex-none lg:flex-col lg:items-start;
+
+		.stepped-value {
+
+			@apply flex-none text-3xl font-bold tracking-tight text-gray-900;
+
+		}
+
+		.stepped-heading {
+
+			@apply text-lg font-semibold tracking-tight text-gray-900;
+
+		}
+
+		.stepped-description {
+
+			@apply mt-2 text-base leading-7 text-gray-600;
+
+		}
+	}
+
+	.stepped-stats:nth-child(2) {
+
+		@apply flex flex-col-reverse justify-between gap-x-16 gap-y-8 rounded-2xl bg-gray-900 p-8 sm:flex-row-reverse sm:items-end lg:w-full lg:max-w-sm lg:flex-auto lg:flex-col lg:items-start lg:gap-y-44;
+
+		.stepped-value {
+
+			@apply flex-none text-3xl font-bold tracking-tight text-white;
+
+		}
+
+		.stepped-heading {
+
+			@apply text-lg font-semibold tracking-tight text-white;
+
+		}
+
+		.stepped-description {
+
+			@apply mt-2 text-base leading-7 text-gray-400;
+
+		}
+
+	}
+
+	.stepped-stats:last-child {
+
+		@apply flex flex-col-reverse justify-between gap-x-16 gap-y-8 rounded-2xl bg-indigo-600 p-8 sm:w-11/12 sm:max-w-xl sm:flex-row-reverse sm:items-end lg:w-full lg:max-w-none lg:flex-auto lg:flex-col lg:items-start lg:gap-y-28;
+
+		.stepped-value {
+
+			@apply flex-none text-3xl font-bold tracking-tight text-white;
+
+		}
+
+		.stepped-heading {
+
+			@apply text-lg font-semibold tracking-tight text-white;
+
+		}
+
+		.stepped-description {
+
+			@apply mt-2 text-base leading-7 text-indigo-200;
+
+		}
+	}
+}

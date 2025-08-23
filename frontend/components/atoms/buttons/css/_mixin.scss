@@ -1,0 +1,50 @@
+@import "../../../../resources/sass/variables/colors";
+@import "../../../../resources/sass/variables/timings";
+
+@mixin base(
+	$padding: 11px 20px,
+	$color: $primary-red-01,
+	$background-color: $white,
+	$radius: 2px,
+	$border-color: $primary-red-01,
+	$font-size: 16px
+) {
+	padding: $padding;
+	color: $color;
+	border-radius: $radius;
+	border: 1px solid $border-color;
+	background-color: $background-color;
+	font-size: $font-size;
+	transition: $transition;
+	text-decoration: none;
+
+	&:hover {
+		background-color: $primary-red-01;
+		color: $background-color;
+		border-color: $primary-red-01;
+	}
+}
+
+@mixin hollow(
+	$padding: 11px 20px,
+	$color: $white,
+	$hover-background-color: $white,
+	$radius: 2px,
+	$border-color: $white,
+	$hover-border-color: $primary-red-01,
+	$font-size: 16px,
+) {
+	padding: $padding;
+	color: $color;
+	border-radius: $radius;
+	border-color: $border-color;
+	background-color: transparent;
+	font-size: $font-size;
+	text-decoration: none;
+
+	&:hover {
+		background-color: $hover-background-color;
+		color: $hover-border-color;
+		border-color: $hover-border-color;
+	}
+}

@@ -1,0 +1,53 @@
+{
+  "name": "acf/wysiwyg",
+  "title": "GL Wysiwyg",
+  "description": "GL Wysiwyg Block.",
+  "style": [ "file:./css/style.min.css" ],
+  "script": "",
+  "category": "ff-blocks",
+  "icon": "block-default",
+  "keywords": ["gl", "wysiwyg"],
+  "apiVersion": 2,
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "ff-wysiwyg.php"
+  },
+  "supports": {
+    "align": true,
+    "anchor": false,
+    "alignContent": true,
+    "color": {
+      "text": true,
+      "background": true,
+      "link": true
+    },
+    "alignText": true,
+    "spacing": {
+      "margin": [
+        "top",
+        "bottom"
+      ],
+      "padding": true
+    },
+    "typography": {
+      "lineHeight": true,
+      "fontSize": true,
+      "fontWeight": true
+    },
+    "fullHeight": true
+  },
+  "custom": {
+    "fontWeight": true
+  },
+  "attributes": {
+  },
+  "example": {
+    "attributes": {
+      "data": {
+        "text": "This is an example text field",
+        "text_area": "This is an example text area field"
+      }
+    }
+  },
+  "usesContext": ["gl/fields"]
+}

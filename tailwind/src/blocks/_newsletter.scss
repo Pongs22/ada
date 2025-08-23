@@ -1,0 +1,69 @@
+.ff-b-newsletter-section,
+footer {
+
+	.default #emailaddress {
+
+		@apply !w-full flex-auto rounded-md outline-none border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+	}
+
+	.dark #emailaddress {
+
+		@apply !w-full flex-auto rounded-md outline-none border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6;
+	}
+
+	.dark2 #emailaddress {
+
+		@apply !w-full flex-auto rounded-md outline-none border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6;
+	}
+
+	.icon-style #emailaddress {
+
+		@apply !w-full flex-auto outline-none rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6;
+	}
+
+	.default .wpcf7-submit {
+
+		@apply flex items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+	}
+
+	.dark .wpcf7-submit {
+
+		@apply flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+	}
+
+	.dark2 .wpcf7-submit {
+
+		@apply flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500;
+	}
+
+	.icon-style .wpcf7-submit {
+
+		@apply flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500;
+	}
+
+	.oncard-center .wpcf7 form {
+
+		@apply !justify-center;
+	}
+
+	.wpcf7 form {
+
+		@apply !flex !gap-x-4;
+	}
+
+	.wpcf7-spinner {
+
+		@apply !hidden;
+	}
+
+	.wpcf7-response-output {
+
+		@apply !hidden;
+	}
+
+	.wpcf7-not-valid-tip {
+
+		@apply !hidden;
+	}
+
+}

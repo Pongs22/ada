@@ -1,0 +1,71 @@
+@font-face {
+	font-family: Geova;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: /* eslint-disable css/declaration-colon-space-after */
+		url(../fonts/geova/GeovaTrial-Regular.otf) format("opentype"),
+		url(../fonts/geova/GeovaTrial-Regular.woff) format("woff"),
+		url(../fonts/geova/GeovaTrial-Regular.ttf) format("truetype"),
+		url(../fonts/geova/GeovaTrial-Regular.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: Geova;
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: /* eslint-disable css/declaration-colon-space-after */
+		url(../fonts/geova/GeovaTrial-Medium.woff2) format("woff2"),
+		url(../fonts/geova/GeovaTrial-Medium.woff) format("woff"),
+		url(../fonts/geova/GeovaTrial-Medium.ttf) format("truetype"),
+		url(../fonts/geova/GeovaTrial-Medium.otf) format("opentype");
+}
+
+@font-face {
+	font-family: Geova;
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: /* eslint-disable css/declaration-colon-space-after */
+		url(../fonts/geova/GeovaTrial-SemiBold.woff2) format("woff2"),
+		url(../fonts/geova/GeovaTrial-SemiBold.woff) format("woff"),
+		url(../fonts/geova/GeovaTrial-SemiBold.ttf) format("truetype"),
+		url(../fonts/geova/GeovaTrial-SemiBold.otf) format("opentype");
+}
+
+@font-face {
+	font-family: Geova;
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: /* eslint-disable css/declaration-colon-space-after */
+		url(../fonts/geova/GeovaTrial-Bold.woff2) format("woff2"),
+		url(../fonts/geova/GeovaTrial-Bold.woff) format("woff"),
+		url(../fonts/geova/GeovaTrial-Bold.ttf) format("truetype"),
+		url(../fonts/geova/GeovaTrial-Bold.otf) format("opentype");
+}
+
+@font-face {
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: /* eslint-disable css/declaration-colon-space-after */
+		url(../fonts/montserrat/Montserrat-Regular.otf) format("opentype"),
+		url(../fonts/montserrat/Montserrat-Regular.woff) format("woff"),
+		url(../fonts/montserrat/Montserrat-Regular.ttf) format("truetype"),
+		url(../fonts/montserrat/Montserrat-Regular.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: /* eslint-disable css/declaration-colon-space-after */
+		url(../fonts/montserrat/Montserrat-Bold.otf) format("opentype"),
+		url(../fonts/montserrat/Montserrat-Bold.woff) format("woff"),
+		url(../fonts/montserrat/Montserrat-Bold.ttf) format("truetype"),
+		url(../fonts/montserrat/Montserrat-Bold.woff2) format("woff2");
+}

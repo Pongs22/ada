@@ -1,0 +1,39 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./blocks/_newsletter.scss";
+@import "./blocks/_contact.scss";
+@import "./blocks/_hero.scss";
+@import "./blocks/_pricing.scss";
+@import "./blocks/_wysiwyg.scss";
+@import "./blocks/_stats.scss";
+@import "./blocks/_features.scss";
+@import "./blocks/_forms.scss";
+
+@layer base { /* stylelint-disable-line */
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: "Inter var", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+		font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	h1 {
+		font-size: 36px;
+	}
+
+	h2 {
+		font-size: 30px;
+	}
+
+	h3 {
+		font-size: 24px;
+	}
+
+}

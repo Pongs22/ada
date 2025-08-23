@@ -1,0 +1,34 @@
+.ff-b-wysiwyg {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	a,
+	p {
+
+		@apply pb-3;
+
+	}
+}
+
+.ff-b-testimonial-section {
+
+	.testimonial-class:nth-child(odd) {
+
+		@apply flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:pr-8 xl:pr-20;
+
+	}
+
+	.testimonial-class:nth-child(even) {
+
+		@apply flex flex-col border-t border-gray-900/10 pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20;
+
+	}
+
+	.dark .testimonial-class:nth-child(even) {
+
+		@apply flex flex-col border-t border-white/10 pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20;
+
+	}
+}

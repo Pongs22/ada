@@ -1,0 +1,74 @@
+@use "./variables/colors";
+
+html,
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.swiper-button-disabled {
+	opacity: 50%;
+}
+
+.tiled-image {
+	image-rendering: pixelated !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+.slidecontainer {
+	width: 100%;
+}
+
+.slider {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 8px;
+	background: colors.$gray-200;
+	border-radius: 4px;
+	outline: none;
+	opacity: 1;
+	-webkit-transition: 0.2s;
+	transition: opacity 0.2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: colors.$brand-color;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	background: colors.$brand-color;
+	cursor: pointer;
+}
+
+.blinds-transition {
+	display: grid;
+	grid-template-rows: repeat(25, 1fr);
+}
+
+.ff-c-container {
+	max-width: 1536px;
+	margin: 0 auto;
+}

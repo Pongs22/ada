@@ -1,0 +1,297 @@
+.ff-b-contact-section {
+
+	.split-pattern {
+
+		form {
+
+			@apply px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48;
+		}
+
+		.fields-wrapper {
+
+			@apply mx-auto max-w-xl lg:mr-0 lg:max-w-lg;
+		}
+
+		.fields-container {
+
+			@apply grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2;
+		}
+	}
+
+	.split-image {
+
+		form {
+
+			@apply mt-16 flex-col;
+		}
+
+		.light #sicfoption label {
+
+			@apply block text-sm font-semibold leading-6 text-gray-900;
+		}
+
+		.dark #sicfoption label {
+
+			@apply block text-sm font-semibold leading-6 text-white;
+		}
+
+		.wpcf-radio {
+
+			@apply mt-4 text-sm leading-6 text-gray-600 flex flex-col;
+		}
+
+		.light .wpcf7-list-item-label {
+
+			@apply text-gray-900;
+		}
+
+		.light .wpcf7-list-item input {
+
+			@apply mt-1 h-4 w-4 border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-600;
+		}
+
+		.dark .wpcf7-list-item input {
+
+			@apply mt-1 h-4 w-4 border-gray-300 text-indigo-500 shadow-sm focus:ring-indigo-500;
+		}
+
+		.dark .wpcf7-list-item-label {
+
+			@apply text-white;
+		}
+
+		.light input[type="radio"] {
+
+			@apply mt-0 mb-[3px] h-4 w-4 border-gray-700 border text-indigo-600 shadow-sm appearance-none rounded-full mr-2.5 align-middle;
+		}
+
+		.light input[type="radio"]:checked {
+
+			@apply bg-white border-[5px] border-indigo-600 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2;
+		}
+
+		.dark input[type="radio"] {
+
+			@apply mt-0 mb-[3px] h-4 w-4 border-white text-indigo-400 shadow-sm appearance-none rounded-full mr-2.5 align-middle;
+		}
+
+		.dark input[type="radio"]:checked {
+
+			@apply bg-white border-[5px] border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+		}
+	}
+
+	.simple-centered {
+
+		form {
+
+			@apply mx-auto mt-16 max-w-xl sm:mt-20;
+		}
+	}
+
+	.testimonial {
+
+		.dark input[type="checkbox"] {
+
+			@apply flex h-6 items-center;
+		}
+	}
+
+	.phone {
+
+		@apply !pl-20;
+	}
+
+	.wpcf7-select {
+
+		@apply h-full appearance-none rounded-md border-0 bg-transparent outline-none bg-none py-2 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm;
+	}
+
+	.contry-code {
+
+		@apply absolute inset-y-0 left-0 flex items-center z-10;
+	}
+
+	.wpcf7-list-item {
+
+		@apply block m-0 gap-x-2.5 mt-4;
+	}
+
+	.wpcf7-list-item input {
+
+		@apply mt-1 h-4 w-4 border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-600;
+	}
+
+	.contact-text-container {
+
+		@apply text-gray-400;
+	}
+
+	.fields-wrapper {
+
+		@apply mx-auto max-w-xl lg:mr-0 lg:max-w-lg;
+	}
+
+	.fields-container {
+
+		@apply grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2;
+	}
+
+	.column-span {
+		grid-column: span 1 / span 1 !important;
+
+		@media (min-width: 640px) {
+			grid-column: span 2 / span 2 !important;
+		}
+	}
+
+	.light .input-wrapper input {
+
+		@apply w-full outline-none rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+	}
+
+	.dark .input-wrapper input {
+
+		@apply w-full outline-none rounded-md border-0 px-3.5 py-2 text-white bg-white/5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6;
+	}
+
+	.light .input-wrapper textarea {
+
+		@apply w-full outline-none rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+	}
+
+	.dark .input-wrapper textarea {
+
+		@apply w-full outline-none rounded-md border-0 px-3.5 py-2 text-white bg-white/5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6;
+	}
+
+	.light label {
+
+		@apply block text-sm font-semibold leading-6 text-gray-900;
+	}
+
+	.dark label {
+
+		@apply block text-sm font-semibold leading-6 text-white;
+	}
+
+	.input-wrapper {
+
+		@apply mt-2.5;
+	}
+
+	.light .wpcf7-submit {
+
+		@apply rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline;
+	}
+
+	.dark .wpcf7-submit {
+
+		@apply rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline;
+	}
+
+	.wpcf7-spinner {
+
+		@apply !hidden;
+	}
+
+	.wpcf7-not-valid-tip {
+
+		@apply !hidden;
+	}
+
+	.wpcf7-response-output {
+
+		@apply !hidden;
+	}
+
+	.wpcf7-not-valid {
+
+		@apply ring-inset ring-2 !ring-red-400;
+	}
+
+	.light .testimonial-button input {
+
+		@apply block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline;
+	}
+
+	.dark .testimonial-button input {
+
+		@apply block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline;
+	}
+
+	.privacy-link {
+
+		@apply mt-4 text-sm leading-6 text-gray-500;
+	}
+
+	.light .privacy-link a {
+
+		@apply font-semibold text-indigo-600;
+	}
+
+	.dark .privacy-link a {
+
+		@apply font-semibold text-indigo-500;
+	}
+
+	.privacy-link .wpcf7-list-item.first.last {
+
+		@apply m-0;
+	}
+
+	.privacy-link .wpcf7-list-item.first.last input[type="checkbox"] {
+
+		@apply appearance-none w-8 h-5 bg-gray-200 rounded-full transition-all;
+	}
+
+	.light .privacy-link .wpcf7-list-item.first.last input[type="checkbox"] {
+
+		@apply appearance-none w-8 bg-gray-200 rounded-full transition-all;
+		height: 18px;
+	}
+
+	.light .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+		@apply w-4 h-4 bg-white rounded-full transition-all left-1 absolute;
+		content: "";
+		left: 1px;
+		margin-top: 0.5px;
+	}
+
+	.light .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+		@apply w-4 h-4 bg-white rounded-full transition-all;
+		left: 15px;
+	}
+
+	.light .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+		@apply bg-indigo-500;
+	}
+
+	.dark .privacy-link .wpcf7-list-item.first.last input[type="checkbox"] {
+
+		@apply appearance-none w-8 bg-white/5 rounded-full transition-all;
+		height: 18px;
+	}
+
+	.dark .wpcf7-list-item.first.last input[type="checkbox"]::before {
+
+		@apply w-4 h-4 bg-white rounded-full transition-all left-1 absolute ;
+		content: "";
+		left: 1px;
+		margin-top: 0.5px;
+	}
+
+	.dark .wpcf7-list-item.first.last input[type="checkbox"]:checked::before {
+
+		@apply w-4 h-4 bg-white rounded-full transition-all;
+		left: 15px;
+	}
+
+	.dark .wpcf7-list-item.first.last input[type="checkbox"]:checked {
+
+		@apply bg-indigo-400;
+	}
+}
