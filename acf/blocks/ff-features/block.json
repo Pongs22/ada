@@ -1,6 +1,6 @@
 {
     "name": "acf/ff-features",
-    "title": "GL Features Sections", 
+    "title": "Features Sections", 
     "description": "The Features Section is an integral and visually appealing part of the website, designed to highlight the key offerings and functionalities of the product. Strategically positioned between the Hero Section and other elements, such as the footer, this section serves as a central feature to effectively communicate the product value and engage users.",
     "style": [ "file:./css/style.min.css" ],
     "script": "ff-features",
@@ -14,10 +14,6 @@
     },
     "supports": {
       "jsx": false
-    },
-    "styles": [
-      { "name": "light", "label": "light", "isDefault": true },
-      { "name": "dark", "label": "dark" }
-    ]
+    }
   }
   

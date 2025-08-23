@@ -1,0 +1,16 @@
+{
+    "name": "acf/faq-section",
+    "title": "FAQ Section",
+    "description": "FAQ Section",
+    "style": [ "file:./css/style.min.css" ],
+    "script": "faq-section",
+    "category": "gl-blocks",
+    "icon": "block-default",
+    "keywords": ["Three Image", "three", "image"],
+    "acf": {
+      "mode": "preview",
+      "renderTemplate": "faq-section.php",
+      "supports": "jsx"
+    }
+  }
+  

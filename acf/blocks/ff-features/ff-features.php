@@ -12,10 +12,7 @@ $ff_features = get_field( 'features_style' );
 $style       = $block['className'] ?? '';
 ?>
 <div class="ff-b-features-section">
-	<?php if ( 'with-expanding-image' === $ff_features ) : ?>
-		<?php require ff_get_custom_block_template( 'ff-features', 'with-expanding-image.php' ); ?>
-	<?php endif; ?>
-	<?php if ( 'with-stats' === $ff_features ) : ?>
-		<?php require ff_get_custom_block_template( 'ff-features', 'with-stats.php' ); ?>
+	<?php if ( 'with-icon-list' === $ff_features ) : ?>
+		<?php require ff_get_custom_block_template( 'ff-features', 'with-icon-list.php' ); ?>
 	<?php endif; ?>
 </div>

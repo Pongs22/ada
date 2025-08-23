@@ -27,6 +27,7 @@
 		<a class="skip-link screen-reader-text"
 			href="#primary"><?php esc_html_e( 'Skip to content', 'firstfold' ); ?></a>
 
+<<<<<<< HEAD
 		<header id="masthead"
 			class="site-header sticky left-0 top-0 z-50 w-full border-b bg-white px-6 py-3 md:px-8 lg:px-10">
 			<div class="ff-c-container m-auto flex flex-row justify-between">
@@ -35,6 +36,15 @@
 					the_custom_logo();
 					?>
 				</div><!-- .site-branding -->
+=======
+	<header id="masthead" class="site-header fixed left-0 top-0 z-50 w-full border-b bg-white px-6 py-3 md:px-8 lg:px-10">
+		<div class="ff-c-container m-auto flex flex-row justify-between">
+			<div class="site-branding my-auto flex size-12">
+				<?php
+				the_custom_logo();
+				?>
+			</div><!-- .site-branding -->
+>>>>>>> 4601fff8d0a5615369683849ca2225395d1956e7
 
 				<nav id="site-navigation" class="main-navigation my-auto flex">
 					<?php
