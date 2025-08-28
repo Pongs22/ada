@@ -150,13 +150,12 @@ function firstfold_scripts() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'firstfold-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'main', get_template_directory_uri() . '/frontend/static/js/main.min.js', array(), _FF_VERSION, true );
-	wp_enqueue_script( 'transition', get_template_directory_uri() . '/frontend/static/js/transition.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'swiper', get_template_directory_uri() . '/libraries/swiper/swiper-bundle.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_style( 'swiper', get_template_directory_uri() . '/libraries/swiper/swiper-bundle.min.css', array(), _FF_VERSION );
 	wp_enqueue_script( 'split-type', get_stylesheet_directory_uri() . '/libraries/split-type/index.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'gsap', get_stylesheet_directory_uri() . '/libraries/gsap/gsap.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'gsap-scroll', get_stylesheet_directory_uri() . '/libraries/gsap/ScrollTrigger.min.js', array(), _FF_VERSION, true );
-
+	wp_enqueue_script( 'vimeo-player', 'https://player.vimeo.com/api/player.js', array(), _FF_VERSION, true );
 	wp_localize_script(
 		'main',
 		'ajaxVar',
@@ -177,8 +176,6 @@ add_action( 'wp_enqueue_scripts', 'firstfold_scripts' );
 function ff_block_assets() {
 	wp_enqueue_style( 'tailwind', get_template_directory_uri() . '/tailwind/dist/output.min.css', array(), _FF_VERSION );
 	wp_enqueue_style( 'slick', get_template_directory_uri() . '/libraries/slick/slick.css', array(), _FF_VERSION );
-	wp_enqueue_style( 'components', get_template_directory_uri() . '/frontend/static/css/components.min.css', array(), _FF_VERSION );
-	wp_enqueue_script( 'components', get_template_directory_uri() . '/frontend/static/js/components.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'preline', get_template_directory_uri() . '/libraries/preline/preline.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'resize-sensor', get_template_directory_uri() . '/libraries/resize-sensor/resize-sensor.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'alpine', 'https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js', array(), _FF_VERSION, true );
@@ -657,3 +654,94 @@ function add_excerpt_support_for_pages() {
 	add_post_type_support( 'page', 'excerpt' );
 }
 add_action( 'init', 'add_excerpt_support_for_pages' );
+
+/**
+ * Function for updating course status for each user.
+ */
+function update_course_status() {
+	$nonce = '';
+	if ( isset( $_POST['nonce'] ) ) {
+		$nonce = sanitize_key( wp_unslash( $_POST['nonce'] ) );
+	}
+
+	if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+		exit();
+	}
+	global $wpdb;
+	$table     = $wpdb->prefix . 'course_progress';
+	$user_id   = isset( $_POST['userId'] ) ? sanitize_text_field( wp_unslash( $_POST['userId'] ) ) : '';
+	$course_id = isset( $_POST['courseId'] ) ? sanitize_text_field( wp_unslash( $_POST['courseId'] ) ) : '';
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+	$wpdb->replace(
+		$table,
+		[
+			'user_id'       => $user_id,
+			'course_id'     => $course_id,
+			'status'        => 'completed',
+			'progress_time' => '0:00',
+		]
+	);
+}
+add_action( 'wp_ajax_update_course_status', 'update_course_status' );
+add_action( 'wp_ajax_nopriv_update_course_status', 'update_course_status' );
+
+/**
+ * Function for updating time progress for each user.
+ */
+function update_course_time_progress() {
+	$nonce = '';
+	if ( isset( $_POST['nonce'] ) ) {
+		$nonce = sanitize_key( wp_unslash( $_POST['nonce'] ) );
+	}
+
+	if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+		exit();
+	}
+	global $wpdb;
+	$table     = $wpdb->prefix . 'course_progress';
+	$user_id   = isset( $_POST['userId'] ) ? sanitize_text_field( wp_unslash( $_POST['userId'] ) ) : '';
+	$course_id = isset( $_POST['courseId'] ) ? sanitize_text_field( wp_unslash( $_POST['courseId'] ) ) : '';
+	$interval  = isset( $_POST['interval'] ) ? sanitize_text_field( wp_unslash( $_POST['interval'] ) ) : '0:00';
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+	$wpdb->replace(
+		$table,
+		[
+			'user_id'       => $user_id,
+			'course_id'     => $course_id,
+			'progress_time' => $interval,
+		]
+	);
+}
+add_action( 'wp_ajax_update_course_time_progress', 'update_course_time_progress' );
+add_action( 'wp_ajax_nopriv_update_course_time_progress', 'update_course_time_progress' );
+
+/**
+ * Function for creating Custom Course Progress Databse.
+ */
+function create_course_progress_table() {
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'course_progress';
+
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+	if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) {
+		
+		$charset_collate = $wpdb->get_charset_collate();
+		
+		$sql = "CREATE TABLE $table_name (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) unsigned NOT NULL,
+            course_id bigint(20) unsigned NOT NULL,
+            status enum('in_progress','completed') NOT NULL DEFAULT 'in_progress',
+			progress_time varchar(10) NOT NULL DEFAULT '0:00',
+            PRIMARY KEY (id),
+            UNIQUE KEY user_course (user_id, course_id),
+            KEY user_id (user_id),
+            KEY course_id (course_id)
+        ) $charset_collate;";
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+	}
+}
+add_action( 'after_switch_theme', 'create_course_progress_table' );

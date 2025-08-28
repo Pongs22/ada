@@ -27,14 +27,15 @@ $wic_link       = $with_icon_list['link'] ?: '';
 				<ul class="icon-list-wrapper grid grid-cols-1 gap-6 md:grid-cols-2">
 					<?php
 					foreach ( $with_icon_list['icon_list'] as $list ) :
-						$list_icon        = $list['icon'];
-						$list_title       = $list['title'];
-						$list_description = $list['description'];
 						?>
 						<li class="list-container">
-							<?php echo wp_get_attachment_image( $list_icon, 'full', '', [ 'class' => 'size-10' ] ); ?>
-							<h4 class="mt-5 !capitalize text-ada_red-50"><?php echo esc_html( $list_title ); ?></h4>
-							<div class="mt-1 text-lg leading-6 text-ada_gray-90"><?php echo wp_kses_post( $list_description ); ?></div>
+							<?php if ( $list['icon'] ) : ?>
+								<?php echo wp_get_attachment_image( $list['icon'], 'full', '', [ 'class' => 'size-10' ] ); ?>
+							<?php elseif ( $is_preview ) : ?>
+								<img src="<?php echo esc_url( ff_get_block_asset( 'ff-features', 'gl-c-arrow-left.svg' ) ); ?>" alt="icon"> 
+							<?php endif; ?>
+							<h4 class="mt-5 !capitalize text-ada_red-50"><?php echo esc_html( $list['title'] ); ?></h4>
+							<div class="mt-1 text-lg leading-6 text-ada_gray-90"><?php echo wp_kses_post( $list['description'] ); ?></div>
 						</li>
 					<?php endforeach; ?>
 				</ul>
