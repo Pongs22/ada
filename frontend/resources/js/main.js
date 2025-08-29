@@ -27,6 +27,27 @@ jQuery( function( $ ) {
 		}, 300 );
 	} );
 
+	$( '.primary-login' ).click( function( e ) {
+		e.preventDefault();
+		$( '.modal-wrapper' ).removeClass( 'hidden' );
+		$( '.login-popup-wrapper' ).removeClass( 'hidden' );
+		$( 'html, body' ).addClass( 'overflow-hidden' );
+		setTimeout( function() {
+			$( '.modal-wrapper' ).removeClass( 'opacity-0' );
+			$( '.login-popup-wrapper' ).removeClass( 'opacity-0' );
+		}, 10 );
+	} );
+
+	$( '.login-close-button' ).click( function() {
+		$( '.modal-wrapper' ).addClass( 'opacity-0' );
+		$( '.login-popup-wrapper' ).addClass( 'opacity-0' );
+		$( 'html, body' ).removeClass( 'overflow-hidden' );
+		setTimeout( function() {
+			$( '.modal-wrapper' ).addClass( 'hidden' );
+			$( '.login-popup-wrapper' ).addClass( 'hidden' );
+		}, 300 );
+	} );
+
 	const courseInfoButton = $( '.course-information-button' ).find( 'li button' );
 
 	$( courseInfoButton ).click( function() {
