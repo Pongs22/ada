@@ -27,8 +27,15 @@ jQuery( function( $ ) {
 		}, 300 );
 	} );
 
+	const courseInfoButton = $( '.course-information-button' ).find( 'li button' );
+
+	$( courseInfoButton ).click( function() {
+		$( '.course-information-button li button' ).removeClass( 'information-active' );
+		$( this ).addClass( 'information-active' );
+	} );
+
+	// Video Functions
 	const iframe = $( '#vimeoPlayer' );
-	const player = new Vimeo.Player( iframe );
 
 	function formatTime( seconds ) {
 		seconds = Math.floor( seconds );
@@ -51,9 +58,16 @@ jQuery( function( $ ) {
 	}
 
 	let lastSaved = 0;
-	const userId = $( '.course-dashboard' ).data( 'user' );
-	const courseId = $( '.course-dashboard' ).data( 'course' );
+	const getUserId = $( '.course-dashboard' ).data( 'user' );
+	const getCourseId = $( '.course-dashboard' ).data( 'course' );
 	const courseStatus = $( '.course-dashboard' ).data( 'status' );
+	const player = new Vimeo.Player( iframe );
+
+	player.ready().then( function() {
+		player.on( 'loaded', function() {
+			player.play();
+		} );
+	} );
 
 	player.on( 'timeupdate', function( data ) {
 		if ( data.seconds - lastSaved >= 5 ) {
@@ -61,33 +75,33 @@ jQuery( function( $ ) {
 			if ( courseStatus === 'completed' ) {
 				return;
 			}
-			updateCourseTimeProgress( userId, courseId, formatTime( data.seconds ) );
+			updateCourseTimeProgress( getUserId, getCourseId, formatTime( data.seconds ) );
 		}
 	} );
 
 	player.on( 'ended', function() {
-		updateCourseStatus( userId, courseId );
+		updateCourseStatus( getUserId, getCourseId );
 	} );
 
-	function updateCourseStatus( $userId, $courseId ) {
+	function updateCourseStatus( userId, courseId ) {
 		$.ajax( {
 			url: ajaxVar.ajaxUrl,
 			type: 'post',
 			data: {
-				userId: $userId,
-				courseId: $courseId,
+				userId,
+				courseId,
 				action: 'update_course_status',
 				nonce: ajaxVar.nonce,
 			},
 		} );
 	}
-	function updateCourseTimeProgress( $userId, $courseId, interval ) {
+	function updateCourseTimeProgress( userId, courseId, interval ) {
 		$.ajax( {
 			url: ajaxVar.ajaxUrl,
 			type: 'post',
 			data: {
-				userId: $userId,
-				courseId: $courseId,
+				userId,
+				courseId,
 				interval,
 				action: 'update_course_time_progress',
 				nonce: ajaxVar.nonce,

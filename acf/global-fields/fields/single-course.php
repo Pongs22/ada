@@ -10,9 +10,9 @@
 $course = new StoutLogic\AcfBuilder\FieldsBuilder( 'course', array( 'position' => 'side' ) );
 $course
 	->addText(
-		'youtube_id',
+		'vimeo_id',
 		[
-			'instructions' => 'paste the youtube id here',
+			'instructions' => 'paste the Vimeo ID here',
 		]
 	)
 	->addTextarea(

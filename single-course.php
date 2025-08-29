@@ -129,43 +129,40 @@ if ( $user_id ) {
 		<div class="flex w-full flex-col border-l border-ada_gray-20 p-6">
 			<div class="mx-auto flex w-full max-w-[1122px] flex-col">
 				<?php
-				$youtube_id        = get_field( 'youtube_id', get_the_ID() );
+				$vimeo_id          = get_field( 'vimeo_id', get_the_ID() );
 				$about             = get_field( 'about', get_the_ID() );
 				$professor_name    = get_field( 'professor_name', get_the_ID() );
 				$professor_details = get_field( 'professor_details', get_the_ID() );
 				?>
 				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]">
 					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
-						<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/1114018864?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
+						<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
 				</div>
 				<div class="information-container mt-12 flex flex-col">
 					<h2 class="font-medium text-ada_red-50"><?php echo esc_html( get_the_title() ); ?></h2>
-					<ul class="mt-12 flex flex-row divide-x divide-[#f5f5f5] bg-[#fafafa]">
+					<ul class="course-information-button mt-12 flex flex-row divide-x divide-[#f5f5f5] bg-[#fafafa]">
 						<?php if ( $about ) : ?>
 							<li>
-								<button class="information-active px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%]">About</button>
+								<button class="information-active px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%] transition-all duration-300">About</button>
 							</li>
 						<?php endif; ?>
 						<?php if ( have_rows( 'skills_gained' ) ) : ?>
 							<li>
-								<button class="px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%]">Skills Gained</button>
+								<button class="px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%] transition-all duration-300">Skills Gained</button>
 							</li>
 						<?php endif; ?>
 						<?php if ( $professor_name && $professor_details ) : ?>
 							<li>
-								<button class="px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%]">Professor</button>
+								<button class="px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%] transition-all duration-300">Professor</button>
 							</li>
 						<?php endif; ?>
 						<?php if ( have_rows( 'downloadable_materials' ) ) : ?>
 							<li>
-								<button class="px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%]">Downloadable Materials</button>
+								<button class="px-4 pb-[14.5px] pt-[16.5px] font-geova text-[14px] font-medium uppercase leading-[120%] transition-all duration-300">Materials</button>
 							</li>
 						<?php endif; ?>
 					</ul>
 					<div class="info-dynamic-content-container mt-5 h-full w-full transition-all">
-						<div class="about-info-container">
-							<p class="text-lg"><?php echo wp_kses_post( $about ); ?></p>
-						</div>
 						<div class="about-info-container">
 							<p class="text-lg"><?php echo wp_kses_post( $about ); ?></p>
 						</div>
