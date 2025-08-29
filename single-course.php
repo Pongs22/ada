@@ -38,90 +38,137 @@ if ( $user_id ) {
 	}
 }
 ?>
-<main id="primary" class="site-main course-dashboard" data-user="<?php echo esc_attr( get_current_user_id() ); ?>" data-course="<?php echo esc_attr( get_the_ID() ); ?>" data-progress="<?php echo esc_attr( $course['progress_time'] ?? '' ); ?>"data-status="<?php echo esc_attr( $course['status'] ?? '' ); ?>">
+<main id="primary" class="site-main course-dashboard" data-user="<?php echo esc_attr( get_current_user_id() ); ?>" data-course="<?php echo esc_attr( get_the_ID() ); ?>" data-progress="<?php echo esc_attr( $course['progress_time'] ?? '' ); ?>" data-status="<?php echo esc_attr( $course['status'] ?? '' ); ?>">
 	<div class="mt-[72px] flex flex-row">
 		<div class="flex h-screen w-full max-w-[270px] flex-col divide-y divide-ada_gray-20">
 			<?php
-				$args = array(
-					'post_type'      => 'course',
-					'posts_per_page' => -1,             // phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
-					'orderby'        => 'date',
-					'order'          => 'ASC',
-					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-					'tax_query'      => array(
-						array(
-							'taxonomy' => 'course-type', 
-							'field'    => 'slug',
-							'terms'    => 'basic',
-						),
+			$args = array(
+				'post_type'      => 'course',
+				'posts_per_page' => -1,             // phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
+				'orderby'        => 'date',
+				'order'          => 'ASC',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				'tax_query'      => array(
+					array(
+						'taxonomy' => 'course-type',
+						'field'    => 'slug',
+						'terms'    => 'basic',
 					),
-				);
+				),
+			);
 
-				$courses = new WP_Query( $args );
+			$courses = new WP_Query( $args );
 
-				if ( $courses->have_posts() ) :
+			if ( $courses->have_posts() ) :
+				?>
+				<?php
+				while ( $courses->have_posts() ) :
+					$courses->the_post();
+					$active_class = ( get_the_ID() === get_queried_object_id() ) ? 'course-active' : '';
+					$courses_id   = get_the_ID();
+					global $wpdb;
+					$table = $wpdb->prefix . 'course_progress';
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+					$check_status = $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$table} WHERE user_id = %d AND course_id = %d", $user_id, $courses_id ) );
+					if ( null === $check_status ) {
+						$check_status = 'not_started';
+					}
+
+					switch ( $check_status ) {
+						case 'completed':
+							$status_image = '/frontend/resources/img/ada-check-icon.svg';
+							break;
+						case 'in_progress':
+							$status_image = '/frontend/resources/img/ada-inprogress-icon.svg';
+							break;
+						default:
+							$status_image = '';
+							break;
+					}
 					?>
+					<a href="<?php the_permalink(); ?>" class="<?php echo esc_attr( $active_class ); ?> course-button-container relative flex w-full flex-row gap-x-2 px-4 pb-[14px] pt-[18px]">
+						<div class="size-6 shrink-0">
+							<?php if ( $status_image ) : ?>
+								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . $status_image ); ?>" class="h-full w-full">
+							<?php endif; ?>
+						</div>
+						<p class="font-geova text-lg font-medium leading-[120%] text-ada_gray-90">
+							<?php the_title(); ?>
+						</p>
+					</a>
 					<?php
-					while ( $courses->have_posts() ) :
-						$courses->the_post();
-						$active_class = ( get_the_ID() === get_queried_object_id() ) ? 'course-active' : '';
-						?>
-						<a href="<?php the_permalink(); ?>" class="<?php echo esc_attr( $active_class ); ?> course-button-container relative flex w-full flex-row gap-x-2 px-4 pb-[14px] pt-[18px]">
-							<div class="size-6 shrink-0"></div>
+				endwhile;
+				wp_reset_postdata();
+			endif;
+			?>
+			<?php
+			$args = array(
+				'post_type'          => 'course',
+				'posts_per_page'     => -1,             // phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
+				'orderby'            => 'date',
+				'order'              => 'ASC',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				'tax_query'          => array(
+					array(
+						'taxonomy' => 'course-type',
+						'field'    => 'slug',
+						'terms'    => 'advanced',
+					),
+				),
+			);
+
+			$courses = new WP_Query( $args );
+
+			if ( $courses->have_posts() ) :
+				?>
+				<?php
+				while ( $courses->have_posts() ) :
+					$courses->the_post();
+					$active_class = ( get_the_ID() === get_queried_object_id() ) ? 'course-active' : '';
+					$courses_id   = get_the_ID();
+					global $wpdb;
+					$table = $wpdb->prefix . 'course_progress';
+						// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+					$check_status = $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$table} WHERE user_id = %d AND course_id = %d", $user_id, $courses_id ) );
+
+					if ( null === $check_status ) {
+						$check_status = 'not_started';
+					}
+
+					switch ( $check_status ) {
+						case 'completed':
+							$status_image = '/frontend/resources/img/ada-check-icon.svg';
+							break;
+						case 'in_progress':
+							$status_image = '/frontend/resources/img/ada-inprogress-icon.svg';
+							break;
+						default:
+							$status_image = '';
+							break;
+					}
+					?>
+					<?php if ( current_user_can( 'basic' ) ) : ?>
+						<button href="<?php the_permalink(); ?>" class="course-button-locked relative flex w-full flex-row gap-x-2 bg-ada_gray-20 px-4 pb-[14px] pt-[18px] opacity-60">
+							<div class="check-progress size-6 shrink-0">
+									<img src="<?php echo esc_url( get_stylesheet_directory_uri() . $status_image ); ?>" class="h-full w-full">
+							</div>
 							<p class="font-geova text-lg font-medium leading-[120%] text-ada_gray-90">
 								<?php the_title(); ?>
-							</p>
-						</a>
-						<?php
-					endwhile;
-					wp_reset_postdata();
-				endif;
-				?>
-						<?php
-						$args = array(
-							'post_type'      => 'course',
-							'posts_per_page' => -1,             // phpcs:ignore WPThemeReview.CoreFunctionality.PostsPerPage.posts_per_page_posts_per_page
-						'orderby'            => 'date',
-						'order'              => 'ASC',
-					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-						'tax_query'          => array(
-						array(
-							'taxonomy' => 'course-type', 
-							'field'    => 'slug',
-							'terms'    => 'advanced',
-						),
-						),
-						);
-
-						$courses = new WP_Query( $args );
-
-						if ( $courses->have_posts() ) :
-							?>
-							<?php
-							while ( $courses->have_posts() ) :
-								$courses->the_post();
-								$active_class = ( get_the_ID() === get_queried_object_id() ) ? 'course-active' : '';
-								?>
-								<?php if ( current_user_can( 'basic' ) ) : ?>
-						<button href="<?php the_permalink(); ?>" class="course-button-locked relative flex w-full flex-row gap-x-2 bg-ada_gray-20 px-4 pb-[14px] pt-[18px] opacity-60">
-							<div class="size-6 shrink-0"></div>
-							<p class="font-geova text-lg font-medium leading-[120%] text-ada_gray-90">
-									<?php the_title(); ?>
 							</p>
 						</button>
-						<?php else : ?>
+					<?php else : ?>
 						<a href="<?php the_permalink(); ?>" class="<?php echo esc_attr( $active_class ); ?> course-button-container relative flex w-full flex-row gap-x-2 px-4 pb-[14px] pt-[18px]">
 							<div class="size-6 shrink-0"></div>
 							<p class="font-geova text-lg font-medium leading-[120%] text-ada_gray-90">
 								<?php the_title(); ?>
 							</p>
 						</a>
-						<?php endif; ?>
-								<?php
-							endwhile;
-							wp_reset_postdata();
-				endif;
-						?>
+					<?php endif; ?>
+					<?php
+				endwhile;
+				wp_reset_postdata();
+			endif;
+			?>
 		</div>
 		<div class="flex w-full flex-col border-l border-ada_gray-20 p-6">
 			<div class="mx-auto flex w-full max-w-[1122px] flex-col">
@@ -132,8 +179,10 @@ if ( $user_id ) {
 				$professor_details = get_field( 'professor_details', get_the_ID() );
 				?>
 				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]">
-					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
-					<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
+					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found 
+					?>
+					<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?badge=0&amp;autopause=0&amp;muted=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
+					<img src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ); ?>" class="course-thumbnail absolute left-0 top-0 z-[10] h-full rounded-[20px] object-cover object-center">
 				</div>
 				<div class="information-container mt-12 flex flex-col">
 					<h2 class="font-medium text-ada_red-50"><?php echo esc_html( get_the_title() ); ?></h2>

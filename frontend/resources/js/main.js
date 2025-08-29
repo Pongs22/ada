@@ -80,7 +80,7 @@ jQuery( function( $ ) {
 	}
 	const seekTime = timeStringToSeconds( timeProgress );
 
-	if ( timeProgress && ( ! timeProgress ) === '0:00' ) {
+	if ( timeProgress && timeProgress !== '0:00' ) {
 		$( '.modal-wrapper' ).removeClass( 'hidden' );
 		$( continueWatching ).removeClass( 'hidden' );
 		$( continueWatching ).find( '.time-progress' ).html( timeProgress );
@@ -92,7 +92,6 @@ jQuery( function( $ ) {
 	} else {
 		player.ready().then( function() {
 			player.on( 'loaded', function() {
-				player.play();
 			} );
 		} );
 	}
@@ -106,9 +105,12 @@ jQuery( function( $ ) {
 			$( continueWatching ).addClass( 'hidden' );
 		}, 300 );
 		player.ready().then( function() {
-			player.on( 'loaded', function() {
+			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+			setTimeout( function() {
+				player.setVolume( 1 );
 				player.play();
-			} );
+				$( '.course-thumbnail' ).addClass( 'hidden' );
+			}, 300 );
 		} );
 	} );
 
@@ -120,10 +122,19 @@ jQuery( function( $ ) {
 			$( '.modal-wrapper' ).addClass( 'hidden' );
 			$( continueWatching ).addClass( 'hidden' );
 		}, 300 );
-		if ( seekTime ) {
-			player.setCurrentTime( seekTime );
-			player.play();
-		}
+		player.ready().then( function() {
+			player.on( 'loaded', function() {
+				$( '.course-thumbnail' ).addClass( 'opacity-0' );
+				setTimeout( function() {
+					player.setCurrentTime( seekTime );
+					player.play();
+					$( '.course-thumbnail' ).addClass( 'hidden' );
+				}, 300 );
+				setTimeout( function() {
+					player.setVolume( 1 );
+				}, 2000 );
+			} );
+		} );
 	} );
 
 	player.on( 'timeupdate', function( data ) {
