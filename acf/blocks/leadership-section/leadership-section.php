@@ -27,7 +27,7 @@ $leader_socials   = get_field( 'leader_socials' );
 				<?php echo wp_get_attachment_image( $background_image, 'full', false, [ 'class' => 'absolute inset-0 w-full h-full object-cover object-center' ] ); ?>
 			<?php endif; ?>
 
-			<div class="relative z-10">
+			<div class="relative z-10 max-w-[663px]">
 				<?php if ( $leader_name ) : ?>
 					<h1 class="leadership-name text-[40px] text-white leading-[48px] tracking-[-0.4px]">
 						<?php echo esc_html( $leader_name ); ?>
