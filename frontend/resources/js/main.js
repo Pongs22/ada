@@ -61,12 +61,69 @@ jQuery( function( $ ) {
 	const getUserId = $( '.course-dashboard' ).data( 'user' );
 	const getCourseId = $( '.course-dashboard' ).data( 'course' );
 	const courseStatus = $( '.course-dashboard' ).data( 'status' );
+	const timeProgress = $( '.course-dashboard' ).data( 'progress' );
+	const continueWatching = $( '.continue-watching-popup-wrapper' );
 	const player = new Vimeo.Player( iframe );
 
-	player.ready().then( function() {
-		player.on( 'loaded', function() {
-			player.play();
+	function timeStringToSeconds( timeStr ) {
+		const parts = timeStr.split( ':' ).map( Number );
+		let seconds = 0;
+
+		if ( parts.length === 3 ) {
+			seconds = ( parts[ 0 ] * 3600 ) + ( parts[ 1 ] * 60 ) + parts[ 2 ];
+		} else if ( parts.length === 2 ) {
+			seconds = ( parts[ 0 ] * 60 ) + parts[ 1 ];
+		} else if ( parts.length === 1 ) {
+			seconds = parts[ 0 ];
+		}
+		return seconds;
+	}
+	const seekTime = timeStringToSeconds( timeProgress );
+
+	if ( timeProgress ) {
+		$( '.modal-wrapper' ).removeClass( 'hidden' );
+		$( continueWatching ).removeClass( 'hidden' );
+		$( continueWatching ).find( '.time-progress' ).html( timeProgress );
+		$( 'html, body' ).addClass( 'overflow-hidden' );
+		setTimeout( function() {
+			$( '.modal-wrapper' ).removeClass( 'opacity-0' );
+			$( continueWatching ).removeClass( 'opacity-0' );
+		}, 10 );
+	} else {
+		player.ready().then( function() {
+			player.on( 'loaded', function() {
+				player.play();
+			} );
 		} );
+	}
+
+	$( continueWatching ).find( '.start-over-btn' ).click( function() {
+		$( '.modal-wrapper' ).addClass( 'opacity-0' );
+		$( continueWatching ).addClass( 'opacity-0' );
+		$( 'html, body' ).removeClass( 'overflow-hidden' );
+		setTimeout( function() {
+			$( '.modal-wrapper' ).addClass( 'hidden' );
+			$( continueWatching ).addClass( 'hidden' );
+		}, 300 );
+		player.ready().then( function() {
+			player.on( 'loaded', function() {
+				player.play();
+			} );
+		} );
+	} );
+
+	$( continueWatching ).find( '.continue-btn' ).click( function() {
+		$( '.modal-wrapper' ).addClass( 'opacity-0' );
+		$( continueWatching ).addClass( 'opacity-0' );
+		$( 'html, body' ).removeClass( 'overflow-hidden' );
+		setTimeout( function() {
+			$( '.modal-wrapper' ).addClass( 'hidden' );
+			$( continueWatching ).addClass( 'hidden' );
+		}, 300 );
+		if ( seekTime ) {
+			player.setCurrentTime( seekTime );
+			player.play();
+		}
 	} );
 
 	player.on( 'timeupdate', function( data ) {

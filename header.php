@@ -36,17 +36,21 @@
 				</div><!-- .site-branding -->
 
 				<nav id="site-navigation" class="main-navigation my-auto flex">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'menu-1',
-							'menu_id'        => 'primary-menu',
-							'class'          => 'my-auto',
-							'menu_class'     => 'flex justify-between  gap-x-5 my-auto',
-							'add_li_class'   => '',
-						)
-					);
-					?>
+					<?php if ( ! is_user_logged_in() ) : ?>
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'menu-1',
+								'menu_id'        => 'primary-menu',
+								'class'          => 'my-auto',
+								'menu_class'     => 'flex justify-between  gap-x-5 my-auto',
+								'add_li_class'   => '',
+							)
+						);
+						?>
+					<?php else : ?>
+						<a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="rounded-[2px] bg-ada_red-50 px-4 pb-3 pt-[14px] font-geova font-medium uppercase text-white">Log out</a>
+					<?php endif; ?>
 				</nav><!-- #site-navigation -->
 			</div>
 		</header><!-- #masthead -->

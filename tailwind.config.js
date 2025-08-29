@@ -382,6 +382,7 @@ module.exports = {
 		fontFamily: {
 			sans: ['Inter', ...defaultTheme.fontFamily.sans],
 			geova: ['Geova', ...defaultTheme.fontFamily.sans],
+			montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
 		},
 		extend: {
 			colors: {

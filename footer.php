@@ -77,6 +77,15 @@
 		</div>
 	</div>
 </div>
+<div class="continue-watching-popup-wrapper fixed left-1/2 top-1/2 z-[9999999] hidden w-full -translate-x-1/2 -translate-y-1/2 px-6 opacity-0 transition-all duration-300 sm:max-w-[400px] sm:px-0">
+	<div class="relative flex flex-col gap-y-8 overflow-hidden rounded-lg bg-white p-6">
+		<p class="font-geova font-medium">Continue watching at <span class="time-progress inline-block font-montserrat font-medium text-ada_red-50"> 0:35 </span>?</p>
+		<div class="options-container flex flex-row justify-end gap-x-6">
+			<button class="start-over-btn font-geova font-medium text-ada_gray-90">Start Over</button>
+			<button class="continue-btn font-geova font-medium text-ada_red-50">Continue</button>
+		</div>
+	</div>
+</div>
 
 </div><!-- #page -->
 

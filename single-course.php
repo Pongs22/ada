@@ -21,27 +21,24 @@ $course_id     = get_the_ID();
 $course_status = '';
 
 if ( $user_id ) {
-	$table         = $wpdb->prefix . 'course_progress';
-	$cache_key     = 'course_status_' . $user_id . '_' . $course_id;
-	$course_status = wp_cache_get( $cache_key );
+	$table     = $wpdb->prefix . 'course_progress';
+	$cache_key = 'course_status_' . $user_id . '_' . $course_id;
+	$course    = wp_cache_get( $cache_key );
+	$table     = esc_sql( $table );
 
-	if ( false === $course_status ) {
-		// phpcs:ignore WordPress.DB.CacheUsage
-		$query = $wpdb->prepare(
-			"SELECT status FROM {$wpdb->prefix}course_progress WHERE user_id = %d AND course_id = %d",
-			$user_id,
-			$course_id
-		);
+	if ( false === $course ) {
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+		$query = $wpdb->prepare( "SELECT * FROM `{$table}` WHERE user_id = %d  AND course_id = %d", $user_id, $course_id );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
-		$course_status = $wpdb->get_var( $query );
+		$course = $wpdb->get_row( $query, ARRAY_A );
 
 		// phpcs:ignore WordPress.DB.CacheUsage
-		wp_cache_set( $cache_key, $course_status, '', 3600 );
+		wp_cache_set( $cache_key, $course, '', 3600 );
 	}
 }
 ?>
-<main id="primary" class="site-main course-dashboard" data-user="<?php echo esc_attr( get_current_user_id() ); ?>" data-course="<?php echo esc_attr( get_the_ID() ); ?>" data-status="<?php echo esc_attr( $course_status ?? '' ); ?>">
+<main id="primary" class="site-main course-dashboard" data-user="<?php echo esc_attr( get_current_user_id() ); ?>" data-course="<?php echo esc_attr( get_the_ID() ); ?>" data-progress="<?php echo esc_attr( $course['progress_time'] ?? '' ); ?>"data-status="<?php echo esc_attr( $course['status'] ?? '' ); ?>">
 	<div class="mt-[72px] flex flex-row">
 		<div class="flex h-screen w-full max-w-[270px] flex-col divide-y divide-ada_gray-20">
 			<?php
@@ -136,7 +133,7 @@ if ( $user_id ) {
 				?>
 				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]">
 					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
-						<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
+					<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
 				</div>
 				<div class="information-container mt-12 flex flex-col">
 					<h2 class="font-medium text-ada_red-50"><?php echo esc_html( get_the_title() ); ?></h2>
