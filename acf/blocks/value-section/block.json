@@ -1,0 +1,18 @@
+{
+    "name": "acf/value-section",
+    "title": "About — Values",
+    "description": "About / Values block for the About Us page.",
+    "style": [ "file:./css/style.min.css" ],
+    "script": "value-section",
+    "category": "ff-blocks",
+    "icon": "block-default",
+    "keywords": ["about","values"],
+    "acf": {
+      "mode": "preview",
+      "renderTemplate": "value-section.php",
+      "supports": "jsx"
+    },
+    "supports": {
+      "jsx": false
+    }
+}

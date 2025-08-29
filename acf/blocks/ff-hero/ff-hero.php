@@ -9,7 +9,7 @@
  */
 
 $ff_hero = get_field( 'hero_style' );
-$style   = $block['className'] ?? '';
+$style   = isset( $block['className'] ) ? $block['className'] : '';
 ?>
 <div class="ff-b-hero-section">
 	<?php if ( 'full' === $ff_hero ) : ?>

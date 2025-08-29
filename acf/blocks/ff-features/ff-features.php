@@ -9,7 +9,7 @@
  */
 
 $ff_features = get_field( 'features_style' );
-$style       = $block['className'] ?? '';
+$style       = isset( $block['className'] ) ? $block['className'] : '';
 ?>
 <div class="ff-b-features-section">
 	<?php if ( 'with-icon-list' === $ff_features ) : ?>

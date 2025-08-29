@@ -1,0 +1,18 @@
+{
+    "name": "acf/leadership-section",
+    "title": "About — Leadership",
+    "description": "About / Leadership block for the About Us page.",
+    "style": [ "file:./css/style.min.css" ],
+    "script": "leadership-section",
+    "category": "ff-blocks",
+    "icon": "block-default",
+    "keywords": ["about","leadership"],
+    "acf": {
+      "mode": "preview",
+      "renderTemplate": "leadership-section.php",
+      "supports": "jsx"
+    },
+    "supports": {
+      "jsx": false
+    }
+}
