@@ -80,7 +80,7 @@ jQuery( function( $ ) {
 	}
 	const seekTime = timeStringToSeconds( timeProgress );
 
-	if ( timeProgress ) {
+	if ( timeProgress && ( ! timeProgress ) === '0:00' ) {
 		$( '.modal-wrapper' ).removeClass( 'hidden' );
 		$( continueWatching ).removeClass( 'hidden' );
 		$( continueWatching ).find( '.time-progress' ).html( timeProgress );
