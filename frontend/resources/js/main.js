@@ -76,76 +76,88 @@ jQuery( function( $ ) {
 	// Video Functions
 
 	let lastSaved = 0;
+	let iframe; // Declare iframe variable
+	let player; // Declare player variable
 	const getUserId = $( '.course-dashboard' ).data( 'user' );
 	const getCourseId = $( '.course-dashboard' ).data( 'course' );
 	const courseStatus = $( '.course-dashboard' ).data( 'status' );
 	const timeProgress = $( '.course-dashboard' ).data( 'progress' );
 	const continueWatching = $( '.continue-watching-popup-wrapper' );
-	const iframe = document.querySelector( '#vimeoPlayer' );
+	const videoId = $( '.embed-container' ).data( 'video' );
+	const seekTime = timeStringToSeconds( timeProgress );
 
-	if ( iframe ) {
-		const player = new Vimeo.Player( iframe );
-		const seekTime = timeStringToSeconds( timeProgress );
+	function createVideoIframe() {
+		return `<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/${ videoId }?badge=0&autopause=0&muted=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>`;
+	}
 
-		if ( timeProgress && timeProgress !== '0:00' ) {
-			$( '.modal-wrapper' ).removeClass( 'hidden' );
-			$( continueWatching ).removeClass( 'hidden' );
-			$( continueWatching ).find( '.time-progress' ).html( timeProgress );
-			$( 'html, body' ).addClass( 'overflow-hidden' );
-			lenis.stop();
-			setTimeout( function() {
-				$( '.modal-wrapper' ).removeClass( 'opacity-0' );
-				$( continueWatching ).removeClass( 'opacity-0' );
-			}, 10 );
-		} else {
+	if ( timeProgress && timeProgress !== '0:00' ) {
+		$( '.modal-wrapper' ).removeClass( 'hidden' );
+		$( continueWatching ).removeClass( 'hidden' );
+		$( continueWatching ).find( '.time-progress' ).html( timeProgress );
+		$( 'html, body' ).addClass( 'overflow-hidden' );
+		$( '.video-container' ).html( createVideoIframe() );
+		lenis.stop();
+		setTimeout( function() {
+			$( '.modal-wrapper' ).removeClass( 'opacity-0' );
+			$( continueWatching ).removeClass( 'opacity-0' );
+			iframe = $( '#vimeoPlayer' )[ 0 ];
+			player = new Vimeo.Player( iframe );
 			player.ready().then( function() {
-				player.on( 'loaded', function() { } );
+				addPlayerEventListeners();
+			} );
+		}, 10 );
+	} else {
+		$( '.video-container' ).html( createVideoIframe() );
+		iframe = $( '#vimeoPlayer' )[ 0 ];
+		player = new Vimeo.Player( iframe );
+		player.ready().then( function() {
+			addPlayerEventListeners();
+		} );
+	}
+
+	$( continueWatching ).find( '.start-over-btn' ).click( function() {
+		$( '.modal-wrapper' ).addClass( 'opacity-0' );
+		$( continueWatching ).addClass( 'opacity-0' );
+		$( 'html, body' ).removeClass( 'overflow-hidden' );
+		lenis.start();
+		setTimeout( function() {
+			$( '.modal-wrapper' ).addClass( 'hidden' );
+			$( continueWatching ).addClass( 'hidden' );
+		}, 300 );
+		$( '.course-thumbnail' ).addClass( 'hidden' );
+
+		if ( player ) {
+			player.ready().then( function() {
+				player.play();
 			} );
 		}
+	} );
 
-		$( continueWatching ).find( '.start-over-btn' ).click( function() {
-			$( '.modal-wrapper' ).addClass( 'opacity-0' );
-			$( continueWatching ).addClass( 'opacity-0' );
-			$( 'html, body' ).removeClass( 'overflow-hidden' );
-			lenis.start();
-			setTimeout( function() {
-				$( '.modal-wrapper' ).addClass( 'hidden' );
-				$( continueWatching ).addClass( 'hidden' );
-			}, 300 );
+	$( continueWatching ).find( '.continue-btn' ).click( function() {
+		$( '.modal-wrapper' ).addClass( 'opacity-0' );
+		$( continueWatching ).addClass( 'opacity-0' );
+		$( 'html, body' ).removeClass( 'overflow-hidden' );
+		lenis.start();
+		setTimeout( function() {
+			$( '.modal-wrapper' ).addClass( 'hidden' );
+			$( continueWatching ).addClass( 'hidden' );
+			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+		}, 300 );
+		$( '.course-thumbnail' ).addClass( 'hidden' );
+
+		if ( player ) {
 			player.ready().then( function() {
-				$( '.course-thumbnail' ).addClass( 'opacity-0' );
-				setTimeout( function() {
-					player.setVolume( 1 );
-					player.play();
-					$( '.course-thumbnail' ).addClass( 'hidden' );
-				}, 300 );
+				return player.setCurrentTime( seekTime );
+			} ).then( function() {
+				return player.play();
 			} );
-		} );
+		}
+	} );
 
-		$( continueWatching ).find( '.continue-btn' ).click( function() {
-			$( '.modal-wrapper' ).addClass( 'opacity-0' );
-			$( continueWatching ).addClass( 'opacity-0' );
-			$( 'html, body' ).removeClass( 'overflow-hidden' );
-			lenis.start();
-			setTimeout( function() {
-				$( '.modal-wrapper' ).addClass( 'hidden' );
-				$( continueWatching ).addClass( 'hidden' );
-			}, 300 );
-			player.ready().then( function() {
-				player.on( 'loaded', function() {
-					$( '.course-thumbnail' ).addClass( 'opacity-0' );
-					setTimeout( function() {
-						player.setCurrentTime( seekTime );
-						player.play();
-						$( '.course-thumbnail' ).addClass( 'hidden' );
-					}, 300 );
-					setTimeout( function() {
-						player.setVolume( 1 );
-					}, 2000 );
-				} );
-			} );
-		} );
-
+	function addPlayerEventListeners() {
+		if ( ! player ) {
+			return;
+		}
 		player.on( 'timeupdate', function( data ) {
 			if ( data.seconds - lastSaved >= 5 ) {
 				lastSaved = data.seconds;

@@ -178,10 +178,10 @@ if ( $user_id ) {
 				$professor_name    = get_field( 'professor_name', get_the_ID() );
 				$professor_details = get_field( 'professor_details', get_the_ID() );
 				?>
-				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]">
+				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]" data-video="<?php echo esc_attr( $vimeo_id ); ?>">
 					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found 
 					?>
-					<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ); ?>?badge=0&amp;autopause=0&amp;muted=0&amp;player_id=0&amp;app_id=58479" frameborder="0"></iframe>
+					<div class="video-container" id="videoContainer"></div>
 					<img src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ); ?>" class="course-thumbnail absolute left-0 top-0 z-[10] h-full rounded-[20px] object-cover object-center">
 				</div>
 				<div class="information-container mt-12 flex flex-col">
