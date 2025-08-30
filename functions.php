@@ -148,6 +148,7 @@ function firstfold_scripts() {
 	wp_style_add_data( 'firstfold-style', 'rtl', 'replace' );
 	wp_enqueue_style( 'main', get_template_directory_uri() . '/frontend/static/css/main.min.css', array(), _FF_VERSION );
 	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'lenis', get_template_directory_uri() . '/libraries/lenis/lenis.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'firstfold-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'main', get_template_directory_uri() . '/frontend/static/js/main.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'swiper', get_template_directory_uri() . '/libraries/swiper/swiper-bundle.min.js', array(), _FF_VERSION, true );
@@ -176,6 +177,7 @@ add_action( 'wp_enqueue_scripts', 'firstfold_scripts' );
 function ff_block_assets() {
 	wp_enqueue_style( 'tailwind', get_template_directory_uri() . '/tailwind/dist/output.min.css', array(), _FF_VERSION );
 	wp_enqueue_style( 'slick', get_template_directory_uri() . '/libraries/slick/slick.css', array(), _FF_VERSION );
+	wp_enqueue_script( 'lenis', get_template_directory_uri() . '/libraries/lenis/lenis.min.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'preline', get_template_directory_uri() . '/libraries/preline/preline.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'resize-sensor', get_template_directory_uri() . '/libraries/resize-sensor/resize-sensor.js', array(), _FF_VERSION, true );
 	wp_enqueue_script( 'alpine', 'https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js', array(), _FF_VERSION, true );
