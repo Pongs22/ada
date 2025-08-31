@@ -177,12 +177,21 @@ if ( $user_id ) {
 				$about             = get_field( 'about', get_the_ID() );
 				$professor_name    = get_field( 'professor_name', get_the_ID() );
 				$professor_details = get_field( 'professor_details', get_the_ID() );
+				$featured_image    = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 				?>
 				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]" data-video="<?php echo esc_attr( $vimeo_id ); ?>">
-					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found 
-					?>
+					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
 					<div class="video-container" id="videoContainer"></div>
-					<img src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ); ?>" class="course-thumbnail absolute left-0 top-0 z-[10] h-full rounded-[20px] object-cover object-center">
+					<div class="course-thumbnail duration-3000 group absolute left-0 top-0 z-[10] h-full cursor-pointer overflow-hidden rounded-[10px] transition-all">
+						<?php if ( $featured_image ) : ?>
+							<img src="<?php echo esc_url( $featured_image ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 hover:brightness-75">
+						<?php else : ?>
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-course-thumbnail-placeholder.png' ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 hover:brightness-75">
+						<?php endif; ?>
+						<div class="absolute left-1/2 top-1/2 z-20 flex size-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 transition-all duration-300 group-hover:bg-white/60">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-play-button.svg' ); ?>" alt="Close" class="m-auto w-full max-w-[40px]"/>
+						</div>
+					</div>
 				</div>
 				<div class="information-container mt-12 flex flex-col">
 					<h2 class="font-medium text-ada_red-50"><?php echo esc_html( get_the_title() ); ?></h2>
