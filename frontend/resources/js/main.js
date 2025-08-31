@@ -56,18 +56,55 @@ jQuery( function( $ ) {
 		setTimeout( function() {
 			$( '.modal-wrapper' ).removeClass( 'opacity-0' );
 			$( '.login-popup-wrapper' ).removeClass( 'opacity-0' );
+			$( '.login-popup-content' ).css( 'transform', '' ).removeClass( 'translate-y-full' ).addClass( 'translate-y-0' );
 		}, 10 );
 	} );
 
-	$( '.login-close-button' ).click( function() {
+	function closeLoginPopup() {
 		$( '.modal-wrapper' ).addClass( 'opacity-0' );
 		$( '.login-popup-wrapper' ).addClass( 'opacity-0' );
+		$( '.login-popup-content' ).removeClass( 'translate-y-0' ).addClass( 'translate-y-full' );
 		$( 'html, body' ).removeClass( 'overflow-hidden' );
 		lenis.start();
 		setTimeout( function() {
 			$( '.modal-wrapper' ).addClass( 'hidden' );
 			$( '.login-popup-wrapper' ).addClass( 'hidden' );
 		}, 300 );
+	}
+	$( '.login-close-button' ).click( closeLoginPopup );
+
+	let startY = 0;
+	let currentY = 0;
+	let isDragging = false;
+
+	$( '.login-popup-content' ).on( 'touchstart', function( e ) {
+		startY = e.touches[ 0 ].clientY;
+		isDragging = true;
+		$( this ).css( 'transition', 'none' );
+	} );
+
+	$( '.login-popup-content' ).on( 'touchmove', function( e ) {
+		if ( ! isDragging ) {
+			return;
+		}
+		currentY = e.touches[ 0 ].clientY - startY;
+		if ( currentY > 0 ) {
+			$( this ).css( 'transform', `translateY(${ currentY }px)` );
+		}
+	} );
+
+	$( '.login-popup-content' ).on( 'touchend', function() {
+		isDragging = false;
+		$( this ).css( 'transition', 'transform 0.3s ease-in-out' );
+
+		if ( currentY > 100 ) {
+			closeLoginPopup();
+		} else {
+			$( this ).css( 'transform', 'translateY(0)' );
+		}
+
+		startY = 0;
+		currentY = 0;
 	} );
 
 	const courseInfoButton = $( '.course-information-button' ).find( 'li button' );

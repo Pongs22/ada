@@ -88,7 +88,7 @@
 </div>
 <div
 	class="login-popup-wrapper fixed inset-0 hidden opacity-0 z-[9999999] flex items-center justify-center md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-	<div id="login-popup-content" class="relative flex flex-col w-full md:max-w-[550px] bg-white md:p-8 px-6 py-10 transition-transform duration-300 
+	<div class="login-popup-content relative flex flex-col w-full md:max-w-[550px] bg-white md:p-8 px-6 py-10 transform translate-y-full md:translate-y-0 ease-in-out transition-transform duration-300 
 		md:rounded-lg rounded-t-[8px] mt-auto md:mt-0">
 		<div class="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 rounded-[100px] bg-ada_grey-20 md:hidden"></div>
 		<button class="login-close-button hidden md:flex justify-end">
