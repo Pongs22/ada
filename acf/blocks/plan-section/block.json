@@ -1,0 +1,18 @@
+{
+    "name": "acf/plan-section",
+    "title": "Home — Plan",
+    "description": "Home / Plan block for the Home page.",
+    "style": [ "file:./css/style.min.css" ],
+    "script": "plan-section",
+    "category": "ff-blocks",
+    "icon": "block-default",
+    "keywords": ["homepage","plan"],
+    "acf": {
+      "mode": "preview",
+      "renderTemplate": "plan-section.php",
+      "supports": "jsx"
+    },
+    "supports": {
+      "jsx": false
+    }
+}
