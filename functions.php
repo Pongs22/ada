@@ -823,7 +823,7 @@ function send_custom_welcome_email( $user_id ) {
 	);
 
 	// Check if user has roles that should receive styled email.
-	$styled_email_roles = array( 'basic_user', 'advanced_user' );
+	$styled_email_roles = array( 'basic', 'advanced' );
 	$user_roles         = $user->roles;
 	$send_styled_email  = false;
 	
