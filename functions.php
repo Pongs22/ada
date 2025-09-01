@@ -783,6 +783,172 @@ function create_course_progress_table() {
 }
 add_action( 'after_switch_theme', 'create_course_progress_table' );
 
+// Disable default user notification but keep admin notification.
+remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
+remove_action( 'edit_user_created_user', 'wp_send_new_user_notifications' );
+
+/**
+ * Send only admin notification for new user registrations.
+ *
+ * @param int $user_id The ID of the newly registered user.
+ */
+function send_admin_only_notification( $user_id ) {
+	// Only send admin notification.
+	wp_send_new_user_notifications( $user_id, 'admin' );
+}
+add_action( 'register_new_user', 'send_admin_only_notification' );
+
+/**
+ * Sends a welcome email with a password reset link to newly registered users.
+ *
+ * @param int $user_id The ID of the newly registered user.
+ * @return void
+ */
+function send_custom_welcome_email( $user_id ) {
+	$user       = get_userdata( $user_id );
+	$user_login = $user->user_login;
+	$user_email = $user->user_email;
+
+	$reset_key = get_password_reset_key( $user );
+	if ( is_wp_error( $reset_key ) ) {
+		return;
+	}
+
+	$reset_url = add_query_arg(
+		[
+			'key'   => $reset_key,
+			'login' => rawurlencode( $user->user_login ),
+		],
+		site_url( '/set-password/' ) // Your custom page slug.
+	);
+
+	// Check if user has roles that should receive styled email.
+	$styled_email_roles = array( 'basic_user', 'advanced_user' );
+	$user_roles         = $user->roles;
+	$send_styled_email  = false;
+	
+	foreach ( $styled_email_roles as $styled_role ) {
+		if ( in_array( $styled_role, $user_roles, true ) ) {
+			$send_styled_email = true;
+			break;
+		}
+	}
+
+	// Prepare email content based on user role.
+	if ( $send_styled_email ) {
+		// Build the styled email template HTML for Basic/Advanced users.
+		$title = 'WELCOME TO ' . get_bloginfo( 'name' ) . '!';
+		
+		$email_content = "
+        <html>
+        <body style='font-family: Arial, sans-serif; color:#333;'>
+            <div style='text-align:center; padding:32px;'>
+                <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
+                     alt='Website Logo' 
+                     style='max-width:64px; height:auto; margin-bottom: 28px;'>
+                <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0;'>{$title}</h2>
+                <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756622027/image_11_bzmuei.png'
+                     alt='Email Image' 
+                     style='max-width: 536px; height: auto; margin-bottom: 28px;'>
+                
+                <!-- Custom marketing message. -->
+                <p style='font-size:16px; line-height:1.5; color:#333; text-align:center; margin: 0 auto; max-width: 536px; padding-bottom: 28px;'>
+                    Hello <strong>{$user_login}</strong>, Create your next project with high-quality images, videos, and sounds 
+                    from the world's leading content library. Whatever you need you'll find right here—
+                    because if it's in your head, it's on our site.
+                </p>
+
+                <!-- Main body. -->
+                <a href='{$reset_url}' style='display:inline-block; line-height: 120%; font-size: 18px; background:#CB131B; color:#fff; padding: 14px 16px 12px;
+                text-decoration:none;'>
+                    Set Your Password
+                </a>
+            </div>
+        </body>
+        <table role='presentation' width='100%'  border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px;'>
+          <tr>
+            <td background='https://res.cloudinary.com/do8kly5dl/image/upload/v1756632851/Frame_1410134226_2_exnl0x.png' 
+                bgcolor='#ffffff' 
+                style='background-repeat:no-repeat; background-position:center; max-width: 600px; height: 276px;'>
+                
+              <!-- Footer content. -->
+              <table role='presentation' width='100%' border='0' cellspacing='0' cellpadding='0' style='max-width: 600px; text-align: center; margin: 0 auto;'>
+                <tr>
+                    <td align='center' style='padding-bottom: 20px; padding-top: 40px;'>
+                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
+                         alt='Company Logo' 
+                         style='max-width:100px; height:auto;' />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td align='center' style='padding-bottom: 20px;'>
+                        <p 
+                           style='text-align: center; text-decoration: none; color: #fff; font-size: 12px; line-height: 150%; margin: 0;'>
+                           9 Straits View, Marina One <br> West Tower, Singapore 018937
+                        </p>
+                    </td>
+                <tr>
+                
+                <tr>
+                    <td align='center' style='padding-bottom: 20px;'>
+                        <a href='https://facebook.com' style='text-decoration: none; text-align:center;'>
+                           <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756631854/uiw_facebook_g0rctw.png' 
+                             alt='Facebook Logo' 
+                             style='max-width:20px; height:auto;' />
+                        </a>
+                        <a href='https://x.com' style='text-align: center; text-decoration: none; margin-left: 24px;'>
+                           <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756631855/prime_twitter_gfifys.png' 
+                             alt='X Logo' 
+                             style='max-width:20px; height:auto;' />
+                        </a>
+                    </td>
+                <tr>
+              </table>
+               
+            </td>
+          </tr>
+        </table>
+        <div style='text-align: center; margin: 0 auto;'>    
+            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756634218/Frame_1410134220_hcgfmq.png' alt='copyright' style='max-width: 600px; height: auto; ' >
+        </div>
+        </html>
+        ";
+		
+		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+	} else {
+		// Simple plain text email for other user roles.
+		$email_content  = 'Welcome to ' . get_bloginfo( 'name' ) . "!\n\n";
+		$email_content .= 'Hello ' . $user_login . ",\n\n";
+		$email_content .= "Thank you for registering! Please set your password using the link below:\n\n";
+		$email_content .= $reset_url . "\n\n";
+		$email_content .= "Best regards,\n";
+		$email_content .= get_bloginfo( 'name' ) . ' Team';
+		
+		$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
+	}
+
+	// Send to the user.
+	wp_mail(
+		$user_email,
+		'Welcome to ' . get_bloginfo( 'name' ) . ' – Set Your Password',
+		$email_content,
+		$headers
+	);
+
+	// Send the same email to the admin.
+	$admin_email = get_option( 'admin_email' );
+	if ( $admin_email && $admin_email !== $user_email ) {
+		wp_mail(
+			$admin_email,
+			'New User Registration: ' . $user_login . ' – Welcome Email Sent',
+			$email_content,
+			$headers
+		);
+	}
+}
+add_action( 'user_register', 'send_custom_welcome_email' );
+
 /**
  * Function for redirect dynamic link after login.
  * 
