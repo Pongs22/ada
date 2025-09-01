@@ -15,7 +15,7 @@ get_header();
 		<div class="flex items-center justify-center min-h-[calc(100vh-73px)]">
 			<div
 				class="lg:aspect-[1400/900] md:aspect-[768/1024] h-screen px-6 md:px-0 w-full flex flex-col items-center justify-center relative overflow-hidden">
-				<img src="<?php echo esc_url( get_template_directory_uri() . '/frontend/resources/img/ada-404-bg.png' ); ?>
+				<img src="<?php echo esc_url( get_template_directory_uri() . '/frontend/resources/img/ada-404-bg.png' ); ?>"
 					alt="404 background" class="absolute inset-0 w-full h-full object-cover -z-10" />
 				<div class="max-w-[557px] mx-auto text-center relative z-10">
 					<span
