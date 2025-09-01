@@ -49,7 +49,7 @@
 						);
 						?>
 					<?php else : ?>
-						<a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="rounded-[2px] bg-ada_red-50 px-4 pb-3 pt-[14px] font-geova font-medium uppercase text-white">Log out</a>
+						<a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="logout-btn rounded-[2px] bg-ada_red-50 px-4 pb-3 pt-[14px] font-geova font-medium uppercase text-white">Log out</a>
 					<?php endif; ?>
 				</nav><!-- #site-navigation -->
 			</div>

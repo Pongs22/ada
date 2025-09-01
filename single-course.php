@@ -181,8 +181,12 @@ if ( $user_id ) {
 				?>
 				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]" data-video="<?php echo esc_attr( $vimeo_id ); ?>">
 					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
-					<div class="video-container" id="videoContainer"></div>
-					<div class="course-thumbnail duration-3000 group absolute left-0 top-0 z-[10] h-full cursor-pointer overflow-hidden rounded-[10px] transition-all">
+					<?php if ( empty( $course['status'] ) ) : ?>
+					<?php else : ?>
+						<div class="video-container" id="videoContainer"></div>
+					<?php endif; ?>
+
+					<div class="course-thumbnail group absolute left-0 top-0 z-[10] h-full cursor-pointer overflow-hidden rounded-[10px] transition-all duration-300">
 						<?php if ( $featured_image ) : ?>
 							<img src="<?php echo esc_url( $featured_image ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 hover:brightness-75">
 						<?php else : ?>

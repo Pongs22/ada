@@ -13,15 +13,14 @@ $leader_bio       = get_field( 'leader_bio' );
 $leader_socials   = get_field( 'leader_socials' );
 ?>
 
-<section class="leadership-section ff-c-container py-10 px-20">
-	<h2 class="font-medium leading-[40px] tracking-[-0.25px] text-ada_red-50 mb-[48px] uppercase">
+<section class="leadership-section ff-c-container px-20 py-10">
+	<h2 class="mb-[48px] font-medium uppercase leading-[40px] tracking-[-0.25px] text-ada_red-50">
 		<?php if ( $section_title ) : ?>
 			<?php echo esc_html( $section_title ); ?>
 		<?php endif; ?>
 	</h2>
-
 	<article class="leadership-item">
-		<div class="p-20  mb-[48px]  rounded-[20px] relative overflow-hidden">
+		<div class="relative mb-[48px] overflow-hidden rounded-[20px] p-20">
 
 			<?php if ( $background_image ) : ?>
 				<?php echo wp_get_attachment_image( $background_image, 'full', false, [ 'class' => 'absolute inset-0 w-full h-full object-cover object-center' ] ); ?>
@@ -29,26 +28,26 @@ $leader_socials   = get_field( 'leader_socials' );
 
 			<div class="relative z-10 max-w-[663px]">
 				<?php if ( $leader_name ) : ?>
-					<h1 class="leadership-name text-[40px] text-white leading-[48px] tracking-[-0.4px]">
+					<h1 class="leadership-name text-[40px] leading-[48px] tracking-[-0.4px] text-white">
 						<?php echo esc_html( $leader_name ); ?>
 					</h1>
 				<?php endif; ?>
 
 				<?php if ( $leader_title ) : ?>
-					<h3 class="leadership-title text-[24px] mb-[52px] font-semibold leading-[31px] text-ada_yellow-50">
+					<h3 class="leadership-title mb-[52px] text-[24px] font-semibold leading-[31px] text-ada_yellow-50">
 						<?php echo esc_html( $leader_title ); ?>
 					</h3>
 				<?php endif; ?>
 
 				<?php if ( $leader_bio ) : ?>
-					<div class="max-w-[612px] text-[18px] leading-[25.2px] text-white font-normal">
+					<div class="max-w-[612px] text-[18px] font-normal leading-[25.2px] text-white">
 						<p class="leadership-bio">
 							<?php echo wp_kses_post( $leader_bio ); ?>
 						</p>
 					</div>
 				<?php endif; ?>
 				<?php if ( $leader_socials ) : ?>
-					<div class="socials-container flex gap-6 mt-10">
+					<div class="socials-container mt-10 flex gap-6">
 						<?php
 						foreach ( $leader_socials as $social ) :
 							$social_icon = $social['icon'];

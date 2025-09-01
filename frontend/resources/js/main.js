@@ -1,9 +1,13 @@
 /* global jQuery Vimeo ajaxVar Lenis*/
 
 jQuery( function( $ ) {
-	if ( ! localStorage.getItem( 'openModal' ) ) {
-		localStorage.setItem( 'openModal', true );
+	if ( ! sessionStorage.getItem( 'openModal' ) ) {
+		sessionStorage.setItem( 'openModal', true );
 	}
+
+	$( '.logout-btn' ).click( function() {
+		sessionStorage.removeItem( 'openModal' );
+	} );
 
 	$( '.ff-site-header .menu-item-has-children' ).click( function( e ) {
 		e.preventDefault();
@@ -26,53 +30,50 @@ jQuery( function( $ ) {
 	/* ! --- LENIS CONFIG --- */
 
 	// Popup Modal For Locked Courses
-	$( '.course-button-locked' ).click( function() {
+
+	function popupModalFadeIn( modal ) {
 		$( '.modal-wrapper' ).removeClass( 'hidden' );
-		$( '.unlock-next-tier-popup-wrapper' ).removeClass( 'hidden' );
+		$( modal ).removeClass( 'hidden' );
 		$( 'html, body' ).addClass( 'overflow-hidden' );
 		lenis.stop();
 		setTimeout( function() {
 			$( '.modal-wrapper' ).removeClass( 'opacity-0' );
-			$( '.unlock-next-tier-popup-wrapper' ).removeClass( 'opacity-0' );
+			$( modal ).removeClass( 'opacity-0' );
 		}, 10 );
+	}
+
+	function popupModalFadeOut( modal ) {
+		$( '.modal-wrapper' ).addClass( 'opacity-0' );
+		$( modal ).addClass( 'opacity-0' );
+		$( 'html, body' ).removeClass( 'overflow-hidden' );
+		lenis.start();
+		setTimeout( function() {
+			$( '.modal-wrapper' ).addClass( 'hidden' );
+			$( modal ).addClass( 'hidden' );
+		}, 300 );
+	}
+
+	$( '.course-button-locked' ).click( function() {
+		popupModalFadeIn( '.unlock-next-tier-popup-wrapper' );
 	} );
 
 	$( '.unt-close' ).click( function() {
-		$( '.modal-wrapper' ).addClass( 'opacity-0' );
-		$( '.unlock-next-tier-popup-wrapper' ).addClass( 'opacity-0' );
-		$( 'html, body' ).removeClass( 'overflow-hidden' );
-		setTimeout( function() {
-			$( '.modal-wrapper' ).addClass( 'hidden' );
-			$( '.unlock-next-tier-popup-wrapper' ).addClass( 'hidden' );
-		}, 300 );
+		popupModalFadeOut( '.unlock-next-tier-popup-wrapper' );
 	} );
 
 	$( '.primary-login' ).click( function( e ) {
 		e.preventDefault();
-		$( '.modal-wrapper' ).removeClass( 'hidden' );
-		$( '.login-popup-wrapper' ).removeClass( 'hidden' );
-		$( 'html, body' ).addClass( 'overflow-hidden' );
-		lenis.stop();
+		popupModalFadeIn( '.login-popup-wrapper' );
 		setTimeout( function() {
-			$( '.modal-wrapper' ).removeClass( 'opacity-0' );
-			$( '.login-popup-wrapper' ).removeClass( 'opacity-0' );
 			$( '.login-popup-content' ).css( 'transform', '' ).removeClass( 'translate-y-full' ).addClass( 'translate-y-0' );
 		}, 10 );
 	} );
 
 	function closeLoginPopup() {
-		$( '.modal-wrapper' ).addClass( 'opacity-0' );
-		$( '.login-popup-wrapper' ).addClass( 'opacity-0' );
+		popupModalFadeOut( '.login-popup-wrapper' );
 		$( '.login-popup-content' ).removeClass( 'translate-y-0' ).addClass( 'translate-y-full' );
-		$( 'html, body' ).removeClass( 'overflow-hidden' );
-		lenis.start();
-		setTimeout( function() {
-			$( '.modal-wrapper' ).addClass( 'hidden' );
-			$( '.login-popup-wrapper' ).addClass( 'hidden' );
-		}, 300 );
 	}
 	$( '.login-close-button' ).click( closeLoginPopup );
-
 	let startY = 0;
 	let currentY = 0;
 	let isDragging = false;
@@ -115,10 +116,9 @@ jQuery( function( $ ) {
 	} );
 
 	// Video Functions
-
 	let lastSaved = 0;
-	let iframe; // Declare iframe variable
-	let player; // Declare player variable
+	let iframe;
+	let player;
 	const getUserId = $( '.course-dashboard' ).data( 'user' );
 	const getCourseId = $( '.course-dashboard' ).data( 'course' );
 	const courseStatus = $( '.course-dashboard' ).data( 'status' );
@@ -126,31 +126,27 @@ jQuery( function( $ ) {
 	const continueWatching = $( '.continue-watching-popup-wrapper' );
 	const videoId = $( '.embed-container' ).data( 'video' );
 	const seekTime = timeStringToSeconds( timeProgress );
+	const videoContainer = document.querySelector( '#videoContainer' );
 
 	function createVideoIframe() {
 		return `<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/${ videoId }?badge=0&autopause=0&muted=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>`;
 	}
 
 	if ( timeProgress && timeProgress !== '0:00' ) {
-		if ( localStorage.getItem( 'openModal' ) === 'true' ) {
-			$( '.modal-wrapper' ).removeClass( 'hidden' );
-			$( continueWatching ).removeClass( 'hidden' );
+		if ( sessionStorage.getItem( 'openModal' ) === 'true' ) {
 			$( continueWatching ).find( '.time-progress' ).html( timeProgress );
-			$( 'html, body' ).addClass( 'overflow-hidden' );
-			$( '.video-container' ).html( createVideoIframe() );
-			lenis.stop();
+			$( videoContainer ).html( createVideoIframe() );
+			popupModalFadeIn( continueWatching );
 			setTimeout( function() {
-				$( '.modal-wrapper' ).removeClass( 'opacity-0' );
-				$( continueWatching ).removeClass( 'opacity-0' );
 				iframe = $( '#vimeoPlayer' )[ 0 ];
 				player = new Vimeo.Player( iframe );
 				player.ready().then( function() {
 					addPlayerEventListeners();
 				} );
-				localStorage.setItem( 'openModal', 'false' );
+				sessionStorage.setItem( 'openModal', 'false' );
 			}, 10 );
 		} else {
-			$( '.video-container' ).html( createVideoIframe() );
+			$( videoContainer ).html( createVideoIframe() );
 			setTimeout( function() {
 				iframe = $( '#vimeoPlayer' )[ 0 ];
 				player = new Vimeo.Player( iframe );
@@ -167,7 +163,7 @@ jQuery( function( $ ) {
 			}, 10 );
 		}
 	} else {
-		$( '.video-container' ).html( createVideoIframe() );
+		$( videoContainer ).html( createVideoIframe() );
 		iframe = $( '#vimeoPlayer' )[ 0 ];
 		player = new Vimeo.Player( iframe );
 		player.ready().then( function() {
@@ -179,16 +175,8 @@ jQuery( function( $ ) {
 	}
 
 	$( continueWatching ).find( '.start-over-btn' ).click( function() {
-		$( '.modal-wrapper' ).addClass( 'opacity-0' );
-		$( continueWatching ).addClass( 'opacity-0' );
-		$( 'html, body' ).removeClass( 'overflow-hidden' );
-		lenis.start();
-		setTimeout( function() {
-			$( '.modal-wrapper' ).addClass( 'hidden' );
-			$( continueWatching ).addClass( 'hidden' );
-		}, 300 );
+		popupModalFadeOut( continueWatching );
 		$( '.course-thumbnail' ).addClass( 'hidden' );
-
 		if ( player ) {
 			player.ready().then( function() {
 				player.play();
@@ -197,17 +185,7 @@ jQuery( function( $ ) {
 	} );
 
 	$( continueWatching ).find( '.continue-btn' ).click( function() {
-		$( '.modal-wrapper' ).addClass( 'opacity-0' );
-		$( continueWatching ).addClass( 'opacity-0' );
-		$( 'html, body' ).removeClass( 'overflow-hidden' );
-		lenis.start();
-		setTimeout( function() {
-			$( '.modal-wrapper' ).addClass( 'hidden' );
-			$( continueWatching ).addClass( 'hidden' );
-			$( '.course-thumbnail' ).addClass( 'opacity-0' );
-		}, 300 );
-		$( '.course-thumbnail' ).addClass( 'hidden' );
-
+		popupModalFadeOut( continueWatching );
 		if ( player ) {
 			player.ready().then( function() {
 				return player.setCurrentTime( seekTime );
@@ -222,6 +200,7 @@ jQuery( function( $ ) {
 			return;
 		}
 		player.on( 'play', function() {
+			$( '.course-thumbnail' ).addClass( 'opacity-0' );
 			setTimeout( function() {
 				$( '.course-thumbnail' ).addClass( 'hidden' );
 			}, 500 );

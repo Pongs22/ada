@@ -669,10 +669,15 @@ function update_course_status() {
 	if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
 		exit();
 	}
+
 	global $wpdb;
 	$table     = $wpdb->prefix . 'course_progress';
-	$user_id   = isset( $_POST['userId'] ) ? sanitize_text_field( wp_unslash( $_POST['userId'] ) ) : '';
-	$course_id = isset( $_POST['courseId'] ) ? sanitize_text_field( wp_unslash( $_POST['courseId'] ) ) : '';
+	$user_id   = isset( $_POST['userId'] ) ? intval( $_POST['userId'] ) : 0;
+	$course_id = isset( $_POST['courseId'] ) ? intval( $_POST['courseId'] ) : 0;
+
+	if ( ! $user_id || ! $course_id ) {
+		wp_send_json_error( 'Invalid data' );
+	}
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
 	$wpdb->replace(
 		$table,
@@ -681,8 +686,38 @@ function update_course_status() {
 			'course_id'     => $course_id,
 			'status'        => 'completed',
 			'progress_time' => '0:00',
-		]
+		],
+		[ '%d', '%d', '%s', '%s' ]
 	);
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+	$next_course_id = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT ID 
+			 FROM {$wpdb->posts} 
+			 WHERE post_type = %s 
+			   AND post_status = 'publish' 
+			   AND ID > %d 
+			 ORDER BY ID ASC 
+			 LIMIT 1",
+			'course',
+			$course_id
+		)
+	);
+
+	if ( $next_course_id ) {
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+		$wpdb->replace(
+			$table,
+			[
+				'user_id'       => $user_id,
+				'course_id'     => $next_course_id,
+				'status'        => 'in_progress',
+				'progress_time' => '0:00',
+			],
+			[ '%d', '%d', '%s', '%s' ]
+		);
+	}
+	wp_send_json_success( [ 'next_course_id' => $next_course_id ] );
 }
 add_action( 'wp_ajax_update_course_status', 'update_course_status' );
 add_action( 'wp_ajax_nopriv_update_course_status', 'update_course_status' );
@@ -747,3 +782,64 @@ function create_course_progress_table() {
 	}
 }
 add_action( 'after_switch_theme', 'create_course_progress_table' );
+
+/**
+ * Function for redirect dynamic link after login.
+ * 
+ * @param string $redirect_to dynamic link.
+ * @param object $user user data.
+ */
+function custom_course_login_redirect( $redirect_to, $user ) {
+	global $wpdb;
+
+	if ( ! $user || is_wp_error( $user ) ) {
+		return $redirect_to;
+	}
+
+	$table_name = $wpdb->prefix . 'course_progress';
+	$user_id    = $user->ID;
+
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	$sql = $wpdb->prepare( "SELECT * FROM {$table_name} WHERE user_id = %d  AND status = %s ORDER BY id DESC LIMIT 1", $user_id, 'in_progress' );
+	// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+	$progress = $wpdb->get_row( $sql );
+
+	if ( $progress ) {
+		$course_link = get_permalink( $progress->course_id );
+		if ( $course_link ) {
+			return $course_link;
+		}
+	} else {
+		$first_course = get_posts(
+			[
+				'post_type'      => 'course',
+				'posts_per_page' => 1,
+				'orderby'        => 'date',
+				'order'          => 'ASC',
+				'fields'         => 'ids',
+			] 
+		);
+
+		if ( ! empty( $first_course ) ) {
+			$course_id = $first_course[0];
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+			$inserted = $wpdb->insert(
+				$table_name,
+				[
+					'user_id'       => $user_id,
+					'course_id'     => $course_id,
+					'status'        => 'in_progress',
+					'progress_time' => '0:00',
+				],
+				[ '%d', '%d', '%s', '%s' ]
+			);
+
+			if ( false !== $inserted ) {
+				return get_permalink( $course_id );
+			}
+		}
+	}
+
+	return home_url();
+}
+add_filter( 'login_redirect', 'custom_course_login_redirect', 10, 3 );
