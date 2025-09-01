@@ -48,7 +48,7 @@ $value_logo       = get_field( 'value_logo' );
 
 	<?php if ( $tiles ) : ?>
 		<section class="tiles-container relative pb-20 min-h-[320px]">
-			<div class="tiles flex justify-center -mt-[140px] gap-6 mx-auto max-w-[844px]">
+			<div class="tiles flex md:flex-row flex-col justify-center -mt-[140px] gap-6 mx-auto max-w-[844px]">
 				<?php foreach ( $tiles as $tile ) : ?>
 					<div
 						class="tile flex flex-col gap-10 text-center bg-white rounded-lg p-10 shadow-[0_10px_16px_rgba(0,0,0,0.1)]">

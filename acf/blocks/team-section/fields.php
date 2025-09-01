@@ -26,7 +26,14 @@ $team
 			'layout'       => 'block',
 		]
 	)
-	->addImage( 'card_image' )
+	->addImage(
+		'card_image',
+		[
+			'preview_size'  => 'medium',
+			'label'         => __( 'Card Image', 'firstfold' ),
+			'return_format' => 'id',
+		]
+	)
 	->addText( 'card_name' )
 	->addText( 'card_title' )
 	->endRepeater()
