@@ -128,7 +128,7 @@ if ( $user_id ) {
 					$courses_id   = get_the_ID();
 					global $wpdb;
 					$table = $wpdb->prefix . 'course_progress';
-						// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 					$check_status = $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$table} WHERE user_id = %d AND course_id = %d", $user_id, $courses_id ) );
 
 					if ( null === $check_status ) {

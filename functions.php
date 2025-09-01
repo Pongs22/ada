@@ -786,10 +786,11 @@ add_action( 'after_switch_theme', 'create_course_progress_table' );
 /**
  * Function for redirect dynamic link after login.
  * 
- * @param string $redirect_to dynamic link.
- * @param object $user user data.
+ * @param string           $redirect_to dynamic link.
+ * @param string           $requested_redirect_to The requested redirect URL (may be empty).
+ * @param WP_User|WP_Error $user        WP_User object if authenticated, WP_Error otherwise.
  */
-function custom_course_login_redirect( $redirect_to, $user ) {
+function custom_course_login_redirect( $redirect_to, $requested_redirect_to, $user ) {
 	global $wpdb;
 
 	if ( ! $user || is_wp_error( $user ) ) {
