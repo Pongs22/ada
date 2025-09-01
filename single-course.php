@@ -150,7 +150,7 @@ if ( $user_id ) {
 					<?php if ( current_user_can( 'basic' ) ) : ?>
 						<button href="<?php the_permalink(); ?>" class="course-button-locked relative flex w-full flex-row gap-x-2 bg-ada_gray-20 px-4 pb-[14px] pt-[18px] opacity-60">
 							<div class="check-progress size-6 shrink-0">
-									<img src="<?php echo esc_url( get_stylesheet_directory_uri() . $status_image ); ?>" class="h-full w-full">
+									<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-advance-icon.svg' ); ?>" class="h-full w-full">
 							</div>
 							<p class="font-geova text-lg font-medium leading-[120%] text-ada_gray-90">
 								<?php the_title(); ?>
@@ -181,12 +181,10 @@ if ( $user_id ) {
 				?>
 				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]" data-video="<?php echo esc_attr( $vimeo_id ); ?>">
 					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
-					<?php if ( empty( $course['status'] ) ) : ?>
-					<?php else : ?>
+					<?php if ( ! empty( $course['status'] ) ) : ?>
 						<div class="video-container" id="videoContainer"></div>
 					<?php endif; ?>
-
-					<div class="course-thumbnail group absolute left-0 top-0 z-[10] h-full cursor-pointer overflow-hidden rounded-[10px] transition-all duration-300">
+					<div class=" <?php echo esc_attr( empty( $course['status'] ) ? 'course-thumbnail-locked' : 'course-thumbnail' ); ?> group absolute left-0 top-0 z-[10] h-full cursor-pointer overflow-hidden rounded-[10px] transition-all duration-300">
 						<?php if ( $featured_image ) : ?>
 							<img src="<?php echo esc_url( $featured_image ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 hover:brightness-75">
 						<?php else : ?>

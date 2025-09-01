@@ -162,7 +162,7 @@ jQuery( function( $ ) {
 				}
 			}, 10 );
 		}
-	} else {
+	} else if ( videoContainer ) {
 		$( videoContainer ).html( createVideoIframe() );
 		iframe = $( '#vimeoPlayer' )[ 0 ];
 		player = new Vimeo.Player( iframe );
@@ -171,6 +171,13 @@ jQuery( function( $ ) {
 		} );
 		$( '.course-thumbnail' ).click( function() {
 			player.play();
+		} );
+	} else {
+		$( '.course-thumbnail-locked' ).click( function() {
+			popupModalFadeIn( '.watch-previous-course-popup-wrapper' );
+		} );
+		$( '.wpc-continue-btn' ).click( function() {
+			popupModalFadeOut( '.watch-previous-course-popup-wrapper' );
 		} );
 	}
 
