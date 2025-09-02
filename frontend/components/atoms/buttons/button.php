@@ -34,9 +34,9 @@ switch ( $ff_btn_size ) {
 		break;
 
 	case 'btn-md':
-		$btn_class .= $ff_is_rounded ? 'rounded-full' : 'rounded-md';
-		$btn_class .= $ff_is_rounded ? ' px-3 py-1.5' : ' px-2.5 py-1.5';
-		$btn_class .= ' text-sm font-semibold shadow-sm';
+		$btn_class .= $ff_is_rounded ? 'rounded-full' : 'rounded-[2px]';
+		$btn_class .= $ff_is_rounded ? ' px-3 py-1.5' : ' px-4 pt-[14px] pb-3';
+		$btn_class .= ' text-lg font-medium';
 		break;
 
 	case 'btn-lg':
@@ -61,7 +61,7 @@ switch ( $ff_btn_type ) {
 		break;
 
 	case 'btn-secondary':
-		$btn_class .= ' bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50';
+		$btn_class .= ' bg-white leading-[21.6px] font-geova leading-[21.6px] uppercase text-ada_red-50 ring-1 ring-inset ring-ada_red-50';
 		break;
 
 	case 'btn-primary-dark':
@@ -116,7 +116,7 @@ if ( 'btn-circular' === $ff_btn_type ) {
 		<?php endif; ?>
 	</button>
 <?php else : ?>
-	<button type="button" class="font-semibold shadow-sm mt-0 <?php echo esc_attr( $btn_class ); ?>">
+	<button type="button" class="<?php echo esc_attr( $btn_class ); ?>" onclick="location.href='<?php echo esc_url( $ff_btn_click ); ?>'">
 		<?php if ( $ff_leading_icon ) : ?>
 			<img class="-ml-0.5 h-5 w-5" width="20" height="20" src="<?php echo esc_url( $ff_leading_icon ); ?>" alt="icon">
 		<?php endif; ?>
