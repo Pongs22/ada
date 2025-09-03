@@ -862,13 +862,13 @@ function send_custom_welcome_email( $user_id ) {
 		if ( 'advanced_user' === $current_role ) {
 			$title = 'YOUR NEXT STAGE AWAITS';
 		} else {
-			$title = 'WELCOME TO ' . get_bloginfo( 'name' ) . '!';
+			$title = 'WELCOME TO ' . strtoupper( get_bloginfo( 'name' ) ) . '!';
 		}
 		
 		$email_content = "
         <html>
         <body style='font-family: Arial, sans-serif; color:#333;'>
-            <div style='text-align:center; padding:32px;'>
+            <div style='text-align:center; padding:32px; background-color: #FAFAFA; max-width: 536px; margin: 0 auto;'>
                 <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
                      alt='Website Logo' 
                      style='max-width:64px; height:auto; margin-bottom: 28px;'>
