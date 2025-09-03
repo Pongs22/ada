@@ -31,7 +31,7 @@ $team_cards    = get_field( 'team_cards' );
 				$card_heading = $card['card_heading'];
 				$card_content = $card['card_content'];
 				?>
-				<div class="team-card flex flex-col gap-[24px] py-10 lg:flex-row lg:justify-between lg:gap-0">
+				<div class="team-card flex flex-col lg:flex-row gap-[24px] lg:gap-0 lg:justify-between py-10">
 					<div class="max-w-[302px]">
 						<h2 class="text-[24px] font-medium uppercase leading-[31px] text-ada_red-50">
 							<?php if ( $card_heading ) : ?>
@@ -43,8 +43,8 @@ $team_cards    = get_field( 'team_cards' );
 					<?php if ( ! empty( $card_content ) ) : ?>
 
 						<div class="-mr-6 md:-mr-8 lg:-mr-0">
-							<div class="no-scrollbar overflow-x-auto">
-								<div class="flex gap-x-3 md:gap-x-4 lg:grid lg:grid-cols-3 lg:gap-x-6">
+							<div class="overflow-x-auto no-scrollbar">
+								<div class="flex lg:grid lg:grid-cols-3 lg:gap-x-6 md:gap-x-4 gap-x-3">
 									<?php
 									foreach ( $card_content as $content_row ) :
 
@@ -59,7 +59,7 @@ $team_cards    = get_field( 'team_cards' );
 													<div class="relative h-full w-full">
 														<?php echo wp_get_attachment_image( $row_image, 'full', '', [ 'class' => 'w-full h-full object-cover object-center' ] ); ?>
 														<div class="card-icon absolute bottom-2.5 right-2.5">
-															<img class="size-4 md:size-6 lg:size-8"
+															<img class="lg:size-8 md:size-6 size-4"
 																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.png' ) ); ?>"
 																alt="social icon" />
 														</div>

@@ -422,6 +422,7 @@ module.exports = {
 				ada_grey: {
 					'10' : '#FAFAFA',
 					'20' : '#D9D9D9',
+					'30' : '#F6F6F6'
 				}
 			},
 			flexBasis: {
