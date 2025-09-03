@@ -22,13 +22,6 @@ $ff_hero
 		]
 	)
 	->addTrueFalse(
-		'disable_animation',
-		[
-			'label'         => 'Disable rectangle animation?',
-			'default_value' => 0,
-		] 
-	)
-	->addTrueFalse(
 		'use_video', 
 		[
 			'label'         => 'Use Background Video Instead?',
@@ -76,25 +69,38 @@ $ff_hero
 	->addLink( 'link' )
 	->conditional( 'hero_style', '==', 'full' )
 
-	->addTrueFalse(
-		'dark_version', 
+	// Full Width Image Fields.
+	->addGroup( 'full_with_image_layout' )
+	->conditional( 'hero_style', '==', 'image' )
+	->addImage(
+		'background_image_dt',
 		[
-			'label'         => 'Use Dark Version?',
-			'default_value' => 0,
+			'preview_size'  => 'full',
+			'label'         => __( 'Background Image (Desktop)', 'firstfold' ),
+			'return_format' => 'id',
+			'instructions'  => 'Recommended Dimension : 1440 x 550',
 		] 
 	)
-	->conditional( 'hero_style', '==', 'image' )
 
 	->addImage(
-		'background_image',
+		'background_image_tb',
 		[
-			'preview_size'  => 'medium',
-			'label'         => __( 'Background Image', 'firstfold' ),
+			'preview_size'  => 'full',
+			'label'         => __( 'Background Image (Tablet)', 'firstfold' ),
 			'return_format' => 'id',
-			'instructions'  => 'Recommended Dimension : 1376 x 450',
+			'instructions'  => 'Recommended Dimension : 768 x 650',
 		] 
 	)
-	->conditional( 'hero_style', '==', 'image' )
+
+	->addImage(
+		'background_image_mb',
+		[
+			'preview_size'  => 'full',
+			'label'         => __( 'Background Image (Tablet)', 'firstfold' ),
+			'return_format' => 'id',
+			'instructions'  => 'Recommended Dimension : 375 x 450',
+		] 
+	)
 
 	->addTextarea(
 		'caption',
@@ -102,7 +108,6 @@ $ff_hero
 			'label'        => 'Title',
 		] 
 	)
-	->conditional( 'hero_style', '==', 'image' )
 
 	->addTextarea(
 		'description',
@@ -110,26 +115,7 @@ $ff_hero
 			'label'        => 'Description',
 		] 
 	)
-	->conditional( 'hero_style', '==', 'image' )
-
-	->addTrueFalse(
-		'hide_extra', 
-		[
-			'label'         => 'Hide extra container?',
-			'default_value' => 1,
-		]
-	)
-	->conditional( 'hero_style', '==', 'image' )
-	->addText( 'extra_title', [ 'label' => 'Title' ] )
-	->conditional( 'hide_extra', '==', 0 )
-	->addTextarea(
-		'extra_description',
-		[
-			'label'     => 'Description',
-			'new_lines' => 'br',
-		]
-	)
-	->conditional( 'hide_extra', '==', 0 )
+	->endGroup()
 	->setLocation( 'block', '==', 'acf/ff-hero' );
 
 return $ff_hero;

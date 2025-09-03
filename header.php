@@ -29,7 +29,7 @@
 
 		<header id="masthead" class="site-header fixed left-0 top-0 z-50 w-full border-b bg-white px-6 py-3 md:px-8 lg:px-10">
 			<div class="ff-c-container m-auto flex flex-row justify-between">
-				<div class="site-branding size-12">
+				<div class="site-branding size-16">
 					<?php
 					the_custom_logo();
 					?>
