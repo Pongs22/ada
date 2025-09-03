@@ -16,6 +16,12 @@ div::-webkit-scrollbar {
 	display: none; /* Chrome, Safari, Opera */
 }
 
+.site-main {
+	position: relative;
+	z-index: 49;
+	background-color: colors.$white;
+}
+
 .swiper-button-disabled {
 	opacity: 50%;
 }

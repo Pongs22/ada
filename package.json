@@ -57,7 +57,6 @@
     "compile:css": "node-sass sass/ -o ./ && stylelint '*.css' --fix || true && stylelint '*.css' --fix",
     "compile:rtl": "rtlcss style.css style-rtl.css",
     "lint:scss": "wp-scripts lint-style frontend/resources/sass/**/*.scss",
-    "lint:tailwind": "wp-scripts lint-style 'tailwind/src/**/*.scss' 'tailwind/src/*.scss' || wp-scripts lint-style \"tailwind/src/**/*.scss\" \"tailwind/src/*.scss\"",
     "lint:componentscss": "wp-scripts lint-style frontend/components/**/**/*.scss",
     "lint:js": "wp-scripts lint-js frontend/resources/js/*.js",
     "lint:blockjs": "wp-scripts lint-js acf/blocks/**/**/*.js --quiet",

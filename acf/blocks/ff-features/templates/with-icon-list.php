@@ -12,8 +12,8 @@ $wic_link       = $with_icon_list['link'] ?: '';
 ?>
 
 <div class="with-icon-list bg-white px-5 py-10 md:px-8 md:py-[60px] lg:px-10 lg:py-20">
-	<div class="ff-c-container grid grid-cols-1 gap-x-6 gap-y-12 2xl:container lg:grid-cols-12">
-		<div class="information-container flex flex-col justify-between gap-y-12 lg:col-span-7">
+	<div class="ff-c-container flex flex-col justify-between gap-x-6 rounded-[20px] bg-[#f5f5f5] p-20 md:flex-row">
+		<div class="information-container flex w-full flex-col justify-between gap-y-12">
 			<header>
 				<h2 class="text-ada_red-50 md:max-w-[400px] lg:max-w-[540px]"><?php echo esc_html( $with_icon_list['title'] ); ?></h3>
 					<p class="mt-3 max-w-[475px] text-base leading-6 text-ada_gray-90 lg:max-w-[540px] lg:text-lg lg:leading-[140%]"><?php echo esc_html( $with_icon_list['description'] ?: '' ); ?></p>
@@ -24,25 +24,25 @@ $wic_link       = $with_icon_list['link'] ?: '';
 					<?php endif; ?>
 			</header>
 			<?php if ( ! empty( $with_icon_list['icon_list'] ) ) : ?>
-				<ul class="icon-list-wrapper grid grid-cols-1 gap-6 md:grid-cols-2">
+				<ul class="icon-list-wrapper flex w-full flex-col gap-6 2xl:flex-row">
 					<?php
 					foreach ( $with_icon_list['icon_list'] as $list ) :
 						?>
 						<li class="list-container">
 							<?php if ( $list['icon'] ) : ?>
-								<?php echo wp_get_attachment_image( $list['icon'], 'full', '', [ 'class' => 'size-10' ] ); ?>
+								<?php echo wp_get_attachment_image( $list['icon'], 'full', '', [ 'class' => 'size-16 ' ] ); ?>
 							<?php elseif ( $is_preview ) : ?>
 								<img src="<?php echo esc_url( ff_get_block_asset( 'ff-features', 'gl-c-arrow-left.svg' ) ); ?>" alt="icon"> 
 							<?php endif; ?>
 							<h4 class="mt-5 !capitalize text-ada_red-50"><?php echo esc_html( $list['title'] ); ?></h4>
-							<div class="mt-1 text-lg leading-6 text-ada_gray-90"><?php echo wp_kses_post( $list['description'] ); ?></div>
+							<div class="mt-1 w-full max-w-[438px] text-lg leading-6 text-ada_gray-90"><?php echo wp_kses_post( $list['description'] ); ?></div>
 						</li>
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
 		</div>
-		<div class="image-container lg:col-span-5">
-			<?php echo wp_get_attachment_image( $with_icon_list['image'], 'full', false, array( 'class' => 'h-full w-full shadow-lg' ) ); ?>
+		<div class="image-container w-full max-w-[519px]">
+			<?php echo wp_get_attachment_image( $with_icon_list['image'], 'full', false, array( 'class' => 'h-full w-full shadow-lg object-cover object-center rounded-[8px]' ) ); ?>
 		</div>
 	</div>
 </div>

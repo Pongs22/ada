@@ -800,6 +800,7 @@ add_action( 'register_new_user', 'send_admin_only_notification' );
 
 /**
  * Sends a welcome email with a password reset link to newly registered users.
+ * This is sent when the account is first created.
  *
  * @param int $user_id The ID of the newly registered user.
  * @return void
@@ -825,7 +826,18 @@ function send_custom_welcome_email( $user_id ) {
 	// Check if user has roles that should receive styled email.
 	$styled_email_roles = array( 'basic', 'advanced' );
 	$user_roles         = $user->roles;
-	$send_styled_email  = false;
+	$current_role       = ! empty( $user_roles ) ? $user_roles[0] : '';
+	
+	// Welcome message for new registrations (same for both basic and advanced).
+	$welcome_message = "<p>Hello <strong>{$user_login}</strong>,</p>
+		<p>You are now registered as <strong>" . ucfirst( $current_role ) . "</strong> in our community. You're not just joining a platform,
+		you're becoming part of a growing community of learners and achievers.
+		We can't wait to see how you'll learn, grow, and put your skills into action.</p>
+		<p>To get started, please set up your password using the button below. This will give you secure access to your account and all the resources available to your role.</p>
+		Best regards,<br>
+		Apex Digital Academy Team";
+
+	$send_styled_email = false;
 	
 	foreach ( $styled_email_roles as $styled_role ) {
 		if ( in_array( $styled_role, $user_roles, true ) ) {
@@ -837,81 +849,65 @@ function send_custom_welcome_email( $user_id ) {
 	// Prepare email content based on user role.
 	if ( $send_styled_email ) {
 		// Build the styled email template HTML for Basic/Advanced users.
-		$title = 'WELCOME TO ' . get_bloginfo( 'name' ) . '!';
+		$title = 'WELCOME TO ' . strtoupper( get_bloginfo( 'name' ) ) . '!';
 		
 		$email_content = "
         <html>
         <body style='font-family: Arial, sans-serif; color:#333;'>
-            <div style='text-align:center; padding:32px;'>
+            <div style='text-align:center; padding:32px; background-color: #FAFAFA; max-width: 536px; margin: 0 auto;'>
                 <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
                      alt='Website Logo' 
                      style='max-width:64px; height:auto; margin-bottom: 28px;'>
-                <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0;'>{$title}</h2>
+                <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0; font-weight: normal;'>{$title}</h2>
                 <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756622027/image_11_bzmuei.png'
                      alt='Email Image' 
                      style='max-width: 536px; height: auto; margin-bottom: 28px;'>
                 
                 <!-- Custom marketing message. -->
-                <p style='font-size:16px; line-height:1.5; color:#333; text-align:center; margin: 0 auto; max-width: 536px; padding-bottom: 28px;'>
-                    Hello <strong>{$user_login}</strong>, Create your next project with high-quality images, videos, and sounds 
-                    from the world's leading content library. Whatever you need you'll find right here—
-                    because if it's in your head, it's on our site.
-                </p>
+                <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='536' style='border-collapse:collapse;'>
+                  <tr>
+                    <td style='text-align:left; font-size:14px; line-height:160%; color:#333; padding-bottom:28px;'>
+                      {$welcome_message}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align='left'>
+                      <a href='{$reset_url}' 
+                         style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
+                         SET YOUR PASSWORD
+                      </a>
+                    </td>
+                  </tr>
+                </table>
 
-                <!-- Main body. -->
-                <a href='{$reset_url}' style='display:inline-block; line-height: 120%; font-size: 18px; background:#CB131B; color:#fff; padding: 14px 16px 12px;
-                text-decoration:none;'>
-                    Set Your Password
-                </a>
             </div>
-        </body>
-        <table role='presentation' width='100%'  border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px;'>
-          <tr>
-            <td background='https://res.cloudinary.com/do8kly5dl/image/upload/v1756632851/Frame_1410134226_2_exnl0x.png' 
-                bgcolor='#ffffff' 
-                style='background-repeat:no-repeat; background-position:center; max-width: 600px; height: 276px;'>
-                
-              <!-- Footer content. -->
-              <table role='presentation' width='100%' border='0' cellspacing='0' cellpadding='0' style='max-width: 600px; text-align: center; margin: 0 auto;'>
-                <tr>
-                    <td align='center' style='padding-bottom: 20px; padding-top: 40px;'>
-                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
-                         alt='Company Logo' 
-                         style='max-width:100px; height:auto;' />
+           <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='600' style='background-color:#F0F0F0;'>
+            <tr>
+              <td style='padding:18px 32px; text-align:center;'>
+                <table role='presentation' border='0' cellspacing='0' cellpadding='0' width='100%' style='border-collapse:collapse;'>
+                  <tr>
+                    <td style='text-align:left; vertical-align:middle; font-size:8px; line-height:120%; margin:0;'>
+                      © 2025 Apex Digital Academy. All rights reserved.
                     </td>
-                </tr>
-                
-                <tr>
-                    <td align='center' style='padding-bottom: 20px;'>
-                        <p 
-                           style='text-align: center; text-decoration: none; color: #fff; font-size: 12px; line-height: 150%; margin: 0;'>
-                           9 Straits View, Marina One <br> West Tower, Singapore 018937
-                        </p>
-                    </td>
-                <tr>
-                
-                <tr>
-                    <td align='center' style='padding-bottom: 20px;'>
-                        <a href='https://facebook.com' style='text-decoration: none; text-align:center;'>
-                           <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756631854/uiw_facebook_g0rctw.png' 
+                    <td style='text-align:right; vertical-align:middle;'>
+                      <a href='https://facebook.com' style='text-decoration:none; margin-right:24px;'>
+                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825511/uiw_facebook_1_uc7b3d.png' 
                              alt='Facebook Logo' 
-                             style='max-width:20px; height:auto;' />
-                        </a>
-                        <a href='https://x.com' style='text-align: center; text-decoration: none; margin-left: 24px;'>
-                           <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756631855/prime_twitter_gfifys.png' 
+                             width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                      </a>
+                      <a href='https://x.com' style='text-decoration:none;'>
+                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825510/prime_twitter_1_jti9ng.png' 
                              alt='X Logo' 
-                             style='max-width:20px; height:auto;' />
-                        </a>
+                             width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                      </a>
                     </td>
-                <tr>
-              </table>
-               
-            </td>
-          </tr>
-        </table>
-        <div style='text-align: center; margin: 0 auto;'>    
-            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756634218/Frame_1410134220_hcgfmq.png' alt='copyright' style='max-width: 600px; height: auto; ' >
-        </div>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+        </body>
         </html>
         ";
 		
@@ -931,7 +927,7 @@ function send_custom_welcome_email( $user_id ) {
 	// Send to the user.
 	wp_mail(
 		$user_email,
-		'Welcome to ' . get_bloginfo( 'name' ) . ' – Set Your Password',
+		'Welcome to ' . get_bloginfo( 'name' ),
 		$email_content,
 		$headers
 	);
@@ -948,6 +944,144 @@ function send_custom_welcome_email( $user_id ) {
 	}
 }
 add_action( 'user_register', 'send_custom_welcome_email' );
+
+/**
+ * Sends a role upgrade email when a user's role is updated.
+ * This function should be called when roles are changed (not on initial registration).
+ *
+ * @param int    $user_id The ID of the user whose role was updated.
+ * @param string $new_role The new role assigned to the user.
+ * @param string $old_role The previous role (optional).
+ * @return void
+ */
+function send_role_upgrade_email( $user_id, $new_role, $old_role = '' ) {
+	$user       = get_userdata( $user_id );
+	$user_login = $user->user_login;
+	$user_email = $user->user_email;
+
+	// Only send upgrade emails for basic -> advanced or similar upgrades.
+	$upgrade_roles = array( 'advanced' );
+	
+	if ( ! in_array( $new_role, $upgrade_roles, true ) ) {
+		return; // Don't send upgrade email for non-upgrade roles.
+	}
+
+	// Role upgrade messages.
+	$upgrade_messages = [
+		'advanced' => "<p>Hello <strong>{$user_login}</strong>,</p>
+		<p>Congratulations on upgrading to the <strong>Advanced</strong> role at Apex Digital Academy! 
+		This new stage unlocks exclusive resources, deeper learning opportunities, and tools designed to accelerate your growth. 
+		You've already shown commitment by moving beyond the basics, now it's time to maximize your potential and achieve even more.</p>",
+	];
+	
+	$upgrade_message = $upgrade_messages[ $new_role ] ?? '';
+	
+	if ( empty( $upgrade_message ) ) {
+		return; // No upgrade message defined for this role.
+	}
+
+	// Build the styled email template HTML for role upgrades.
+	$title = 'YOUR NEXT STAGE AWAITS';
+	
+	$email_content = "
+    <html>
+    <body style='font-family: Arial, sans-serif; color:#333;'>
+        <div style='text-align:center; padding:32px; background-color: #FAFAFA; max-width: 536px; margin: 0 auto;'>
+            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
+                 alt='Website Logo' 
+                 style='max-width:64px; height:auto; margin-bottom: 28px;'>
+            <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0; font-weight: normal;'>{$title}</h2>
+            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756883645/image_18_emlrjk.png'
+                 alt='Email Image' 
+                 style='max-width: 536px; height: auto; margin-bottom: 28px;'>
+            
+            <!-- Custom marketing message. -->
+            <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='536' style='border-collapse:collapse;'>
+              <tr>
+                <td style='text-align:left; font-size:14px; line-height:160%; color:#333; padding-bottom:28px;'>
+                  {$upgrade_message}
+                </td>
+              </tr>
+              <tr>
+                <td align='left'>
+                  <a href='" . site_url( '/' ) . "' 
+                     style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
+                     GO TO WEBSITE
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+        </div>
+       <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='600' style='background-color:#F0F0F0;'>
+        <tr>
+          <td style='padding:18px 32px; text-align:center;'>
+            <table role='presentation' border='0' cellspacing='0' cellpadding='0' width='100%' style='border-collapse:collapse;'>
+              <tr>
+                <td style='text-align:left; vertical-align:middle; font-size:8px; line-height:120%; margin:0;'>
+                  © 2025 Apex Digital Academy. All rights reserved.
+                </td>
+                <td style='text-align:right; vertical-align:middle;'>
+                  <a href='https://facebook.com' style='text-decoration:none; margin-right:24px;'>
+                    <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825511/uiw_facebook_1_uc7b3d.png' 
+                         alt='Facebook Logo' 
+                         width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                  </a>
+                  <a href='https://x.com' style='text-decoration:none;'>
+                    <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825510/prime_twitter_1_jti9ng.png' 
+                         alt='X Logo' 
+                         width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </body>
+    </html>
+    ";
+	
+	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+
+	// Send to the user.
+	wp_mail(
+		$user_email,
+		'Congratulations on Your Upgrade!',
+		$email_content,
+		$headers
+	);
+
+	// Send notification to admin.
+	$admin_email = get_option( 'admin_email' );
+	if ( $admin_email && $admin_email !== $user_email ) {
+		wp_mail(
+			$admin_email,
+			'User Role Upgraded: ' . $user_login . ' -> ' . ucfirst( $new_role ),
+			$email_content,
+			$headers
+		);
+	}
+}
+
+/**
+ * Hook into role changes to send upgrade emails.
+ * This function detects when a user's role is changed and sends appropriate emails.
+ *
+ * @param int    $user_id The user ID.
+ * @param string $new_role The new role.
+ * @param array  $old_roles The old roles.
+ */
+function handle_user_role_change( $user_id, $new_role, $old_roles ) {
+	$old_role = ! empty( $old_roles ) ? $old_roles[0] : '';
+	
+	// Only send upgrade email if this is actually an upgrade, not initial registration.
+	if ( ! empty( $old_role ) && $old_role !== $new_role ) {
+		send_role_upgrade_email( $user_id, $new_role, $old_role );
+	}
+}
+add_action( 'set_user_role', 'handle_user_role_change', 10, 3 );
 
 /**
  * Function for redirect dynamic link after login.

@@ -11,7 +11,7 @@ $simple_cta  = get_field( 'simple_cta_layout' );
 $simple_link = $simple_cta['link'] ?: '';
 ?>
 
-<div class="simple-cta-layout bg-[#fafafa] px-6 py-10 md:px-8 md:py-[60px] lg:px-10 lg:py-10">
+<div class="simple-cta-layout bg-[#fafafa] px-6 py-10 md:px-8 md:py-[60px] lg:px-10 lg:py-10 xl:px-20">
 	<div class="ff-c-container flex flex-row justify-between gap-x-6 gap-y-12">
 		<header class="w-full max-w-[517px]">
 			<h3 class="text-ada_red-50 md:max-w-[400px] lg:max-w-[540px]"><?php echo esc_html( $simple_cta['title'] ); ?></h3>

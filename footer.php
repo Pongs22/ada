@@ -10,50 +10,54 @@
  */
 
 ?>
-
-<footer id="colophon" class="relative bg-ada_red-70 leading-6 text-gray-600">
-	<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
-		class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
-	<div class="ff-c-container relative z-10 flex flex-col gap-y-10 py-10">
-		<div class="site-branding size-[160px]">
-			<?php
-			the_custom_logo();
-			?>
-		</div>
-		<p class="max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
-	</div>
-	<div class="relative z-10 bg-[#d6d6d6]/10 px-8 py-3">
-		<div class="ff-c-container flex flex-row justify-between">
-			<p class="my-auto text-base leading-[120%] text-white">© 2025 Apex Digital Academy. All rights reserved.</p>
-			<div class="h-12"></div>
-			<div class="flex">
-				<nav id="privacy-menu" class="relative z-50 my-auto mr-2 px-4 text-white">
+<div class="z-0 h-[395px]"></div>
+<footer id="colophon" class="fixed bottom-0 left-0 z-10 w-full">
+	<div class="relative h-[395px] bg-ada_red-70 leading-6 text-gray-600">
+		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
+			class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
+		<div class="px-6 md:px-8 lg:px-10 xl:px-20">
+			<div class="ff-c-container relative z-10 flex flex-col gap-y-10 py-10">
+				<div class="site-branding size-[160px]">
 					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'privacy-menu',
-							'menu_id'        => 'privacy-menu',
-
-						)
-					);
+					the_custom_logo();
 					?>
-				</nav>
-				<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-divider.svg' ); ?>"
-					class="my-auto mr-6" />
-				<nav id="social-menu" class="relative z-50 my-auto text-white">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'social-menu',
-							'menu_id'        => 'social-menu',
-							'menu_class'     => 'flex gap-4',
-						)
-					);
-					?>
-				</nav>
+				</div>
+				<p class="max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
 			</div>
+		</div>
+		<div class="relative z-10 bg-[#d6d6d6]/10 px-6 py-3 md:px-8 lg:px-10 xl:px-20">
+			<div class="ff-c-container flex flex-row justify-between">
+				<p class="my-auto text-base leading-[120%] text-white">© 2025 Apex Digital Academy. All rights reserved.</p>
+				<div class="h-12"></div>
+				<div class="flex">
+					<nav id="privacy-menu" class="relative z-50 my-auto mr-2 px-4 text-white">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'privacy-menu',
+								'menu_id'        => 'privacy-menu',
+
+							)
+						);
+						?>
+					</nav>
+					<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-divider.svg' ); ?>"
+						class="my-auto mr-6" />
+					<nav id="social-menu" class="relative z-50 my-auto text-white">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'social-menu',
+								'menu_id'        => 'social-menu',
+								'menu_class'     => 'flex gap-4',
+							)
+						);
+						?>
+					</nav>
+				</div>
 
 
+			</div>
 		</div>
 	</div>
 </footer><!-- #colophon -->
@@ -86,40 +90,47 @@
 		</div>
 	</div>
 </div>
+<div class="watch-previous-course-popup-wrapper fixed left-1/2 top-1/2 z-[9999999] hidden w-full -translate-x-1/2 -translate-y-1/2 px-6 opacity-0 transition-all duration-300 sm:max-w-[400px] sm:px-0">
+	<div class="relative flex flex-col gap-y-6 overflow-hidden rounded-lg bg-white p-6">
+		<p class="font-geova font-medium">To ensure a coherent learning progression, it is advisable to review the earlier course before beginning this material</p>
+		<div class="options-container flex flex-row justify-end gap-x-6">
+			<button class="wpc-continue-btn font-geova font-medium text-ada_red-50">Got It</button>
+		</div>
+	</div>
+</div>
 <div
-	class="login-popup-wrapper fixed inset-0 hidden opacity-0 z-[9999999] flex items-center justify-center md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-	<div class="login-popup-content relative flex flex-col w-full md:max-w-[550px] bg-white md:p-8 px-6 py-10 transform translate-y-full md:translate-y-0 ease-in-out transition-transform duration-300 
-		md:rounded-lg rounded-t-[8px] mt-auto md:mt-0">
-		<div class="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 rounded-[100px] bg-ada_grey-20 md:hidden"></div>
-		<button class="login-close-button hidden md:flex justify-end">
+	class="login-popup-wrapper fixed inset-0 z-[9999999] flex hidden items-center justify-center opacity-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+	<div class="login-popup-content relative mt-auto flex w-full translate-y-full transform flex-col rounded-t-[8px] bg-white px-6 py-10 transition-transform duration-300 ease-in-out md:mt-0 md:max-w-[550px] md:translate-y-0 md:rounded-lg md:p-8">
+		<div class="absolute left-1/2 top-2 h-1 w-12 -translate-x-1/2 rounded-[100px] bg-ada_grey-20 md:hidden"></div>
+		<button class="login-close-button hidden justify-end md:flex">
 			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-close-button.svg' ); ?>"
 				alt="Close" />
 		</button>
 		<h4
-			class="font-medium text-[20px] md:text-[36px] md:leading-[43.2px] leading-[24px] text-ada_red-50 md:mb-6 mb-5 capitalize">
+			class="mb-5 text-[20px] font-medium capitalize leading-[24px] text-ada_red-50 md:mb-6 md:text-[36px] md:leading-[43.2px]">
 			Welcome Back
 		</h4>
 		<form>
-			<div class="login-form md:space-y-8 space-y-5 md:mb-10 mb-8">
-				<div class="email-field flex flex-col md:gap-[6px] gap-[2px]">
-					<label class="capitalize font-geova leading-[21px] text-[14px] font-normal text-ada_gray-90">Email
+			<div class="login-form mb-8 space-y-5 md:mb-10 md:space-y-8">
+				<div class="email-field flex flex-col gap-[2px] md:gap-[6px]">
+					<label class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Email
 						address</label>
 					<input placeholder="JohnDoe@gmail.com"
-						class="bg-ada_grey-10 px-4 pt-3 pb-[9px] border-ada_gray-30 p-2 rounded" type="email"
+						class="rounded border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="email"
 						name="login-email">
 				</div>
 				<div class="password-field flex flex-col gap-[6px]">
 					<label
-						class="capitalize font-geova leading-[21px] text-[14px] font-normal text-ada_gray-90">Password</label>
+						class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Password</label>
 					<input placeholder="JohnDoe@gmail.com"
-						class="bg-ada_grey-10 px-4 pt-3 pb-[9px] border border-ada_gray-30 p-2 rounded" type="password"
+						class="rounded border border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="password"
 						name="login-password">
 				</div>
 			</div>
 
 			<div class="login-button">
 				<button type="submit"
-					class="block w-full rounded-[2px] border-ada_red-50 bg-ada_red-50 px-4 md:pt-[14px] pt-3 md:pb-3 pb-[8px] text-white text-center text-[14px] md:text-[18px] font-medium uppercase leading-[21.6px]">
+					class="block w-full rounded-[2px] border-ada_red-50 bg-ada_red-50 px-4 pb-[8px] pt-3 text-center text-[14px] font-medium uppercase leading-[21.6px] text-white md:pb-3 md:pt-[14px] md:text-[18px]">
 					Log in
 				</button>
 			</div>
