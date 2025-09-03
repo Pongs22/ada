@@ -800,6 +800,7 @@ add_action( 'register_new_user', 'send_admin_only_notification' );
 
 /**
  * Sends a welcome email with a password reset link to newly registered users.
+ * This is sent when the account is first created.
  *
  * @param int $user_id The ID of the newly registered user.
  * @return void
@@ -823,29 +824,18 @@ function send_custom_welcome_email( $user_id ) {
 	);
 
 	// Check if user has roles that should receive styled email.
-	$styled_email_roles = array( 'basic_user', 'advanced_user' );
+	$styled_email_roles = array( 'basic', 'advanced' );
 	$user_roles         = $user->roles;
 	$current_role       = ! empty( $user_roles ) ? $user_roles[0] : '';
 	
-	$role_messages = [
-		'basic_user'    => "<p>Hello <strong>{$user_login}</strong>,</p>
-		<p>You are now registered as <strong>Basic</strong> in our community. You're not just joining a platform,
+	// Welcome message for new registrations (same for both basic and advanced).
+	$welcome_message = "<p>Hello <strong>{$user_login}</strong>,</p>
+		<p>You are now registered as <strong>" . ucfirst( $current_role ) . "</strong> in our community. You're not just joining a platform,
 		you're becoming part of a growing community of learners and achievers.
 		We can't wait to see how you'll learn, grow, and put your skills into action.</p>
 		<p>To get started, please set up your password using the button below. This will give you secure access to your account and all the resources available to your role.</p>
 		Best regards,<br>
-		Apex Digital Academy Team",
-
-		'advanced_user' => "<p>Hello <strong>{$user_login}</strong>,</p>
-		<p>Congratulations on upgrading to the <strong>Advanced</strong> role at Apex Digital Academy! 
-		This new stage unlocks exclusive resources, deeper learning opportunities, and tools designed to accelerate your growth. 
-		You've already shown commitment by moving beyond the basics, now it's time to maximize your potential and achieve even more.</p>",
-	];
-	
-	$role_message = $role_messages[ $current_role ] ?? "Hello {$user_login}, <br><br>
-	Welcome to Apex Digital Academy! Please set up your password using the button below.<br><br>
-	Best regards,<br>
-	Apex Digital Academy Team";
+		Apex Digital Academy Team";
 
 	$send_styled_email = false;
 	
@@ -859,16 +849,12 @@ function send_custom_welcome_email( $user_id ) {
 	// Prepare email content based on user role.
 	if ( $send_styled_email ) {
 		// Build the styled email template HTML for Basic/Advanced users.
-		if ( 'advanced_user' === $current_role ) {
-			$title = 'YOUR NEXT STAGE AWAITS';
-		} else {
-			$title = 'WELCOME TO ' . get_bloginfo( 'name' ) . '!';
-		}
+		$title = 'WELCOME TO ' . strtoupper( get_bloginfo( 'name' ) ) . '!';
 		
 		$email_content = "
         <html>
         <body style='font-family: Arial, sans-serif; color:#333;'>
-            <div style='text-align:center; padding:32px;'>
+            <div style='text-align:center; padding:32px; background-color: #FAFAFA; max-width: 536px; margin: 0 auto;'>
                 <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
                      alt='Website Logo' 
                      style='max-width:64px; height:auto; margin-bottom: 28px;'>
@@ -881,22 +867,15 @@ function send_custom_welcome_email( $user_id ) {
                 <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='536' style='border-collapse:collapse;'>
                   <tr>
                     <td style='text-align:left; font-size:14px; line-height:160%; color:#333; padding-bottom:28px;'>
-                      {$role_message}
+                      {$welcome_message}
                     </td>
                   </tr>
                   <tr>
                     <td align='left'>
-                      " . (
-						'advanced_user' === $current_role
-						? "<a href='" . site_url( '/' ) . "' 
-                              style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
-                             GO TO WEBSITE
-                           </a>"
-						: "<a href='{$reset_url}' 
-                              style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
-                             SET YOUR PASSWORD
-                           </a>"
-					) . "
+                      <a href='{$reset_url}' 
+                         style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
+                         SET YOUR PASSWORD
+                      </a>
                     </td>
                   </tr>
                 </table>
@@ -965,6 +944,144 @@ function send_custom_welcome_email( $user_id ) {
 	}
 }
 add_action( 'user_register', 'send_custom_welcome_email' );
+
+/**
+ * Sends a role upgrade email when a user's role is updated.
+ * This function should be called when roles are changed (not on initial registration).
+ *
+ * @param int    $user_id The ID of the user whose role was updated.
+ * @param string $new_role The new role assigned to the user.
+ * @param string $old_role The previous role (optional).
+ * @return void
+ */
+function send_role_upgrade_email( $user_id, $new_role, $old_role = '' ) {
+	$user       = get_userdata( $user_id );
+	$user_login = $user->user_login;
+	$user_email = $user->user_email;
+
+	// Only send upgrade emails for basic -> advanced or similar upgrades.
+	$upgrade_roles = array( 'advanced' );
+	
+	if ( ! in_array( $new_role, $upgrade_roles, true ) ) {
+		return; // Don't send upgrade email for non-upgrade roles.
+	}
+
+	// Role upgrade messages.
+	$upgrade_messages = [
+		'advanced' => "<p>Hello <strong>{$user_login}</strong>,</p>
+		<p>Congratulations on upgrading to the <strong>Advanced</strong> role at Apex Digital Academy! 
+		This new stage unlocks exclusive resources, deeper learning opportunities, and tools designed to accelerate your growth. 
+		You've already shown commitment by moving beyond the basics, now it's time to maximize your potential and achieve even more.</p>",
+	];
+	
+	$upgrade_message = $upgrade_messages[ $new_role ] ?? '';
+	
+	if ( empty( $upgrade_message ) ) {
+		return; // No upgrade message defined for this role.
+	}
+
+	// Build the styled email template HTML for role upgrades.
+	$title = 'YOUR NEXT STAGE AWAITS';
+	
+	$email_content = "
+    <html>
+    <body style='font-family: Arial, sans-serif; color:#333;'>
+        <div style='text-align:center; padding:32px; background-color: #FAFAFA; max-width: 536px; margin: 0 auto;'>
+            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
+                 alt='Website Logo' 
+                 style='max-width:64px; height:auto; margin-bottom: 28px;'>
+            <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0; font-weight: normal;'>{$title}</h2>
+            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756883645/image_18_emlrjk.png'
+                 alt='Email Image' 
+                 style='max-width: 536px; height: auto; margin-bottom: 28px;'>
+            
+            <!-- Custom marketing message. -->
+            <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='536' style='border-collapse:collapse;'>
+              <tr>
+                <td style='text-align:left; font-size:14px; line-height:160%; color:#333; padding-bottom:28px;'>
+                  {$upgrade_message}
+                </td>
+              </tr>
+              <tr>
+                <td align='left'>
+                  <a href='" . site_url( '/' ) . "' 
+                     style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
+                     GO TO WEBSITE
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+        </div>
+       <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='600' style='background-color:#F0F0F0;'>
+        <tr>
+          <td style='padding:18px 32px; text-align:center;'>
+            <table role='presentation' border='0' cellspacing='0' cellpadding='0' width='100%' style='border-collapse:collapse;'>
+              <tr>
+                <td style='text-align:left; vertical-align:middle; font-size:8px; line-height:120%; margin:0;'>
+                  © 2025 Apex Digital Academy. All rights reserved.
+                </td>
+                <td style='text-align:right; vertical-align:middle;'>
+                  <a href='https://facebook.com' style='text-decoration:none; margin-right:24px;'>
+                    <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825511/uiw_facebook_1_uc7b3d.png' 
+                         alt='Facebook Logo' 
+                         width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                  </a>
+                  <a href='https://x.com' style='text-decoration:none;'>
+                    <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825510/prime_twitter_1_jti9ng.png' 
+                         alt='X Logo' 
+                         width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </body>
+    </html>
+    ";
+	
+	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+
+	// Send to the user.
+	wp_mail(
+		$user_email,
+		'Congratulations on Your Upgrade!',
+		$email_content,
+		$headers
+	);
+
+	// Send notification to admin.
+	$admin_email = get_option( 'admin_email' );
+	if ( $admin_email && $admin_email !== $user_email ) {
+		wp_mail(
+			$admin_email,
+			'User Role Upgraded: ' . $user_login . ' -> ' . ucfirst( $new_role ),
+			$email_content,
+			$headers
+		);
+	}
+}
+
+/**
+ * Hook into role changes to send upgrade emails.
+ * This function detects when a user's role is changed and sends appropriate emails.
+ *
+ * @param int    $user_id The user ID.
+ * @param string $new_role The new role.
+ * @param array  $old_roles The old roles.
+ */
+function handle_user_role_change( $user_id, $new_role, $old_roles ) {
+	$old_role = ! empty( $old_roles ) ? $old_roles[0] : '';
+	
+	// Only send upgrade email if this is actually an upgrade, not initial registration.
+	if ( ! empty( $old_role ) && $old_role !== $new_role ) {
+		send_role_upgrade_email( $user_id, $new_role, $old_role );
+	}
+}
+add_action( 'set_user_role', 'handle_user_role_change', 10, 3 );
 
 /**
  * Function for redirect dynamic link after login.
