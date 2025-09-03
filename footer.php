@@ -10,52 +10,54 @@
  */
 
 ?>
-
-<footer id="colophon" class="relative bg-ada_red-70 leading-6 text-gray-600">
-	<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
-		class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
-	<div class="px-6 md:px-8 lg:px-10 xl:px-20">
-		<div class="ff-c-container relative z-10 flex flex-col gap-y-10 py-10">
-			<div class="site-branding size-[160px]">
-				<?php
-				the_custom_logo();
-				?>
+<div class="z-0 h-[395px]"></div>
+<footer id="colophon" class="fixed bottom-0 left-0 z-10 w-full">
+	<div class="relative h-[395px] bg-ada_red-70 leading-6 text-gray-600">
+		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
+			class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
+		<div class="px-6 md:px-8 lg:px-10 xl:px-20">
+			<div class="ff-c-container relative z-10 flex flex-col gap-y-10 py-10">
+				<div class="site-branding size-[160px]">
+					<?php
+					the_custom_logo();
+					?>
+				</div>
+				<p class="max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
 			</div>
-			<p class="max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
 		</div>
-	</div>
-	<div class="relative z-10 bg-[#d6d6d6]/10 px-6 py-3 md:px-8 lg:px-10 xl:px-20">
-		<div class="ff-c-container flex flex-row justify-between">
-			<p class="my-auto text-base leading-[120%] text-white">© 2025 Apex Digital Academy. All rights reserved.</p>
-			<div class="h-12"></div>
-			<div class="flex">
-				<nav id="privacy-menu" class="relative z-50 my-auto mr-2 px-4 text-white">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'privacy-menu',
-							'menu_id'        => 'privacy-menu',
+		<div class="relative z-10 bg-[#d6d6d6]/10 px-6 py-3 md:px-8 lg:px-10 xl:px-20">
+			<div class="ff-c-container flex flex-row justify-between">
+				<p class="my-auto text-base leading-[120%] text-white">© 2025 Apex Digital Academy. All rights reserved.</p>
+				<div class="h-12"></div>
+				<div class="flex">
+					<nav id="privacy-menu" class="relative z-50 my-auto mr-2 px-4 text-white">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'privacy-menu',
+								'menu_id'        => 'privacy-menu',
 
-						)
-					);
-					?>
-				</nav>
-				<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-divider.svg' ); ?>"
-					class="my-auto mr-6" />
-				<nav id="social-menu" class="relative z-50 my-auto text-white">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'social-menu',
-							'menu_id'        => 'social-menu',
-							'menu_class'     => 'flex gap-4',
-						)
-					);
-					?>
-				</nav>
+							)
+						);
+						?>
+					</nav>
+					<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-divider.svg' ); ?>"
+						class="my-auto mr-6" />
+					<nav id="social-menu" class="relative z-50 my-auto text-white">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'social-menu',
+								'menu_id'        => 'social-menu',
+								'menu_class'     => 'flex gap-4',
+							)
+						);
+						?>
+					</nav>
+				</div>
+
+
 			</div>
-
-
 		</div>
 	</div>
 </footer><!-- #colophon -->
