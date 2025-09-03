@@ -37,7 +37,6 @@ $team
 	->addText( 'card_name' )
 	->addText( 'card_title' )
 	->endRepeater()
-	->endRepeater()
 	->setLocation( 'block', '==', 'acf/team-section' );
 
 return $team;

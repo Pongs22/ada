@@ -31,7 +31,7 @@ $team_cards    = get_field( 'team_cards' );
 				$card_heading = $card['card_heading'];
 				$card_content = $card['card_content'];
 				?>
-				<div class="team-card flex flex-col lg:flex-row gap-[24px] lg:gap-0 lg:justify-between py-10">
+				<div class="team-card flex flex-col lg:flex-row gap-[24px] lg:gap-0 lg:justify-between py-[44px]">
 					<div class="max-w-[302px]">
 						<h2 class="font-medium text-[24px] leading-[31px] text-ada_red-50 uppercase">
 							<?php if ( $card_heading ) : ?>
@@ -44,7 +44,7 @@ $team_cards    = get_field( 'team_cards' );
 
 						<div class="-mr-6 md:-mr-8 lg:-mr-0">
 							<div class="overflow-x-auto no-scrollbar">
-								<div class="flex lg:grid lg:grid-cols-3 lg:gap-x-6 md:gap-x-4 gap-x-3">
+								<div class="flex lg:grid lg:grid-cols-3 md:gap-x-6 gap-x-4">
 									<?php
 									foreach ( $card_content as $content_row ) :
 
@@ -60,7 +60,7 @@ $team_cards    = get_field( 'team_cards' );
 														<?php echo wp_get_attachment_image( $row_image, 'full', '', [ 'class' => 'w-full h-full object-cover object-center' ] ); ?>
 														<div class="card-icon absolute bottom-2.5 right-2.5">
 															<img class="lg:size-8 md:size-6 size-4"
-																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.png' ) ); ?>"
+																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.svg' ) ); ?>"
 																alt="social icon" />
 														</div>
 													</div>
