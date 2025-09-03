@@ -823,9 +823,31 @@ function send_custom_welcome_email( $user_id ) {
 	);
 
 	// Check if user has roles that should receive styled email.
-	$styled_email_roles = array( 'basic', 'advanced' );
+	$styled_email_roles = array( 'basic_user', 'advanced_user' );
 	$user_roles         = $user->roles;
-	$send_styled_email  = false;
+	$current_role       = ! empty( $user_roles ) ? $user_roles[0] : '';
+	
+	$role_messages = [
+		'basic_user'    => "<p>Hello <strong>{$user_login}</strong>,</p>
+		<p>You are now registered as <strong>Basic</strong> in our community. You're not just joining a platform,
+		you're becoming part of a growing community of learners and achievers.
+		We can't wait to see how you'll learn, grow, and put your skills into action.</p>
+		<p>To get started, please set up your password using the button below. This will give you secure access to your account and all the resources available to your role.</p>
+		Best regards,<br>
+		Apex Digital Academy Team",
+
+		'advanced_user' => "<p>Hello <strong>{$user_login}</strong>,</p>
+		<p>Congratulations on upgrading to the <strong>Advanced</strong> role at Apex Digital Academy! 
+		This new stage unlocks exclusive resources, deeper learning opportunities, and tools designed to accelerate your growth. 
+		You've already shown commitment by moving beyond the basics, now it's time to maximize your potential and achieve even more.</p>",
+	];
+	
+	$role_message = $role_messages[ $current_role ] ?? "Hello {$user_login}, <br><br>
+	Welcome to Apex Digital Academy! Please set up your password using the button below.<br><br>
+	Best regards,<br>
+	Apex Digital Academy Team";
+
+	$send_styled_email = false;
 	
 	foreach ( $styled_email_roles as $styled_role ) {
 		if ( in_array( $styled_role, $user_roles, true ) ) {
@@ -837,7 +859,11 @@ function send_custom_welcome_email( $user_id ) {
 	// Prepare email content based on user role.
 	if ( $send_styled_email ) {
 		// Build the styled email template HTML for Basic/Advanced users.
-		$title = 'WELCOME TO ' . get_bloginfo( 'name' ) . '!';
+		if ( 'advanced_user' === $current_role ) {
+			$title = 'YOUR NEXT STAGE AWAITS';
+		} else {
+			$title = 'WELCOME TO ' . get_bloginfo( 'name' ) . '!';
+		}
 		
 		$email_content = "
         <html>
@@ -846,72 +872,63 @@ function send_custom_welcome_email( $user_id ) {
                 <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
                      alt='Website Logo' 
                      style='max-width:64px; height:auto; margin-bottom: 28px;'>
-                <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0;'>{$title}</h2>
+                <h2 style='text-align:center; color:#CB131B; margin-bottom: 28px; margin-top: 0; font-weight: normal;'>{$title}</h2>
                 <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756622027/image_11_bzmuei.png'
                      alt='Email Image' 
                      style='max-width: 536px; height: auto; margin-bottom: 28px;'>
                 
                 <!-- Custom marketing message. -->
-                <p style='font-size:16px; line-height:1.5; color:#333; text-align:center; margin: 0 auto; max-width: 536px; padding-bottom: 28px;'>
-                    Hello <strong>{$user_login}</strong>, Create your next project with high-quality images, videos, and sounds 
-                    from the world's leading content library. Whatever you need you'll find right here—
-                    because if it's in your head, it's on our site.
-                </p>
+                <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='536' style='border-collapse:collapse;'>
+                  <tr>
+                    <td style='text-align:left; font-size:14px; line-height:160%; color:#333; padding-bottom:28px;'>
+                      {$role_message}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align='left'>
+                      " . (
+						'advanced_user' === $current_role
+						? "<a href='" . site_url( '/' ) . "' 
+                              style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
+                             GO TO WEBSITE
+                           </a>"
+						: "<a href='{$reset_url}' 
+                              style='display:inline-block; font-size:18px; line-height:120%; background:#CB131B; color:#fff; padding:14px 16px 12px; text-decoration:none;'>
+                             SET YOUR PASSWORD
+                           </a>"
+					) . "
+                    </td>
+                  </tr>
+                </table>
 
-                <!-- Main body. -->
-                <a href='{$reset_url}' style='display:inline-block; line-height: 120%; font-size: 18px; background:#CB131B; color:#fff; padding: 14px 16px 12px;
-                text-decoration:none;'>
-                    Set Your Password
-                </a>
             </div>
-        </body>
-        <table role='presentation' width='100%'  border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 600px;'>
-          <tr>
-            <td background='https://res.cloudinary.com/do8kly5dl/image/upload/v1756632851/Frame_1410134226_2_exnl0x.png' 
-                bgcolor='#ffffff' 
-                style='background-repeat:no-repeat; background-position:center; max-width: 600px; height: 276px;'>
-                
-              <!-- Footer content. -->
-              <table role='presentation' width='100%' border='0' cellspacing='0' cellpadding='0' style='max-width: 600px; text-align: center; margin: 0 auto;'>
-                <tr>
-                    <td align='center' style='padding-bottom: 20px; padding-top: 40px;'>
-                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756626827/Mask_group_1_jpp3zj.png' 
-                         alt='Company Logo' 
-                         style='max-width:100px; height:auto;' />
+           <table role='presentation' border='0' cellspacing='0' cellpadding='0' align='center' width='600' style='background-color:#F0F0F0;'>
+            <tr>
+              <td style='padding:18px 32px; text-align:center;'>
+                <table role='presentation' border='0' cellspacing='0' cellpadding='0' width='100%' style='border-collapse:collapse;'>
+                  <tr>
+                    <td style='text-align:left; vertical-align:middle; font-size:8px; line-height:120%; margin:0;'>
+                      © 2025 Apex Digital Academy. All rights reserved.
                     </td>
-                </tr>
-                
-                <tr>
-                    <td align='center' style='padding-bottom: 20px;'>
-                        <p 
-                           style='text-align: center; text-decoration: none; color: #fff; font-size: 12px; line-height: 150%; margin: 0;'>
-                           9 Straits View, Marina One <br> West Tower, Singapore 018937
-                        </p>
-                    </td>
-                <tr>
-                
-                <tr>
-                    <td align='center' style='padding-bottom: 20px;'>
-                        <a href='https://facebook.com' style='text-decoration: none; text-align:center;'>
-                           <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756631854/uiw_facebook_g0rctw.png' 
+                    <td style='text-align:right; vertical-align:middle;'>
+                      <a href='https://facebook.com' style='text-decoration:none; margin-right:24px;'>
+                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825511/uiw_facebook_1_uc7b3d.png' 
                              alt='Facebook Logo' 
-                             style='max-width:20px; height:auto;' />
-                        </a>
-                        <a href='https://x.com' style='text-align: center; text-decoration: none; margin-left: 24px;'>
-                           <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756631855/prime_twitter_gfifys.png' 
+                             width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                      </a>
+                      <a href='https://x.com' style='text-decoration:none;'>
+                        <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756825510/prime_twitter_1_jti9ng.png' 
                              alt='X Logo' 
-                             style='max-width:20px; height:auto;' />
-                        </a>
+                             width='20' style='display:inline-block; height:auto; vertical-align:middle;' />
+                      </a>
                     </td>
-                <tr>
-              </table>
-               
-            </td>
-          </tr>
-        </table>
-        <div style='text-align: center; margin: 0 auto;'>    
-            <img src='https://res.cloudinary.com/do8kly5dl/image/upload/v1756634218/Frame_1410134220_hcgfmq.png' alt='copyright' style='max-width: 600px; height: auto; ' >
-        </div>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+        </body>
         </html>
         ";
 		
@@ -931,7 +948,7 @@ function send_custom_welcome_email( $user_id ) {
 	// Send to the user.
 	wp_mail(
 		$user_email,
-		'Welcome to ' . get_bloginfo( 'name' ) . ' – Set Your Password',
+		'Welcome to ' . get_bloginfo( 'name' ),
 		$email_content,
 		$headers
 	);
