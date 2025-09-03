@@ -823,12 +823,12 @@ function send_custom_welcome_email( $user_id ) {
 	);
 
 	// Check if user has roles that should receive styled email.
-	$styled_email_roles = array( 'basic_user', 'advanced_user' );
+	$styled_email_roles = array( 'basic', 'advanced' );
 	$user_roles         = $user->roles;
 	$current_role       = ! empty( $user_roles ) ? $user_roles[0] : '';
 	
 	$role_messages = [
-		'basic_user'    => "<p>Hello <strong>{$user_login}</strong>,</p>
+		'basic'    => "<p>Hello <strong>{$user_login}</strong>,</p>
 		<p>You are now registered as <strong>Basic</strong> in our community. You're not just joining a platform,
 		you're becoming part of a growing community of learners and achievers.
 		We can't wait to see how you'll learn, grow, and put your skills into action.</p>
@@ -836,7 +836,7 @@ function send_custom_welcome_email( $user_id ) {
 		Best regards,<br>
 		Apex Digital Academy Team",
 
-		'advanced_user' => "<p>Hello <strong>{$user_login}</strong>,</p>
+		'advanced' => "<p>Hello <strong>{$user_login}</strong>,</p>
 		<p>Congratulations on upgrading to the <strong>Advanced</strong> role at Apex Digital Academy! 
 		This new stage unlocks exclusive resources, deeper learning opportunities, and tools designed to accelerate your growth. 
 		You've already shown commitment by moving beyond the basics, now it's time to maximize your potential and achieve even more.</p>",
