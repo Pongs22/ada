@@ -1,0 +1,19 @@
+{
+    "name": "acf/quote-section",
+    "title": "Quote Block", 
+    "description": "A simple quote block with animated color changing on scroll",
+    "style": [ "file:./css/style.min.css" ],
+    "script": "quote-section",
+    "category": "ff-blocks",
+    "icon": "block-default",
+    "keywords": ["quote"],
+    "acf": {
+      "mode": "preview",
+      "renderTemplate": "quote-section.php",
+      "supports": "jsx"
+    },
+    "supports": {
+      "jsx": false
+    }
+  }
+  

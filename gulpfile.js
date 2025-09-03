@@ -36,7 +36,7 @@ var blocks = {
     src: 'acf/blocks/*/css/*.scss',
   },
   scripts: {
-    src: ['acf/blocks/*/js/*.js', '!acf/blocks/*/js/*.min.js'],
+    src: ['acf/blocks/**/js/*.js', '!acf/blocks/**/js/*.min.js'],
   },
 };
 
