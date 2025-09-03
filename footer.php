@@ -10,8 +10,8 @@
  */
 
 ?>
-
-<footer id="colophon" class="fixed bottom-0 left-0 !z-[-9999] w-full">
+<div class="z-0 h-[395px]"></div>
+<footer id="colophon" class="fixed bottom-0 left-0 z-10 w-full">
 	<div class="relative h-[395px] bg-ada_red-70 leading-6 text-gray-600">
 		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
 			class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
