@@ -90,12 +90,7 @@ $team_cards    = get_field( 'team_cards' );
 								</div>
 							</div>
 						</div>
-
-
-
-
 					<?php endif; ?>
-
 				</div>
 			<?php endforeach; ?>
 		<?php endif; ?>
