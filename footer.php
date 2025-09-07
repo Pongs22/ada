@@ -99,7 +99,7 @@
 	</div>
 </div>
 <div
-	class="login-popup-wrapper fixed inset-0 z-[9999999] flex hidden items-center justify-center opacity-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+	class="login-popup-wrapper fixed inset-0 z-[9999999] flex hidden items-center justify-center opacity-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 transition-all duration-300">
 	<div class="login-popup-content relative mt-auto flex w-full translate-y-full transform flex-col rounded-t-[8px] bg-white px-6 py-10 transition-transform duration-300 ease-in-out md:mt-0 md:max-w-[550px] md:translate-y-0 md:rounded-lg md:p-8">
 		<div class="absolute left-1/2 top-2 h-1 w-12 -translate-x-1/2 rounded-[100px] bg-ada_grey-20 md:hidden"></div>
 		<button class="login-close-button hidden justify-end md:flex">

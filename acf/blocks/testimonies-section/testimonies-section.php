@@ -18,7 +18,7 @@ $testimonies = get_field( 'testimonies' );
 		<?php if ( $testimonies ) : ?>
 			<div class="flex gap-6 justify-center">
 				<?php foreach ( $testimonies as $testimonial ) : ?>
-					<div class="flex-1 p-6 bg-ada_grey-30 max-w-[628px]">
+					<div class="flex-1 p-6 bg-ada_grey-30 w-full">
 						<div class="flex flex-col h-full justify-between">
 							<div class="ff-testimonial-quote mb-4">
 								<p class="max-w-[568px] text-lg mb-10">
