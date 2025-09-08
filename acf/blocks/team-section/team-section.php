@@ -72,7 +72,7 @@ $team_cards    = get_field( 'team_cards' );
 
 											<?php if ( $row_name ) : ?>
 												<div class="card-name">
-													<h4 class="text-[20px] font-medium !capitalize leading-[28px]">
+													<h4 class="text-[20px] text-ada_red-50 font-medium !capitalize leading-[28px]">
 														<?php echo esc_html( $row_name ); ?>
 													</h4>
 												</div>

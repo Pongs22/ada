@@ -196,7 +196,7 @@ jQuery( function( $ ) {
 	//Pop up animations.
 	function popupModalFadeIn( modal ) {
 		$( '.modal-wrapper' ).removeClass( 'hidden' );
-		$( modal ).removeClass( 'hidden' );
+		$( modal ).removeClass( 'hidden' ).addClass( 'is-open' );
 		$( 'html, body' ).addClass( 'overflow-hidden' );
 		lenis.stop();
 		setTimeout( function() {
@@ -207,7 +207,7 @@ jQuery( function( $ ) {
 
 	function popupModalFadeOut( modal ) {
 		$( '.modal-wrapper' ).addClass( 'opacity-0' );
-		$( modal ).addClass( 'opacity-0' );
+		$( modal ).addClass( 'opacity-0' ).removeClass( 'is-open' );
 		$( 'html, body' ).removeClass( 'overflow-hidden' );
 		lenis.start();
 		setTimeout( function() {
@@ -237,6 +237,15 @@ jQuery( function( $ ) {
 		$( '.login-popup-content' ).removeClass( 'translate-y-0' ).addClass( 'translate-y-full' );
 	}
 	$( '.login-close-button' ).click( closeLoginPopup );
+
+	$( window ).on( 'resize', function() {
+		if ( $( '.login-popup-wrapper' ).hasClass( 'is-open' ) ) {
+			$( '.modal-wrapper' ).removeClass( 'hidden opacity-0' );
+			$( '.login-popup-wrapper' ).removeClass( 'hidden opacity-0' );
+			$( '.login-popup-content' ).css( 'transform', '' ).removeClass( 'translate-y-full' ).addClass( 'translate-y-0' );
+		}
+	} );
+
 	let startY = 0;
 	let currentY = 0;
 	let isDragging = false;
