@@ -55,8 +55,6 @@
 						?>
 					</nav>
 				</div>
-
-
 			</div>
 		</div>
 	</div>
@@ -110,27 +108,27 @@
 			class="mb-5 text-[20px] font-medium capitalize leading-[24px] text-ada_red-50 md:mb-6 md:text-[36px] md:leading-[43.2px]">
 			Welcome Back
 		</h4>
-		<form>
+		<form id="loginPopup">
 			<div class="login-form mb-8 space-y-5 md:mb-10 md:space-y-8">
 				<div class="email-field flex flex-col gap-[2px] md:gap-[6px]">
 					<label class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Email
 						address</label>
 					<input placeholder="JohnDoe@gmail.com"
-						class="rounded border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="email"
+						class="rounded border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="email" autocomplete="username"
 						name="login-email">
 				</div>
 				<div class="password-field flex flex-col gap-[6px]">
 					<label
 						class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Password</label>
-					<input placeholder="JohnDoe@gmail.com"
-						class="rounded border border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="password"
+					<input 
+						class="rounded border border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="password"  autocomplete="current-password"
 						name="login-password">
 				</div>
 			</div>
 
-			<div class="login-button">
+			<div class="login-button ff-button-primary">
 				<button type="submit"
-					class="block w-full rounded-[2px] border-ada_red-50 bg-ada_red-50 px-4 pb-[8px] pt-3 text-center text-[14px] font-medium uppercase leading-[21.6px] text-white md:pb-3 md:pt-[14px] md:text-[18px]">
+					class="block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
 					Log in
 				</button>
 			</div>

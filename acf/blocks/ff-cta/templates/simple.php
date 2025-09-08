@@ -19,7 +19,7 @@ $simple_link = $simple_cta['link'] ?: '';
 		</header>
 
 		<?php if ( $simple_link ) : ?>
-			<div class="link-container my-auto flex">
+			<div class="link-container ff-button-secondary my-auto flex">
 				<a class="block rounded-sm border-[1.5px] border-ada_red-50 px-4 pb-3 pt-[14px] font-geova text-lg font-medium uppercase text-ada_red-50" href="<?php echo esc_url( $simple_link['url'] ?? '#' ); ?>" target="<?php echo esc_attr( $simple_link['target'] ?? '' ); ?>"> <?php echo esc_html( $simple_link['title'] ?? '' ); ?></a>
 			</div>
 		<?php endif; ?>

@@ -29,8 +29,171 @@ jQuery( function( $ ) {
 	requestAnimationFrame( raf );
 	/* ! --- LENIS CONFIG --- */
 
-	// Popup Modal For Locked Courses
+	const courseInfoButton = $( '.course-information-button' ).find( 'li button' );
 
+	$( courseInfoButton ).click( function() {
+		$( '.course-information-button li button' ).removeClass( 'information-active' );
+		$( this ).addClass( 'information-active' );
+	} );
+
+	/* --- VIDEO CONFIGURATIONS --- */
+	let lastSaved = 0;
+	let iframe;
+	let player;
+	const getUserId = $( '.course-dashboard' ).data( 'user' );
+	const getCourseId = $( '.course-dashboard' ).data( 'course' );
+	const courseStatus = $( '.course-dashboard' ).data( 'status' );
+	const timeProgress = $( '.course-dashboard' ).data( 'progress' );
+	const continueWatching = $( '.continue-watching-popup-wrapper' );
+	const videoId = $( '.embed-container' ).data( 'video' );
+	const seekTime = timeStringToSeconds( timeProgress );
+	const videoContainer = document.querySelector( '#videoContainer' );
+
+	function createVideoIframe() {
+		return `<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/${ videoId }?badge=0&autopause=0&muted=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>`;
+	}
+
+	if ( timeProgress && timeProgress !== '0:00' ) {
+		if ( sessionStorage.getItem( 'openModal' ) === 'true' ) {
+			$( continueWatching ).find( '.time-progress' ).html( timeProgress );
+			$( videoContainer ).html( createVideoIframe() );
+			popupModalFadeIn( continueWatching );
+			setTimeout( function() {
+				iframe = $( '#vimeoPlayer' )[ 0 ];
+				player = new Vimeo.Player( iframe );
+				player.ready().then( function() {
+					addPlayerEventListeners();
+				} );
+				sessionStorage.setItem( 'openModal', 'false' );
+			}, 10 );
+		} else {
+			$( videoContainer ).html( createVideoIframe() );
+			setTimeout( function() {
+				iframe = $( '#vimeoPlayer' )[ 0 ];
+				player = new Vimeo.Player( iframe );
+				player.ready().then( function() {
+					addPlayerEventListeners();
+				} );
+				if ( player ) {
+					player.ready().then( function() {
+						return player.setCurrentTime( seekTime );
+					} ).then( function() {
+						return player.play();
+					} );
+				}
+			}, 10 );
+		}
+	} else if ( videoContainer ) {
+		$( videoContainer ).html( createVideoIframe() );
+		iframe = $( '#vimeoPlayer' )[ 0 ];
+		player = new Vimeo.Player( iframe );
+		player.ready().then( function() {
+			addPlayerEventListeners();
+		} );
+		$( '.course-thumbnail' ).click( function() {
+			player.play();
+		} );
+	} else {
+		$( '.course-thumbnail-locked' ).click( function() {
+			popupModalFadeIn( '.watch-previous-course-popup-wrapper' );
+		} );
+		$( '.wpc-continue-btn' ).click( function() {
+			popupModalFadeOut( '.watch-previous-course-popup-wrapper' );
+		} );
+	}
+
+	function addPlayerEventListeners() {
+		if ( ! player ) {
+			return;
+		}
+		player.on( 'play', function() {
+			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+			setTimeout( function() {
+				$( '.course-thumbnail' ).addClass( 'hidden' );
+			}, 500 );
+		} );
+		player.on( 'timeupdate', function( data ) {
+			if ( data.seconds - lastSaved >= 5 ) {
+				lastSaved = data.seconds;
+				if ( courseStatus === 'completed' ) {
+					return;
+				}
+				updateCourseTimeProgress( getUserId, getCourseId, formatTime( data.seconds ) );
+			}
+		} );
+
+		player.on( 'ended', function() {
+			updateCourseStatus( getUserId, getCourseId );
+		} );
+	}
+
+	function updateCourseStatus( userId, courseId ) {
+		$.ajax( {
+			url: ajaxVar.ajaxUrl,
+			type: 'post',
+			data: {
+				userId,
+				courseId,
+				action: 'update_course_status',
+				nonce: ajaxVar.nonce,
+			},
+		} );
+	}
+
+	function updateCourseTimeProgress( userId, courseId, interval ) {
+		$.ajax( {
+			url: ajaxVar.ajaxUrl,
+			type: 'post',
+			data: {
+				userId,
+				courseId,
+				interval,
+				action: 'update_course_time_progress',
+				nonce: ajaxVar.nonce,
+			},
+		} );
+	}
+
+	function formatTime( seconds ) {
+		seconds = Math.floor( seconds );
+		const hrs = Math.floor( seconds / 3600 );
+		const mins = Math.floor( ( seconds % 3600 ) / 60 );
+		const secs = seconds % 60;
+
+		if ( hrs > 0 ) {
+			return (
+				String( hrs ).padStart( 2, '0' ) + ':' +
+				String( mins ).padStart( 2, '0' ) + ':' +
+				String( secs ).padStart( 2, '0' )
+			);
+		}
+
+		return (
+			String( mins ).padStart( 2, '0' ) + ':' +
+			String( secs ).padStart( 2, '0' )
+		);
+	}
+
+	function timeStringToSeconds( timeStr ) {
+		if ( ! timeStr ) {
+			return;
+		}
+
+		const parts = timeStr.split( ':' ).map( Number );
+		let seconds = 0;
+
+		if ( parts.length === 3 ) {
+			seconds = ( parts[ 0 ] * 3600 ) + ( parts[ 1 ] * 60 ) + parts[ 2 ];
+		} else if ( parts.length === 2 ) {
+			seconds = ( parts[ 0 ] * 60 ) + parts[ 1 ];
+		} else if ( parts.length === 1 ) {
+			seconds = parts[ 0 ];
+		}
+		return seconds;
+	}
+	/* --- VIDEO CONFIGURATIONS --- */
+	/* --- POPUP CONFIGURATIONS --- */
+	//Pop up animations.
 	function popupModalFadeIn( modal ) {
 		$( '.modal-wrapper' ).removeClass( 'hidden' );
 		$( modal ).removeClass( 'hidden' );
@@ -108,79 +271,6 @@ jQuery( function( $ ) {
 		currentY = 0;
 	} );
 
-	const courseInfoButton = $( '.course-information-button' ).find( 'li button' );
-
-	$( courseInfoButton ).click( function() {
-		$( '.course-information-button li button' ).removeClass( 'information-active' );
-		$( this ).addClass( 'information-active' );
-	} );
-
-	// Video Functions
-	let lastSaved = 0;
-	let iframe;
-	let player;
-	const getUserId = $( '.course-dashboard' ).data( 'user' );
-	const getCourseId = $( '.course-dashboard' ).data( 'course' );
-	const courseStatus = $( '.course-dashboard' ).data( 'status' );
-	const timeProgress = $( '.course-dashboard' ).data( 'progress' );
-	const continueWatching = $( '.continue-watching-popup-wrapper' );
-	const videoId = $( '.embed-container' ).data( 'video' );
-	const seekTime = timeStringToSeconds( timeProgress );
-	const videoContainer = document.querySelector( '#videoContainer' );
-
-	function createVideoIframe() {
-		return `<iframe id="vimeoPlayer" class="!rounded-none lg:!rounded-xl" type="text/html" width="1123" height="650" src="https://player.vimeo.com/video/${ videoId }?badge=0&autopause=0&muted=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>`;
-	}
-
-	if ( timeProgress && timeProgress !== '0:00' ) {
-		if ( sessionStorage.getItem( 'openModal' ) === 'true' ) {
-			$( continueWatching ).find( '.time-progress' ).html( timeProgress );
-			$( videoContainer ).html( createVideoIframe() );
-			popupModalFadeIn( continueWatching );
-			setTimeout( function() {
-				iframe = $( '#vimeoPlayer' )[ 0 ];
-				player = new Vimeo.Player( iframe );
-				player.ready().then( function() {
-					addPlayerEventListeners();
-				} );
-				sessionStorage.setItem( 'openModal', 'false' );
-			}, 10 );
-		} else {
-			$( videoContainer ).html( createVideoIframe() );
-			setTimeout( function() {
-				iframe = $( '#vimeoPlayer' )[ 0 ];
-				player = new Vimeo.Player( iframe );
-				player.ready().then( function() {
-					addPlayerEventListeners();
-				} );
-				if ( player ) {
-					player.ready().then( function() {
-						return player.setCurrentTime( seekTime );
-					} ).then( function() {
-						return player.play();
-					} );
-				}
-			}, 10 );
-		}
-	} else if ( videoContainer ) {
-		$( videoContainer ).html( createVideoIframe() );
-		iframe = $( '#vimeoPlayer' )[ 0 ];
-		player = new Vimeo.Player( iframe );
-		player.ready().then( function() {
-			addPlayerEventListeners();
-		} );
-		$( '.course-thumbnail' ).click( function() {
-			player.play();
-		} );
-	} else {
-		$( '.course-thumbnail-locked' ).click( function() {
-			popupModalFadeIn( '.watch-previous-course-popup-wrapper' );
-		} );
-		$( '.wpc-continue-btn' ).click( function() {
-			popupModalFadeOut( '.watch-previous-course-popup-wrapper' );
-		} );
-	}
-
 	$( continueWatching ).find( '.start-over-btn' ).click( function() {
 		popupModalFadeOut( continueWatching );
 		$( '.course-thumbnail' ).addClass( 'hidden' );
@@ -201,90 +291,29 @@ jQuery( function( $ ) {
 			} );
 		}
 	} );
-
-	function addPlayerEventListeners() {
-		if ( ! player ) {
-			return;
-		}
-		player.on( 'play', function() {
-			$( '.course-thumbnail' ).addClass( 'opacity-0' );
-			setTimeout( function() {
-				$( '.course-thumbnail' ).addClass( 'hidden' );
-			}, 500 );
-		} );
-		player.on( 'timeupdate', function( data ) {
-			if ( data.seconds - lastSaved >= 5 ) {
-				lastSaved = data.seconds;
-				if ( courseStatus === 'completed' ) {
-					return;
-				}
-				updateCourseTimeProgress( getUserId, getCourseId, formatTime( data.seconds ) );
-			}
-		} );
-
-		player.on( 'ended', function() {
-			updateCourseStatus( getUserId, getCourseId );
-		} );
-	}
-
-	function updateCourseStatus( userId, courseId ) {
+	/* --- POPUP CONFIGURATIONS --- */
+	/* --- LOGIN CONFIGURATIONS --- */
+	$( '#loginPopup' ).on( 'submit', function( e ) {
+		e.preventDefault();
+		const username = $( 'input[name="login-email"]' ).val();
+		const password = $( 'input[name="login-password"]' ).val();
+		loginFunction( username, password );
+	} );
+	function loginFunction( username, password ) {
+		// TODO: add loading animation in the button, add error.
 		$.ajax( {
 			url: ajaxVar.ajaxUrl,
 			type: 'post',
 			data: {
-				userId,
-				courseId,
-				action: 'update_course_status',
+				action: 'custom_login_function',
 				nonce: ajaxVar.nonce,
+				username,
+				password,
+			},
+			success( response ) {
+				window.location.href = response.data.redirect;
 			},
 		} );
 	}
-
-	function updateCourseTimeProgress( userId, courseId, interval ) {
-		$.ajax( {
-			url: ajaxVar.ajaxUrl,
-			type: 'post',
-			data: {
-				userId,
-				courseId,
-				interval,
-				action: 'update_course_time_progress',
-				nonce: ajaxVar.nonce,
-			},
-		} );
-	}
-
-	function formatTime( seconds ) {
-		seconds = Math.floor( seconds );
-		const hrs = Math.floor( seconds / 3600 );
-		const mins = Math.floor( ( seconds % 3600 ) / 60 );
-		const secs = seconds % 60;
-
-		if ( hrs > 0 ) {
-			return (
-				String( hrs ).padStart( 2, '0' ) + ':' +
-				String( mins ).padStart( 2, '0' ) + ':' +
-				String( secs ).padStart( 2, '0' )
-			);
-		}
-
-		return (
-			String( mins ).padStart( 2, '0' ) + ':' +
-			String( secs ).padStart( 2, '0' )
-		);
-	}
-
-	function timeStringToSeconds( timeStr ) {
-		const parts = timeStr.split( ':' ).map( Number );
-		let seconds = 0;
-
-		if ( parts.length === 3 ) {
-			seconds = ( parts[ 0 ] * 3600 ) + ( parts[ 1 ] * 60 ) + parts[ 2 ];
-		} else if ( parts.length === 2 ) {
-			seconds = ( parts[ 0 ] * 60 ) + parts[ 1 ];
-		} else if ( parts.length === 1 ) {
-			seconds = parts[ 0 ];
-		}
-		return seconds;
-	}
+	/* --- LOGIN CONFIGURATIONS --- */
 } );

@@ -1075,8 +1075,7 @@ function send_role_upgrade_email( $user_id, $new_role, $old_role = '' ) {
  */
 function handle_user_role_change( $user_id, $new_role, $old_roles ) {
 	$old_role = ! empty( $old_roles ) ? $old_roles[0] : '';
-	
-	// Only send upgrade email if this is actually an upgrade, not initial registration.
+
 	if ( ! empty( $old_role ) && $old_role !== $new_role ) {
 		send_role_upgrade_email( $user_id, $new_role, $old_role );
 	}
@@ -1084,41 +1083,61 @@ function handle_user_role_change( $user_id, $new_role, $old_roles ) {
 add_action( 'set_user_role', 'handle_user_role_change', 10, 3 );
 
 /**
- * Function for redirect dynamic link after login.
- * 
- * @param string           $redirect_to dynamic link.
- * @param string           $requested_redirect_to The requested redirect URL (may be empty).
- * @param WP_User|WP_Error $user        WP_User object if authenticated, WP_Error otherwise.
+ * Custom Login Functions.
  */
-function custom_course_login_redirect( $redirect_to, $requested_redirect_to, $user ) {
-	global $wpdb;
-
-	if ( ! $user || is_wp_error( $user ) ) {
-		return $redirect_to;
+function custom_login_function() {
+	$nonce = '';
+	if ( isset( $_POST['nonce'] ) ) {
+		$nonce = sanitize_key( wp_unslash( $_POST['nonce'] ) );
 	}
 
+	if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+		exit();
+	}
+
+	$username = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
+	$password = isset( $_POST['password'] ) ? sanitize_text_field( wp_unslash( $_POST['password'] ) ) : '';
+
+	$creds = array(
+		'user_login'    => $username,
+		'user_password' => $password,
+		'remember'      => true,
+	);
+
+	$user = wp_signon( $creds, false );
+
+	if ( is_wp_error( $user ) ) {
+		wp_send_json_error( array( 'message' => $user->get_error_message() ) );
+	}
+
+	if ( in_array( 'administrator', (array) $user->roles, true ) ) {
+		wp_send_json_success( array( 'redirect' => admin_url() ) );
+	}
+
+	global $wpdb;
 	$table_name = $wpdb->prefix . 'course_progress';
 	$user_id    = $user->ID;
 
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-	$sql = $wpdb->prepare( "SELECT * FROM {$table_name} WHERE user_id = %d  AND status = %s ORDER BY id DESC LIMIT 1", $user_id, 'in_progress' );
-	// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+	$sql = $wpdb->prepare( "SELECT * FROM {$table_name} WHERE user_id = %d AND status = %s ORDER BY id DESC LIMIT 1", $user_id, 'in_progress' );
+
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 	$progress = $wpdb->get_row( $sql );
 
 	if ( $progress ) {
 		$course_link = get_permalink( $progress->course_id );
 		if ( $course_link ) {
-			return $course_link;
+			wp_send_json_success( array( 'redirect' => $course_link ) );
 		}
 	} else {
 		$first_course = get_posts(
-			[
+			array(
 				'post_type'      => 'course',
 				'posts_per_page' => 1,
 				'orderby'        => 'date',
 				'order'          => 'ASC',
 				'fields'         => 'ids',
-			] 
+			)
 		);
 
 		if ( ! empty( $first_course ) ) {
@@ -1126,21 +1145,25 @@ function custom_course_login_redirect( $redirect_to, $requested_redirect_to, $us
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
 			$inserted = $wpdb->insert(
 				$table_name,
-				[
+				array(
 					'user_id'       => $user_id,
 					'course_id'     => $course_id,
 					'status'        => 'in_progress',
 					'progress_time' => '0:00',
-				],
-				[ '%d', '%d', '%s', '%s' ]
+				),
+				array( '%d', '%d', '%s', '%s' )
 			);
 
 			if ( false !== $inserted ) {
-				return get_permalink( $course_id );
+				wp_send_json_success( array( 'redirect' => get_permalink( $course_id ) ) );
 			}
 		}
 	}
 
-	return home_url();
+	wp_send_json_success( array( 'redirect' => home_url() ) );
+
+	wp_die();
 }
-add_filter( 'login_redirect', 'custom_course_login_redirect', 10, 3 );
+
+add_action( 'wp_ajax_nopriv_custom_login_function', 'custom_login_function' );
+add_action( 'wp_ajax_custom_login_function', 'custom_login_function' );
