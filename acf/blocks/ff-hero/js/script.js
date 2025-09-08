@@ -18,6 +18,7 @@
 								trigger: videoWrapper,
 								start: 'top-=100% 80%',
 								end: 'top-=100% 80%',
+								markers: true,
 							},
 						} );
 					}, 10 );
@@ -40,30 +41,17 @@
 
 			function heroCoverChange() {
 				const curtainBar = document.querySelectorAll( '.ada-main-hero .bar-container .bars' );
-				const groupedBars = [];
-
-				function shuffleArray( array ) {
-					for ( let i = array.length - 1; i > 0; i-- ) {
-						const j = Math.floor( Math.random() * ( i + 1 ) );
-						[ array[ i ], array[ j ] ] = [ array[ j ], array[ i ] ];
-					}
-					return array;
-				}
-
 				const curtainArray = Array.from( curtainBar );
 
-				for ( let i = 0; i < curtainArray.length; i += 5 ) {
-					const group = curtainArray.slice( i, i + 5 );
-					groupedBars.push( shuffleArray( group ) );
-				}
+				// Reverse so animation starts from rightmost bar
+				const reversedBars = curtainArray.reverse();
 
-				groupedBars.forEach( ( group ) => {
-					group.forEach( ( bar, i ) => {
-						gsap.to( bar, {
-							height: 0,
-							duration: 0.333,
-							delay: 0.05 * i,
-						} );
+				reversedBars.forEach( ( bar, i ) => {
+					gsap.to( bar, {
+						height: 0,
+						duration: 0.75,
+						delay: 0.08 * i,
+						ease: 'power1.inOut',
 					} );
 				} );
 			}

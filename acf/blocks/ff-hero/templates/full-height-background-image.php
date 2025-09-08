@@ -47,7 +47,7 @@ $is_video              = get_field( 'use_video' );
 					<source src="<?php echo esc_url( $video ); ?>" type="video/mp4">
 				</video>
 				<div class="bar-container absolute left-0 top-0 z-[11] flex h-full w-full flex-row">
-					<?php for ( $bar = 0; $bar < 25; $bar++ ) : ?>
+					<?php for ( $bar = 0; $bar < 8; $bar++ ) : ?>
 						<div class="relative h-full  w-full <?php echo esc_attr( $bar < 12 ? '' : 'hidden md:block' ); ?>">
 							<div class="bars absolute bottom-0 left-0 h-full w-full bg-ada_red-60" style="transition: cubic-bezier(0.71, 0.00, 0.43, 1.00);" ></div>
 						</div>

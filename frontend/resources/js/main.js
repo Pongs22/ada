@@ -1,4 +1,4 @@
-/* global jQuery Vimeo ajaxVar Lenis*/
+/* global jQuery Vimeo ajaxVar Lenis gsap ScrollTrigger*/
 
 jQuery( function( $ ) {
 	if ( ! sessionStorage.getItem( 'openModal' ) ) {
@@ -325,4 +325,22 @@ jQuery( function( $ ) {
 		} );
 	}
 	/* --- LOGIN CONFIGURATIONS --- */
+
+	/* --- Footer Animation --- */
+	gsap.registerPlugin( ScrollTrigger );
+
+	const footerTl = gsap.timeline( {
+		scrollTrigger: {
+			trigger: '.footer-anim-trigger',
+			start: 'top 80%',
+			end: 'top 80%',
+			toggleActions: 'play none none none', // play only once
+			markers: true,
+		},
+	} );
+
+	footerTl
+		.to( '.footer-logo', { opacity: 1, duration: 0.4 } )
+		.to( '.footer-address', { opacity: 1, duration: 0.2 }, '+=0.05' )
+		.to( '.footer-bottom', { opacity: 1, duration: 0.2 }, '+=0.1' );
 } );

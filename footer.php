@@ -10,23 +10,23 @@
  */
 
 ?>
-<div class="z-0 h-[395px]"></div>
+<div class="footer-anim-trigger z-0 h-[395px]"></div>
 <footer id="colophon" class="fixed bottom-0 left-0 z-10 w-full">
 	<div class="relative h-[395px] bg-ada_red-70 leading-6 text-gray-600">
 		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-footer-bg-dt.jpg' ); ?>"
 			class="absolute left-0 top-0 h-full w-full object-cover object-right-top">
 		<div class="px-6 md:px-8 lg:px-10 xl:px-20">
 			<div class="ff-c-container relative z-10 flex flex-col gap-y-10 py-10">
-				<div class="site-branding size-[160px]">
+				<div class="site-branding footer-logo size-[160px] opacity-0">
 					<?php
 					the_custom_logo();
 					?>
 				</div>
-				<p class="max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
+				<p class="ada-opacity footer-address max-w-[296px] text-base text-white">9 Straits View, Marina One West Tower, Singapore 018937</p>
 			</div>
 		</div>
 		<div class="relative z-10 bg-[#d6d6d6]/10 px-6 py-3 md:px-8 lg:px-10 xl:px-20">
-			<div class="ff-c-container flex flex-row justify-between">
+			<div class="ff-c-container footer-bottom ada-opacity flex flex-row justify-between">
 				<p class="my-auto text-base leading-[120%] text-white">© 2025 Apex Digital Academy. All rights reserved.</p>
 				<div class="h-12"></div>
 				<div class="flex">
@@ -97,7 +97,7 @@
 	</div>
 </div>
 <div
-	class="login-popup-wrapper fixed inset-0 z-[9999999] flex hidden items-center justify-center opacity-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 transition-all duration-300">
+	class="login-popup-wrapper fixed inset-0 z-[9999999] flex hidden items-center justify-center opacity-0 transition-all duration-300 md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
 	<div class="login-popup-content relative mt-auto flex w-full translate-y-full transform flex-col rounded-t-[8px] bg-white px-6 py-10 transition-transform duration-300 ease-in-out md:mt-0 md:max-w-[550px] md:translate-y-0 md:rounded-lg md:p-8">
 		<div class="absolute left-1/2 top-2 h-1 w-12 -translate-x-1/2 rounded-[100px] bg-ada_grey-20 md:hidden"></div>
 		<button class="login-close-button hidden justify-end md:flex">
