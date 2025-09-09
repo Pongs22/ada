@@ -18,7 +18,6 @@
 								trigger: videoWrapper,
 								start: 'top-=100% 80%',
 								end: 'top-=100% 80%',
-								markers: true,
 							},
 						} );
 					}, 10 );
