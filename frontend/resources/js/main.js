@@ -335,7 +335,6 @@ jQuery( function( $ ) {
 			start: 'top 80%',
 			end: 'top 80%',
 			toggleActions: 'play none none none', // play only once
-			markers: true,
 		},
 	} );
 
