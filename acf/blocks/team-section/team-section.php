@@ -11,7 +11,7 @@ $team_cards    = get_field( 'team_cards' );
 ?>
 
 <section class="leadership-section px-6 md:px-8 lg:px-10 xl:px-20">
-	<div class="mb-10">
+	<div class="leadership-section-title mb-10">
 		<h2 class="font-medium uppercase leading-[40px] tracking-[-0.25px] text-ada_red-50">
 			<?php if ( $section_title ) : ?>
 				<?php echo esc_html( $section_title ); ?>
@@ -31,9 +31,9 @@ $team_cards    = get_field( 'team_cards' );
 				$card_heading = $card['card_heading'];
 				$card_content = $card['card_content'];
 				?>
-				<div class="team-card flex flex-col lg:flex-row gap-[24px] lg:gap-0 lg:justify-between py-10">
+				<div class="team-card flex flex-col gap-[24px] py-10 lg:flex-row lg:justify-between lg:gap-0">
 					<div class="max-w-[302px]">
-						<h2 class="text-[24px] font-medium uppercase leading-[31px] text-ada_red-50">
+						<h2 class="team-card-title text-[24px] font-medium uppercase leading-[31px] text-ada_red-50">
 							<?php if ( $card_heading ) : ?>
 								<?php echo esc_html( $card_heading ); ?>
 							<?php endif; ?>
@@ -43,8 +43,8 @@ $team_cards    = get_field( 'team_cards' );
 					<?php if ( ! empty( $card_content ) ) : ?>
 
 						<div class="-mr-6 md:-mr-8 lg:-mr-0">
-							<div class="overflow-x-auto no-scrollbar">
-								<div class="flex lg:grid lg:grid-cols-3 lg:gap-x-6 md:gap-x-4 gap-x-3">
+							<div class="no-scrollbar overflow-x-auto">
+								<div class="flex gap-x-3 md:gap-x-4 lg:grid lg:grid-cols-3 lg:gap-x-6">
 									<?php
 									foreach ( $card_content as $content_row ) :
 
@@ -52,14 +52,14 @@ $team_cards    = get_field( 'team_cards' );
 										$row_name  = $content_row['card_name'] ? $content_row['card_name'] : '';
 										$row_title = $content_row['card_title'] ? $content_row['card_title'] : '';
 										?>
-										<div class="max-w-[224px] flex-shrink-0 md:max-w-[249px] lg:max-w-[302px]">
+										<div class="team-cards-item max-w-[224px] flex-shrink-0 md:max-w-[249px] lg:max-w-[302px]">
 											<div
 												class="card-image relative mb-4 aspect-[224/264] md:mb-6 md:aspect-[249/293] lg:mb-5 lg:aspect-[302/357]">
 												<?php if ( $row_image ) : ?>
 													<div class="relative h-full w-full">
 														<?php echo wp_get_attachment_image( $row_image, 'full', '', [ 'class' => 'w-full h-full object-cover object-center' ] ); ?>
 														<div class="card-icon absolute bottom-2.5 right-2.5">
-															<img class="lg:size-8 md:size-6 size-4"
+															<img class="size-4 md:size-6 lg:size-8"
 																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.png' ) ); ?>"
 																alt="social icon" />
 														</div>
@@ -72,7 +72,7 @@ $team_cards    = get_field( 'team_cards' );
 
 											<?php if ( $row_name ) : ?>
 												<div class="card-name">
-													<h4 class="text-[20px] text-ada_red-50 font-medium !capitalize leading-[28px]">
+													<h4 class="text-[20px] font-medium !capitalize leading-[28px] text-ada_red-50">
 														<?php echo esc_html( $row_name ); ?>
 													</h4>
 												</div>
