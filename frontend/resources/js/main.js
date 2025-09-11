@@ -345,17 +345,19 @@ jQuery( function( $ ) {
 		.to( '.footer-bottom', { opacity: 1, duration: 0.2 }, '+=0.1' );
 
 	// 404 Page Countdown
-	let countdownTime = 10;
-	const $countdown = $( '.countdown-404' );
-	$countdown.text( countdownTime );
-
-	const interval = setInterval( function() {
-		countdownTime--;
+	if ( $( 'body' ).hasClass( 'error404' ) ) {
+		let countdownTime = 10;
+		const $countdown = $( '.countdown-404' );
 		$countdown.text( countdownTime );
 
-		if ( countdownTime <= 0 ) {
-			clearInterval( interval );
-			window.location.href = '/';
-		}
-	}, 1000 );
+		const interval = setInterval( function() {
+			countdownTime--;
+			$countdown.text( countdownTime );
+
+			if ( countdownTime <= 0 ) {
+				clearInterval( interval );
+				window.location.href = '/';
+			}
+		}, 1000 );
+	}
 } );
