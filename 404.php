@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-<main id="primary" class="site-main page-404 mt-[73px]">
+<main id="primary" class="site-main page-404">
 	<section class="error-404 not-found">
 		<div class="flex items-center justify-center min-h-[calc(100vh-73px)]">
 			<div
@@ -20,34 +20,27 @@ get_header();
 				<div class="max-w-[557px] mx-auto text-center relative z-10">
 					<span
 						class="text-ada_yellow-60 font-medium lg:text-[80px] lg:leading-[96px] md:text-[48px] md:leading-[57.6px] text-[32px] leading-[40px] tracking-[-0.25px]">404</span>
-					<h3
-						class="uppercase text-white lg:text-[64px] lg:tracking-[-0.64px] md:text-[48px] md:tracking-[-0.48px] text-[32px] leading-[40px] tracking-[-0.25px] w-full font-medium leading-normal">
+					<h5
+						class="uppercase font-geova leading-normal text-white lg:text-[64px] lg:tracking-[-0.64px] md:text-[48px] md:tracking-[-0.48px] text-[32px] tracking-[-0.25px] w-full font-medium ">
 						Page not found
-					</h3>
+					</h5>
 					<p class="text-white mb-8 md:text-lg text-[16px] font-normal md:leading-[27px] leading-[24px]">
 						Sorry, the page you were looking for might be renamed, removed, or might not exist on the
 						website.
 					</p>
 
-					<?php
-					use Lean\Load;
+					<div class="ff-button-tertiary max-w-[170px] mx-auto">
+						<a href="<?php echo esc_url( get_home_url( '/' ) ); ?>"
+						class=" back-home-btn font-geova uppercase font-medium text-white">
+						Back to home
+						</a>		
+					</div>
 
-					Load::atom(
-						'buttons/button',
-						array(
-							'ff_btn_size'   => 'btn-md',
-							'ff_btn_type'   => 'btn-secondary',
-							'ff_btn_text'   => 'Back to home',
-							'ff_btn_click'  => home_url( '/' ),
-							'ff_is_rounded' => false,
-						)
-					);
-					?>
 				</div>
 
 				<div class="absolute bottom-[40px] md:bottom-[80px] left-1/2 -translate-x-1/2 z-10">
 					<p class="text-white font-normal md:leading-[27px] md:text-lg text-[16px] leading-[24px]">
-						Returning Home in <span class="text-ada_yellow-50 font-bold countdown-404">10</span>
+						Returning Home in <span class="text-ada_yellow-50 font-bold countdown-404"></span>
 					</p>
 				</div>
 			</div>

@@ -335,6 +335,7 @@ jQuery( function( $ ) {
 			start: 'top 80%',
 			end: 'top 80%',
 			toggleActions: 'play none none none', // play only once
+			markers: true,
 		},
 	} );
 
@@ -342,4 +343,19 @@ jQuery( function( $ ) {
 		.to( '.footer-logo', { opacity: 1, duration: 0.4 } )
 		.to( '.footer-address', { opacity: 1, duration: 0.2 }, '+=0.05' )
 		.to( '.footer-bottom', { opacity: 1, duration: 0.2 }, '+=0.1' );
+
+	// 404 Page Countdown
+	let countdownTime = 10;
+	const $countdown = $( '.countdown-404' );
+	$countdown.text( countdownTime );
+
+	const interval = setInterval( function() {
+		countdownTime--;
+		$countdown.text( countdownTime );
+
+		if ( countdownTime <= 0 ) {
+			clearInterval( interval );
+			window.location.href = '/';
+		}
+	}, 1000 );
 } );

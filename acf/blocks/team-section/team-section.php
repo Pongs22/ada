@@ -41,10 +41,9 @@ $team_cards    = get_field( 'team_cards' );
 					</div>
 
 					<?php if ( ! empty( $card_content ) ) : ?>
-
-						<div class="-mr-6 md:-mr-8 lg:-mr-0">
-							<div class="no-scrollbar overflow-x-auto">
-								<div class="flex gap-x-3 md:gap-x-4 lg:grid lg:grid-cols-3 lg:gap-x-6">
+						<div class="-mx-6 md:-mx-8 lg:mx-0">
+							<div class="overflow-x-auto no-scrollbar px-6 md:px-8 lg:px-0">
+								<div class="flex lg:grid lg:grid-cols-3 md:gap-x-6 gap-x-4 lg:whitespace-normal">
 									<?php
 									foreach ( $card_content as $content_row ) :
 
@@ -87,7 +86,9 @@ $team_cards    = get_field( 'team_cards' );
 											<?php endif; ?>
 										</div>
 									<?php endforeach; ?>
+
 								</div>
+
 							</div>
 						</div>
 					<?php endif; ?>

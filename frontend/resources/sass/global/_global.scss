@@ -240,6 +240,60 @@ input[type="number"] {
 	}
 }
 
+.ff-button-tertiary {
+	background-color: $white;
+	border: 1px solid $primary-red-50;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	cursor: pointer;
+	border-radius: 4px;
+
+	a,
+	button {
+		padding: 14px 16px 12px;
+		color: $primary-red-50;
+		position: relative;
+		z-index: 10;
+		transition: all 0.4s ease-in-out;
+		border-radius: 4px;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	&::after {
+		content: " ";
+		width: 100%;
+		height: 0;
+		background: $primary-red-50;
+		position: absolute;
+		transition: all 0.4s ease-in-out;
+		left: 0;
+		top: 0;
+		z-index: 1;
+	}
+
+	&:hover {
+
+		&::after {
+			height: 100%;
+			top: auto;
+			bottom: 0;
+		}
+
+		a,
+		button {
+			color: $white;
+		}
+	}
+}
+
+.error404 .site-header {
+	display: none !important;
+}
+
 .ada-opacity {
 	opacity: 0;
 }
