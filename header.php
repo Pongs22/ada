@@ -35,7 +35,7 @@
 					?>
 				</div><!-- .site-branding -->
 
-				<nav id="site-navigation" class="main-navigation my-auto flex">
+				<nav id="site-navigation" class="main-navigation my-auto hidden md:flex">
 					<?php if ( ! is_user_logged_in() ) : ?>
 						<?php
 						wp_nav_menu(
@@ -43,8 +43,7 @@
 								'theme_location' => 'menu-1',
 								'menu_id'        => 'primary-menu',
 								'class'          => 'my-auto',
-								'menu_class'     => 'flex justify-between  gap-x-5 my-auto',
-								'add_li_class'   => '',
+								'menu_class'     => 'primary-menu flex justify-between gap-x-5 my-auto',
 							)
 						);
 						?>
@@ -54,5 +53,27 @@
 						</div>
 					<?php endif; ?>
 				</nav><!-- #site-navigation -->
+
+				<!-- Burger Button (mobile only) -->
+				<button type="button" class="primary-burger md:hidden flex flex-col gap-1 my-auto">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-burger-icon.svg' ); ?>"/>
+				</button>
 			</div>
 		</header><!-- #masthead -->
+
+		<!-- Mobile Nav Dropdown -->
+		<div class="mobile-nav-wrapper fixed inset-0 z-[9999999] hidden flex-col items-center justify-start opacity-0 transition-all duration-300">
+			<div class="mobile-nav-content relative w-full -translate-y-full transform flex-col bg-white rounded-b-[8px] shadow-lg transition-transform duration-300 ease-in-out">
+				<div class="absolute left-1/2 bottom-2 h-1 w-12 -translate-x-1/2 rounded-[100px] bg-ada_grey-20 md:hidden w-[50px]"></div>
+				<nav class="flex flex-col gap-6 pt-12 pb-10 px-6">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'menu-1',
+							'menu_class'     => 'primary-menu w-full flex flex-col gap-4 text-lg font-medium',
+						)
+					);
+					?>
+				</nav>
+			</div>
+		</div>
