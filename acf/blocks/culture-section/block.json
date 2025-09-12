@@ -1,0 +1,18 @@
+{
+    "name": "acf/culture-section",
+    "title": "About — Culture",
+    "description": "About / Culture block for the About Us page.",
+    "style": [ "file:./css/style.min.css" ],
+    "script": "culture-section",
+    "category": "ff-blocks",
+    "icon": "block-default",
+    "keywords": ["about","cultures"],
+    "acf": {
+      "mode": "preview",
+      "renderTemplate": "culture-section.php",
+      "supports": "jsx"
+    },
+    "supports": {
+      "jsx": false
+    }
+}

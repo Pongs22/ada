@@ -33,6 +33,15 @@ $value_section
 			'layout'       => 'block',
 		]
 	)
+	->addImage(
+		'tile_image',
+		[
+			'preview_size'  => 'thumbnail',
+			'label'         => __( 'Tile Circle Image', 'firstfold' ),
+			'return_format' => 'id',
+			'instructions'  => 'Recommended size: 150x150px',
+		]
+	)
 	->addText( 'tile_heading' )
 	->addText( 'tile_content' )
 	->endRepeater()

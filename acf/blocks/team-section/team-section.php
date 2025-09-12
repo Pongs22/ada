@@ -59,7 +59,7 @@ $team_cards    = get_field( 'team_cards' );
 														<?php echo wp_get_attachment_image( $row_image, 'full', '', [ 'class' => 'w-full h-full object-cover object-center' ] ); ?>
 														<div class="card-icon absolute bottom-2.5 right-2.5">
 															<img class="size-4 md:size-6 lg:size-8"
-																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.png' ) ); ?>"
+																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.svg' ) ); ?>"
 																alt="social icon" />
 														</div>
 													</div>
