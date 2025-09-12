@@ -16,8 +16,8 @@ $team_cards    = get_field( 'team_cards' );
 			<?php if ( $section_title ) : ?>
 				<?php echo esc_html( $section_title ); ?>
 			<?php endif; ?>
-		</h2>
-		<div class="section-text max-w-[595px] text-[18px] font-normal leading-[25.2px]">
+		</h2>"
+		<div class="section-text max-w-[461px] text-sm font-normal md:text-base lg:max-w-[595px] lg:text-lg">
 			<?php if ( $section_text ) : ?>
 				<?php echo esc_html( $section_text ); ?>
 			<?php endif; ?>
@@ -33,7 +33,7 @@ $team_cards    = get_field( 'team_cards' );
 				?>
 				<div class="team-card flex flex-col gap-[24px] py-10 lg:flex-row lg:justify-between lg:gap-0">
 					<div class="max-w-[302px]">
-						<h2 class="team-card-title text-[24px] font-medium uppercase leading-[31px] text-ada_red-50">
+						<h2 class="team-card-title font-medium uppercase text-ada_red-50">
 							<?php if ( $card_heading ) : ?>
 								<?php echo esc_html( $card_heading ); ?>
 							<?php endif; ?>
@@ -42,8 +42,8 @@ $team_cards    = get_field( 'team_cards' );
 
 					<?php if ( ! empty( $card_content ) ) : ?>
 						<div class="-mx-6 md:-mx-8 lg:mx-0">
-							<div class="overflow-x-auto no-scrollbar px-6 md:px-8 lg:px-0">
-								<div class="flex lg:grid lg:grid-cols-3 md:gap-x-6 gap-x-4 lg:whitespace-normal">
+							<div class="no-scrollbar overflow-x-auto px-6 md:px-8 lg:px-0">
+								<div class="flex gap-x-4 md:gap-x-6 lg:grid lg:grid-cols-3 lg:whitespace-normal">
 									<?php
 									foreach ( $card_content as $content_row ) :
 
@@ -71,7 +71,7 @@ $team_cards    = get_field( 'team_cards' );
 
 											<?php if ( $row_name ) : ?>
 												<div class="card-name">
-													<h4 class="text-[20px] font-medium !capitalize leading-[28px] text-ada_red-50">
+													<h4 class="font-medium !capitalize text-ada_red-50">
 														<?php echo esc_html( $row_name ); ?>
 													</h4>
 												</div>
@@ -86,9 +86,7 @@ $team_cards    = get_field( 'team_cards' );
 											<?php endif; ?>
 										</div>
 									<?php endforeach; ?>
-
 								</div>
-
 							</div>
 						</div>
 					<?php endif; ?>
