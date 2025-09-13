@@ -19,14 +19,14 @@ $culture_rows = get_field( 'culture_rows' );
 		<?php endif; ?>
 
 		<?php if ( ! empty( $culture_rows ) && is_array( $culture_rows ) ) : ?>
-			<div class="culture-rows lg:grid lg:grid-cols-1 md:grid md:grid-cols-2 md:gap-x-6 divide-y w-full">
+			<div class="culture-rows lg:grid lg:grid-cols-1 md:grid md:grid-cols-2 md:gap-x-6 w-full">
 				<?php
 				foreach ( $culture_rows as $row ) : 
 					$row_image       = $row['row_image'] ? $row['row_image'] : null;
 					$row_title       = $row['row_title'] ? $row['row_title'] : '';
 					$row_description = $row['row_description'] ? $row['row_description'] : '';
 					?>
-					<div class="culture-card lg:first:pt-0 lg:py-10 py-8 flex gap-4 w-full">
+					<div class="culture-card lg:first:pt-0 lg:py-16 py-8 flex gap-4 w-full">
 						<?php if ( $row_image ) : ?>
 							<div class="card-image mb-4 lg:mb-0 lg:shrink-0 size-[40px] md:size-[48px] lg:size-[64px]">
 								<?php echo wp_get_attachment_image( $row_image, 'full', false, [ 'class' => 'w-full h-full object-cover object-center rounded-full' ] ); ?>
@@ -50,6 +50,8 @@ $culture_rows = get_field( 'culture_rows' );
 							<?php endif; ?>
 						</div>
 					</div>
+				<div class="block !h-[1px] bg-ada_gray-20 last:hidden md:hidden lg:block"></div>
+
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
