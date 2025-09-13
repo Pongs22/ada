@@ -8,7 +8,7 @@
 				const videoWrapper = document.querySelector( '#heroVideoContainer' );
 				if ( videoWrapper ) {
 					setTimeout( () => {
-						$( videoWrapper ).html( `<iframe id="vimeoPlayer" class="scale-[3] md:scale-[2.25] lg:scale-[1.2]" width="100%" height="100%"src="https://player.vimeo.com/video/${ $heroVideoId }?autoplay=1&muted=1&loop=1&badge=0&autopause=0&player_id=0&app_id=58479"frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>` );
+						$( videoWrapper ).html( `<iframe id="vimeoPlayer" class="scale-[3.5] md:scale-[2.25] lg:scale-[1.2]" width="100%" height="100%"src="https://player.vimeo.com/video/${ $heroVideoId }?autoplay=1&muted=1&loop=1&badge=0&autopause=0&player_id=0&app_id=58479"frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>` );
 						const iframe = document.getElementById( 'vimeoPlayer' );
 						const player = new Vimeo.Player( iframe );
 						player.on( 'play', () => {

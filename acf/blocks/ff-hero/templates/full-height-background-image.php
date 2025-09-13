@@ -17,16 +17,16 @@ $is_video              = get_field( 'use_video' );
 ?>
 <div class="ada-main-hero relative overflow-x-clip">
 	<div class="mx-auto h-full lg:p-0">
-		<div class="bg-primary10 relative flex aspect-[375/500] h-full flex-col flex-wrap overflow-hidden md:aspect-square md:px-8 md:py-8 lg:aspect-[1440/700] lg:px-10">
+		<div class="bg-primary10 relative flex aspect-[375/600] h-full flex-col flex-wrap overflow-hidden md:aspect-square md:px-8 md:py-8 lg:aspect-[1440/700] lg:px-10">
 			<div class="ff-c-container relative z-20 !mt-auto flex w-full md:!my-auto">
-				<div class="absolute bottom-0 left-0 mr-auto flex w-full transform flex-col gap-y-1 bg-ada_red-50/70 p-4 backdrop-blur-[40px] md:static md:my-0 md:max-w-[473px] md:translate-x-0 md:translate-y-0 md:rounded-lg md:p-5 lg:max-w-[597px] lg:p-8">
+				<div class="absolute bottom-0 left-0 mr-auto flex w-full transform flex-col gap-y-1 bg-ada_red-70/70 p-4 backdrop-blur-[40px] md:static md:my-0 md:max-w-[473px] md:translate-x-0 md:translate-y-0 md:rounded-lg md:p-5 lg:max-w-[597px] lg:p-8">
 					<?php if ( $hero_caption ) : ?>
 						<h1 class="gl-fadein text-white"><?php echo esc_html( $hero_caption ); ?></h1>
 					<?php elseif ( $is_preview ) : ?>
 						<h1 class="gl-fadein text-white">Your Title Here</h1>
 					<?php endif; ?>
 					<?php if ( $hero_description ) : ?>
-						<p class="gl-fadein font-normal leading-[140%] text-white md:text-base md:leading-[150%] lg:text-lg lg:leading-[150%]"><?php echo esc_html( $hero_description ); ?></p>
+						<p class="gl-fadein text-sm font-normal leading-[140%] text-white md:text-base md:leading-[150%] lg:text-lg lg:leading-[150%]"><?php echo esc_html( $hero_description ); ?></p>
 					<?php elseif ( $is_preview ) : ?>
 						<p class="gl-fadein font-normal leading-[140%] text-white md:text-base md:leading-[150%] lg:text-lg lg:leading-[150%]">Your Description Here</p>
 					<?php endif; ?>
