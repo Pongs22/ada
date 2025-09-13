@@ -11,8 +11,8 @@ $with_icon_list = get_field( 'with_icon_list_layout' );
 $wic_link       = $with_icon_list['link'] ?: '';
 ?>
 
-<div class="with-icon-list bg-white px-5 py-10 md:px-8 md:py-[60px] lg:px-10 lg:py-20">
-	<div class="ff-c-container flex flex-col md:gap-10 gap-6 rounded-[20px] bg-[#f5f5f5] lg:p-20 md:px-6 md:py-8 lg:flex-row lg:gap-x-6">
+<div class="with-icon-list bg-white p-0 md:px-8 md:py-[60px] lg:px-10 lg:py-20">
+	<div class="ff-c-container flex flex-col md:gap-10 gap-6 rounded-[20px] bg-[#f5f5f5] px-5 py-10 lg:p-20 md:px-6 md:py-8 lg:flex-row lg:gap-x-6">
 		<div class="information-container justify-between flex w-full flex-col lg:w-auto lg:flex-1">
 			<header class="mb-6 lg:mb-12">
 				<h2 class="text-ada_red-50 md:max-w-[400px] lg:max-w-[540px]"><?php echo esc_html( $with_icon_list['title'] ); ?></h2>
