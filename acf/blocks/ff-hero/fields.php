@@ -29,15 +29,7 @@ $ff_hero
 		] 
 	)
 	->conditional( 'hero_style', '==', 'full' )
-	->addFile(
-		'video_file',
-		[
-			'label'         => 'Upload Video',
-			'instructions'  => 'Recommended Dimension: 1920 x 1080',
-			'return_format' => 'url',
-			'mime_types'    => 'mp4,webm,ogg,mov',
-		]
-	)
+	->addText( 'video_id' )
 	->conditional( 'use_video', '==', 1 )
 
 	->addImage(

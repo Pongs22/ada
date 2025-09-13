@@ -33,11 +33,11 @@ $team_cards    = get_field( 'team_cards' );
 				?>
 				<div class="team-card flex flex-col gap-[24px] py-10 lg:flex-row lg:justify-between lg:gap-0">
 					<div class="max-w-[302px]">
-						<h2 class="team-card-title font-medium uppercase text-ada_red-50">
+						<h3 class="team-card-title font-medium uppercase text-ada_red-50">
 							<?php if ( $card_heading ) : ?>
 								<?php echo esc_html( $card_heading ); ?>
 							<?php endif; ?>
-						</h2>
+						</h3>
 					</div>
 
 					<?php if ( ! empty( $card_content ) ) : ?>

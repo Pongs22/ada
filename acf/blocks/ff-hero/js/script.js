@@ -1,48 +1,27 @@
-/* global jQuery gsap*/
+/* global jQuery gsap Vimeo*/
 ( function( $ ) {
 	const initializeMainVideo = function() {
 		const mainVideo = document.querySelector( '.ada-main-hero' );
 		if ( mainVideo ) {
-			const $heroVideoId = '';
+			const $heroVideoId = $( '#heroVideoContainer' ).data( 'id' );
 			function heroVideoFunction() {
-				const videoWrapper = document.querySelectorAll( '.ada-main-hero .player-container' );
-				if ( videoWrapper.length > 0 ) {
-					if ( window.ytPlayer ) {
-						window.ytPlayer.destroy();
-					}
+				const videoWrapper = document.querySelector( '#heroVideoContainer' );
+				if ( videoWrapper ) {
 					setTimeout( () => {
-						$( videoWrapper ).html( `<div id="player" class="transition-all" data-id="${ $heroVideoId }"></div>` );
-						gsap.to( videoWrapper, {
-							opacity: 1,
-							scrollTrigger: {
-								trigger: videoWrapper,
-								start: 'top-=100% 80%',
-								end: 'top-=100% 80%',
-							},
-						} );
-					}, 10 );
-				}
-			}
-
-			function playVideo() {
-				const videoPlayer = document.querySelector( '.ada-main-hero video' );
-				if ( videoPlayer ) {
-					setTimeout( () => {
-						videoPlayer.play().then( () => {
+						$( videoWrapper ).html( `<iframe id="vimeoPlayer" class="scale-[3] md:scale-[2.25] lg:scale-[1.2]" width="100%" height="100%"src="https://player.vimeo.com/video/${ $heroVideoId }?autoplay=1&muted=1&loop=1&badge=0&autopause=0&player_id=0&app_id=58479"frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>` );
+						const iframe = document.getElementById( 'vimeoPlayer' );
+						const player = new Vimeo.Player( iframe );
+						player.on( 'play', () => {
 							heroCoverChange();
 						} );
-					}, 500 );
+					}, 50 );
 				}
 			}
-
-			playVideo();
 			heroVideoFunction();
 
 			function heroCoverChange() {
 				const curtainBar = document.querySelectorAll( '.ada-main-hero .bar-container .bars' );
 				const curtainArray = Array.from( curtainBar );
-
-				// Reverse so animation starts from rightmost bar
 				const reversedBars = curtainArray.reverse();
 
 				reversedBars.forEach( ( bar, i ) => {

@@ -26,16 +26,15 @@
 	<div id="page" class="site relative">
 		<a class="skip-link screen-reader-text"
 			href="#primary"><?php esc_html_e( 'Skip to content', 'firstfold' ); ?></a>
-
 		<header id="masthead" class="site-header fixed left-0 top-0 z-50 w-full border-b bg-white px-6 py-3 md:px-8 lg:px-10">
 			<div class="ff-c-container m-auto flex flex-row justify-between">
-				<div class="site-branding size-16">
+				<div class="site-branding size-10 lg:size-16">
 					<?php
 					the_custom_logo();
 					?>
 				</div><!-- .site-branding -->
 
-				<nav id="site-navigation" class="main-navigation my-auto hidden md:flex">
+				<nav id="site-navigation" class="main-navigation my-auto hidden lg:flex">
 					<?php if ( ! is_user_logged_in() ) : ?>
 						<?php
 						wp_nav_menu(
@@ -55,7 +54,7 @@
 				</nav><!-- #site-navigation -->
 
 				<!-- Burger Button (mobile only) -->
-				<button type="button" class="primary-burger md:hidden flex flex-col gap-1 my-auto">
+				<button type="button" class="primary-burger my-auto flex flex-col gap-1 lg:hidden">
 							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-burger-icon.svg' ); ?>"/>
 				</button>
 			</div>
@@ -63,9 +62,9 @@
 
 		<!-- Mobile Nav Dropdown -->
 		<div class="mobile-nav-wrapper fixed inset-0 z-[9999999] hidden flex-col items-center justify-start opacity-0 transition-all duration-300">
-			<div class="mobile-nav-content relative w-full -translate-y-full transform flex-col bg-white rounded-b-[8px] shadow-lg transition-transform duration-300 ease-in-out">
-				<div class="absolute left-1/2 bottom-2 h-1 w-12 -translate-x-1/2 rounded-[100px] bg-ada_grey-20 md:hidden w-[50px]"></div>
-				<nav class="flex flex-col gap-6 pt-12 pb-10 px-6">
+			<div class="mobile-nav-content relative w-full -translate-y-full transform flex-col rounded-b-[8px] bg-white shadow-lg transition-transform duration-300 ease-in-out">
+				<div class="absolute bottom-2 left-1/2 h-1 w-12 w-[50px] -translate-x-1/2 rounded-[100px] bg-ada_grey-20 md:hidden"></div>
+				<nav class="flex flex-col gap-6 px-6 pb-10 pt-12">
 					<?php
 					wp_nav_menu(
 						array(

@@ -11,15 +11,15 @@ $hero_background_image = get_field( 'hero_background_image' );
 $hero_caption          = get_field( 'hero_caption' );
 $hero_description      = get_field( 'hero_description' );
 $hero_link             = get_field( 'link' );
-$video                 = get_field( 'video_file' ) ?: '';
+$video                 = get_field( 'video_id' ) ?: '';
 $is_video              = get_field( 'use_video' );
 
 ?>
 <div class="ada-main-hero relative overflow-x-clip">
 	<div class="mx-auto h-full lg:p-0">
-		<div class="bg-primary10 relative flex aspect-[1440/700] h-full flex-col flex-wrap overflow-hidden px-6 py-8 md:px-8 lg:px-10">
-			<div class="ff-c-container relative z-20 !my-auto flex w-full">
-				<div class="absolute left-1/2 top-1/2 !my-0 mr-auto flex w-full -translate-x-1/2 -translate-y-1/2 transform flex-col gap-y-1 rounded-lg bg-ada_red-50/70 p-4 backdrop-blur-[40px] md:static md:max-w-[473px] md:translate-x-0 md:translate-y-0 md:p-5 lg:max-w-[597px] lg:p-8">
+		<div class="bg-primary10 relative flex aspect-[375/500] h-full flex-col flex-wrap overflow-hidden md:aspect-square md:px-8 md:py-8 lg:aspect-[1440/700] lg:px-10">
+			<div class="ff-c-container relative z-20 !mt-auto flex w-full md:!my-auto">
+				<div class="absolute bottom-0 left-0 mr-auto flex w-full transform flex-col gap-y-1 bg-ada_red-50/70 p-4 backdrop-blur-[40px] md:static md:my-0 md:max-w-[473px] md:translate-x-0 md:translate-y-0 md:rounded-lg md:p-5 lg:max-w-[597px] lg:p-8">
 					<?php if ( $hero_caption ) : ?>
 						<h1 class="gl-fadein text-white"><?php echo esc_html( $hero_caption ); ?></h1>
 					<?php elseif ( $is_preview ) : ?>
@@ -43,9 +43,7 @@ $is_video              = get_field( 'use_video' );
 				</div>
 			</div>
 			<?php if ( $is_video && $video ) : ?>
-				<video width="100%" loop muted x5-video-orientation="landscape|portrait" x5-video-player-fullscreen="true" playsinline x5-video-player-type="h5" webkit-playsinline class="absolute left-0 top-0 aspect-[1440/700] h-full w-full object-cover object-center">
-					<source src="<?php echo esc_url( $video ); ?>" type="video/mp4">
-				</video>
+				<div class="hero-video-container absolute left-0 top-0 h-full w-full" id="heroVideoContainer" data-id="<?php echo esc_attr( $video ); ?>"></div>
 				<div class="bar-container absolute left-0 top-0 z-[11] flex h-full w-full flex-row">
 					<?php for ( $bar = 0; $bar < 8; $bar++ ) : ?>
 						<div class="relative h-full  w-full <?php echo esc_attr( $bar < 12 ? '' : 'hidden md:block' ); ?>">
