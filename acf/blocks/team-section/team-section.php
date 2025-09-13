@@ -16,7 +16,7 @@ $team_cards    = get_field( 'team_cards' );
 			<?php if ( $section_title ) : ?>
 				<?php echo esc_html( $section_title ); ?>
 			<?php endif; ?>
-		</h2>"
+		</h2>
 		<div class="section-text max-w-[461px] text-sm font-normal md:text-base lg:max-w-[595px] lg:text-lg">
 			<?php if ( $section_text ) : ?>
 				<?php echo esc_html( $section_text ); ?>
