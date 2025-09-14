@@ -383,30 +383,6 @@ jQuery( function( $ ) {
 		}, 1000 );
 	}
 
-	//Cultures Section Animation
-	gsap.registerPlugin( ScrollTrigger );
-
-	if ( window.innerWidth >= 1024 ) {
-		$( '.culture-card' ).each( function() {
-			const card = $( this );
-
-			ScrollTrigger.create( {
-				trigger: card,
-				start: 'top center+=1',
-				end: 'bottom center-=1',
-				onEnter: () => setActive( card ),
-				onEnterBack: () => setActive( card ),
-			} );
-		} );
-
-		function setActive( activeCard ) {
-			gsap.to( '.culture-card', { opacity: 0.3, duration: 0.4, overwrite: true } );
-			gsap.to( activeCard, { opacity: 1, duration: 0.4, overwrite: true } );
-		}
-
-		gsap.set( '.culture-card', { opacity: 0.3 } );
-	}
-
 	//Navbar popdown
 	$( '.primary-burger' ).click( function( e ) {
 		e.preventDefault();

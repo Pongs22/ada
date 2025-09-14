@@ -178,20 +178,6 @@ input[type="number"] {
 		top: 0;
 		z-index: 1;
 	}
-
-	&:hover {
-
-		&::after {
-			height: 100%;
-			top: auto;
-			bottom: 0;
-		}
-
-		a,
-		button {
-			color: $primary-red-50;
-		}
-	}
 }
 
 .ff-button-secondary {
@@ -223,20 +209,6 @@ input[type="number"] {
 		left: 0;
 		top: 0;
 		z-index: 1;
-	}
-
-	&:hover {
-
-		&::after {
-			height: 100%;
-			top: auto;
-			bottom: 0;
-		}
-
-		a,
-		button {
-			color: $white;
-		}
 	}
 }
 
@@ -274,8 +246,40 @@ input[type="number"] {
 		top: 0;
 		z-index: 1;
 	}
+}
 
-	&:hover {
+@media (min-width: 1024px) {
+
+	.ff-button-primary:hover {
+
+		&::after {
+			height: 100%;
+			top: auto;
+			bottom: 0;
+
+		}
+
+		a,
+		button {
+			color: $primary-red-50;
+		}
+	}
+
+	.ff-button-secondary:hover {
+
+		&::after {
+			height: 100%;
+			top: auto;
+			bottom: 0;
+		}
+
+		a,
+		button {
+			color: $white;
+		}
+	}
+
+	.ff-button-tertiary:hover {
 
 		&::after {
 			height: 100%;

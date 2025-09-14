@@ -36,11 +36,6 @@ header {
 				transform-origin: right;
 				transition: transform 0.4s ease-in-out;
 			}
-
-			a:hover::after {
-				transform: scaleX(1);
-				transform-origin: left;
-			}
 		}
 
 		&:last-child {
@@ -72,13 +67,31 @@ header {
 				top: 0;
 				z-index: 1;
 			}
+		}
+	}
+}
 
-			&:hover {
+@media (min-width: 1024px) {
+
+	.primary-menu {
+
+		li {
+
+			&:not(:last-child) {
+
+				a:hover::after {
+					transform: scaleX(1);
+					transform-origin: left;
+				}
+			}
+
+			&:last-child:hover {
 
 				&::after {
 					height: 100%;
 					top: auto;
 					bottom: 0;
+
 				}
 
 				a {
