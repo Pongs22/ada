@@ -17,12 +17,14 @@ $value_logo       = get_field( 'value_logo' );
 	<div class="relative bg-white overflow-hidden ">
 		<?php if ( $background_image ) : ?>
 			<div class="absolute inset-0 w-full">
-				<?php echo wp_get_attachment_image(
+				<?php
+				echo wp_get_attachment_image(
 					$background_image,
 					'full',
 					false,
-					[ 'class' => 'w-full lg:h-[585px] md:h-[556px] h-[75vh] h-full object-cover object-center' ]
-				); ?>
+					[ 'class' => 'w-full lg:h-[585px] md:h-[556px] h-[75vh]  object-cover object-center' ]
+				);
+				?>
 			</div>
 		<?php endif; ?>
 
