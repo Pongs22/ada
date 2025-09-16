@@ -10,6 +10,7 @@
  */
 
 ?>
+<?php if ( get_field( 'show_footer' ) ) : ?>
 <div class="footer-anim-trigger z-0 h-[409px] md:h-[282px] lg:h-[395px]"></div>
 <footer id="colophon" class="fixed bottom-0 left-0 z-10 w-full">
 	<div class="relative flex h-[409px] flex-col justify-between bg-ada_red-70 leading-6 text-gray-600 md:h-[282px] lg:h-[395px]">
@@ -70,6 +71,22 @@
 		</div>
 	</div>
 </footer><!-- #colophon -->
+<?php endif; ?>
+
+<div id="password-success" class="hidden">
+	<div class="fixed w-full h-screen bg-black opacity-50 top-0 left-0 z-[998]">
+	</div>
+	<div  class="py-[25px] px-20 flex fixed bottom-0 items-center left-0 justify-between w-full z-[999] bg-white border-t-[#14141480] border-t-[10px]">
+		<div class="flex gap-x-[12px]">
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-check-icon.svg' ); ?>" alt="Check Icon" class="aspect-square max-w-[24px]">
+			<h1 class="text-ada_red-50 text-[18px] leading-[120%] font-geova font-semibold whitespace-nowrap">Your password has been successfully updated. Please log in.</h1>
+		</div>
+		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-close-button.svg' ); ?>" alt="Close Icon" >
+
+	</div>
+</div>
+
+
 
 <div class="modal-wrapper fixed left-0 top-0 z-[999999] hidden h-[100svh] h-screen w-screen bg-black/60 opacity-0 transition-all duration-300"></div>
 <div class="unlock-next-tier-popup-wrapper fixed left-1/2 top-1/2 z-[9999999] hidden w-full -translate-x-1/2 -translate-y-1/2 px-6 opacity-0 transition-all duration-300 sm:max-w-[500px] sm:px-0">

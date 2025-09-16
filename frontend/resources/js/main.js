@@ -455,4 +455,23 @@ jQuery( function( $ ) {
 		startY = 0;
 		currentY = 0;
 	} );
+
+	if ( localStorage.getItem( 'password_updated' ) === '1' ) {
+		$( '#password-success' ).fadeIn( 700 );
+		$( 'body' ).css( 'overflow', 'hidden' );
+
+		setTimeout( function() {
+			$( '#password-success' ).fadeOut( 700, function() {
+				$( 'body' ).css( 'overflow', '' );
+			} );
+		}, 5000 );
+
+		localStorage.removeItem( 'password_updated' );
+	}
+
+	$( document ).on( 'click', '#password-success .close-btn', function() {
+		$( '#password-success' ).fadeOut( 700, function() {
+			$( 'body' ).css( 'overflow', '' );
+		} );
+	} );
 } );
