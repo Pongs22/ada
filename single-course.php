@@ -179,16 +179,23 @@ if ( $user_id ) {
 				$professor_details = get_field( 'professor_details', get_the_ID() );
 				$featured_image    = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 				?>
-				<div class="embed-container relative my-auto w-full overflow-hidden pt-[56.25%]" data-video="<?php echo esc_attr( $vimeo_id ); ?>">
+				<div class="embed-container relative my-auto w-full overflow-hidden rounded-lg pt-[56.25%]" data-video="<?php echo esc_attr( $vimeo_id ); ?>">
 					<?php // phpcs:ignore WPThemeReview.ThouShallNotUse.ForbiddenIframe.Found ?>
 					<?php if ( ! empty( $course['status'] ) ) : ?>
 						<div class="video-container" id="videoContainer"></div>
 					<?php endif; ?>
+					<div class="bar-container absolute left-0 top-0 z-[5] flex h-full w-full flex-row">
+						<?php for ( $bar = 0; $bar < 8; $bar++ ) : ?>
+							<div class="relative h-full  w-full <?php echo esc_attr( $bar < 12 ? '' : 'hidden md:block' ); ?>">
+								<div class="bars absolute bottom-0 left-0 h-full w-full bg-ada_red-60" style="transition: cubic-bezier(0.71, 0.00, 0.43, 1.00);" ></div>
+							</div>
+						<?php endfor; ?>
+					</div>
 					<div class=" <?php echo esc_attr( empty( $course['status'] ) ? 'course-thumbnail-locked' : 'course-thumbnail' ); ?> group absolute left-0 top-0 z-[10] h-full cursor-pointer overflow-hidden rounded-[10px] transition-all duration-300">
 						<?php if ( $featured_image ) : ?>
-							<img src="<?php echo esc_url( $featured_image ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 hover:brightness-75">
+							<img src="<?php echo esc_url( $featured_image ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 group-hover:brightness-75">
 						<?php else : ?>
-							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-course-thumbnail-placeholder.png' ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 hover:brightness-75">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-course-thumbnail-placeholder.png' ); ?>" class="relative z-[5] h-full w-full object-cover object-center transition-all duration-300 group-hover:brightness-75">
 						<?php endif; ?>
 						<div class="absolute left-1/2 top-1/2 z-20 flex size-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 transition-all duration-300 group-hover:bg-white/60">
 							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-play-button.svg' ); ?>" alt="Close" class="m-auto w-full max-w-[40px]"/>

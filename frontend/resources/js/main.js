@@ -92,6 +92,10 @@ jQuery( function( $ ) {
 		} );
 		$( '.course-thumbnail' ).click( function() {
 			player.play();
+			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+			setTimeout( function() {
+				$( '.course-thumbnail' ).addClass( 'hidden' );
+			}, 500 );
 		} );
 	} else {
 		$( '.course-thumbnail-locked' ).click( function() {
@@ -108,8 +112,20 @@ jQuery( function( $ ) {
 		}
 		player.on( 'play', function() {
 			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+			const curtainBar = document.querySelectorAll( '.bar-container .bars' );
+			const curtainArray = Array.from( curtainBar );
+			const reversedBars = curtainArray.reverse();
+			reversedBars.forEach( ( bar, i ) => {
+				gsap.to( bar, {
+					height: 0,
+					duration: 0.4,
+					delay: 0.08 * i,
+					ease: 'power1.inOut',
+				} );
+			} );
 			setTimeout( function() {
 				$( '.course-thumbnail' ).addClass( 'hidden' );
+				$( '.bar-container' ).addClass( 'hidden' );
 			}, 500 );
 		} );
 		player.on( 'timeupdate', function( data ) {
@@ -305,7 +321,10 @@ jQuery( function( $ ) {
 
 	$( continueWatching ).find( '.start-over-btn' ).click( function() {
 		popupModalFadeOut( continueWatching );
-		$( '.course-thumbnail' ).addClass( 'hidden' );
+		$( '.course-thumbnail' ).addClass( 'opacity-0' );
+		setTimeout( function() {
+			$( '.course-thumbnail' ).addClass( 'hidden' );
+		}, 500 );
 		if ( player ) {
 			player.ready().then( function() {
 				player.play();
@@ -315,6 +334,10 @@ jQuery( function( $ ) {
 
 	$( continueWatching ).find( '.continue-btn' ).click( function() {
 		popupModalFadeOut( continueWatching );
+		$( '.course-thumbnail' ).addClass( 'opacity-0' );
+		setTimeout( function() {
+			$( '.course-thumbnail' ).addClass( 'hidden' );
+		}, 500 );
 		if ( player ) {
 			player.ready().then( function() {
 				return player.setCurrentTime( seekTime );
@@ -329,6 +352,7 @@ jQuery( function( $ ) {
 		e.preventDefault();
 		const username = $( 'input[name="login-email"]' ).val();
 		const password = $( 'input[name="login-password"]' ).val();
+		// TODO: Add error on empty state.
 		loginFunction( username, password );
 	} );
 	function loginFunction( username, password ) {

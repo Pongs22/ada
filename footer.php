@@ -138,7 +138,7 @@
 			</div>
 
 			<div class="login-button ff-button-primary">
-				<button type="submit"
+				<button type="submit "
 					class="block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
 					Log in
 				</button>
