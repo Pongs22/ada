@@ -312,3 +312,36 @@ input[type="number"] {
 .swiper-pagination-bullet-active {
 	background: $primary-red-50 !important;
 }
+
+/* stylelint-disable color-no-hex */
+.loader {
+	width: 20px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: 8px solid #0000;
+	border-right-color: #ffa50097;
+	position: relative;
+	animation: l24 1s infinite linear;
+}
+
+.loader::before,
+.loader::after {
+	content: "";
+	position: absolute;
+	inset: -8px;
+	border-radius: 50%;
+	border: inherit;
+	animation: inherit;
+	animation-duration: 2s;
+}
+
+.loader::after {
+	animation-duration: 4s;
+}
+
+@keyframes l24 {
+
+	100% {
+		transform: rotate(1turn);
+	}
+}

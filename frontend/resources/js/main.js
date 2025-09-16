@@ -355,14 +355,17 @@ jQuery( function( $ ) {
 		const $password = $form.find( 'input[name="login-password"]' );
 		const $emailLabel = $form.find( 'label[for="login-email"]' );
 		const $passwordLabel = $form.find( 'label[for="login-password"]' );
+		const $btn = $form.find( 'button[type="submit"]' );
 		const $error = $form.find( '.login-error' );
+		const $btnText = $btn.find( '.login-btn' );
+		const $loader = $btn.find( '.loader' );
+
 		$error.remove();
 		$email.removeClass( 'border-red-500' );
 		$password.removeClass( 'border-red-500' );
 		$emailLabel.removeClass( 'text-red-500' );
 		$passwordLabel.removeClass( 'text-red-500' );
 
-		const $btn = $form.find( 'button[type="submit"]' );
 		const emailVal = $email.val().trim();
 		const passwordVal = $password.val();
 
@@ -381,9 +384,13 @@ jQuery( function( $ ) {
 		}
 
 		$btn.prop( 'disabled', true );
+		$btnText.addClass( 'hidden' );
+		$loader.removeClass( 'hidden' );
 
 		loginFunction( emailVal, passwordVal, function( errorType, errorMsg ) {
 			$btn.prop( 'disabled', false );
+			$btnText.removeClass( 'hidden' );
+			$loader.addClass( 'hidden' );
 			if ( errorType === 'user' ) {
 				$email.addClass( 'border-red-500' );
 				$emailLabel.addClass( 'text-red-500' );
@@ -393,7 +400,7 @@ jQuery( function( $ ) {
 				$passwordLabel.addClass( 'text-red-500' );
 				$password.after( '<div class="login-error mt-1 text-sm text-red-500">' + errorMsg + '</div>' );
 			}
-		}, $btn );
+		}, $btn, $btnText, $loader );
 	} );
 	function loginFunction( username, password, errorCallback, $btn ) {
 		// TODO: add loading animation in the button
@@ -408,6 +415,7 @@ jQuery( function( $ ) {
 			},
 			success( response ) {
 				$btn.prop( 'disabled', false );
+
 				if ( response.success ) {
 					window.location.href = '/course/testimonies/';
 				} else {
@@ -415,7 +423,6 @@ jQuery( function( $ ) {
 				}
 			},
 			error( ) {
-				$btn.prop( 'disabled', false );
 				errorCallback( 'user', 'An error occurred. Please try again.' );
 			},
 		} );

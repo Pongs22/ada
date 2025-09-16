@@ -138,9 +138,9 @@
 			</div>
 
 			<div class="login-button ff-button-primary">
-				<button type="submit "
-					class="block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
-					Log in
+				<button type="submit" class="relative block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
+					<div class="login-btn">Login</div>
+					<div class="loader hidden mx-auto"></div>
 				</button>
 			</div>
 		</form>
