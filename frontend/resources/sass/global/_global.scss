@@ -5,15 +5,13 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	height: auto;
-	overflow: auto;
 	scrollbar-width: none; /* Firefox */
 	-ms-overflow-style: none; /* IE and Edge */
 }
 
 html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-div::-webkit-scrollbar {
-	display: none; /* Chrome, Safari, Opera */
+body::-webkit-scrollbar {
+	// display: none; /* Chrome, Safari, Opera */
 }
 
 .site-main {

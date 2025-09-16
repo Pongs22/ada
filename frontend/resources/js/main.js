@@ -118,15 +118,15 @@ jQuery( function( $ ) {
 			reversedBars.forEach( ( bar, i ) => {
 				gsap.to( bar, {
 					height: 0,
-					duration: 0.4,
-					delay: 0.08 * i,
+					duration: 0.3,
+					delay: 0.05 * i,
 					ease: 'power1.inOut',
 				} );
 			} );
 			setTimeout( function() {
 				$( '.course-thumbnail' ).addClass( 'hidden' );
 				$( '.bar-container' ).addClass( 'hidden' );
-			}, 500 );
+			}, 1000 );
 		} );
 		player.on( 'timeupdate', function( data ) {
 			if ( data.seconds - lastSaved >= 5 ) {
