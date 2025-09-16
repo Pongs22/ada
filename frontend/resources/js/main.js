@@ -265,6 +265,7 @@ jQuery( function( $ ) {
 
 	$( '.primary-login' ).click( function( e ) {
 		e.preventDefault();
+		resetLoginErrors();
 		popupModalFadeIn( '.login-popup-wrapper' );
 		setTimeout( function() {
 			$( '.login-popup-content' ).css( 'transform', '' ).removeClass( 'translate-y-full' ).addClass( 'translate-y-0' );
@@ -274,6 +275,7 @@ jQuery( function( $ ) {
 	function closeLoginPopup() {
 		popupModalFadeOut( '.login-popup-wrapper' );
 		$( '.login-popup-content' ).removeClass( 'translate-y-0' ).addClass( 'translate-y-full' );
+		resetLoginErrors();
 	}
 	$( '.login-close-button' ).click( closeLoginPopup );
 
@@ -348,6 +350,24 @@ jQuery( function( $ ) {
 	} );
 	/* --- POPUP CONFIGURATIONS --- */
 	/* --- LOGIN CONFIGURATIONS --- */
+
+	function resetLoginErrors() {
+		const $form = $( '#loginPopup' );
+		const $email = $form.find( 'input[name="login-email"]' );
+		const $password = $form.find( 'input[name="login-password"]' );
+		const $emailLabel = $form.find( 'label[for="login-email"]' );
+		const $passwordLabel = $form.find( 'label[for="login-password"]' );
+
+		// Remove error messages
+		$form.find( '.login-error' ).remove();
+
+		// Reset input styles
+		$email.removeClass( 'border-red-500' );
+		$password.removeClass( 'border-red-500' );
+		$emailLabel.removeClass( 'text-red-500' );
+		$passwordLabel.removeClass( 'text-red-500' );
+	}
+
 	$( '#loginPopup' ).on( 'submit', function( e ) {
 		e.preventDefault();
 		const $form = $( this );
