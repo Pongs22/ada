@@ -1095,19 +1095,42 @@ function custom_login_function() {
 		exit();
 	}
 
-	$username = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
+	$email    = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
 	$password = isset( $_POST['password'] ) ? sanitize_text_field( wp_unslash( $_POST['password'] ) ) : '';
 
-	$creds = array(
-		'user_login'    => $username,
+	if ( ! is_email( $email ) ) {
+		wp_send_json_error(
+			[
+				'type'    => 'user',
+				'message' => 'Invalid email address.',
+			] 
+		);
+	}
+
+	$user = get_user_by( 'email', $email );
+	if ( ! $user ) {
+		wp_send_json_error(
+			[
+				'type'    => 'user',
+				'message' => 'User does not exist.',
+			] 
+		);
+	}
+
+	$creds = [
+		'user_login'    => $user->user_login,
 		'user_password' => $password,
 		'remember'      => true,
-	);
+	];
 
 	$user = wp_signon( $creds, false );
-
 	if ( is_wp_error( $user ) ) {
-		wp_send_json_error( array( 'message' => $user->get_error_message() ) );
+		wp_send_json_error(
+			[
+				'type'    => 'password',
+				'message' => $user->get_error_message(),
+			] 
+		);
 	}
 
 	if ( in_array( 'administrator', (array) $user->roles, true ) ) {
