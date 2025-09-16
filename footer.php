@@ -81,7 +81,7 @@
 			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-check-icon.svg' ); ?>" alt="Check Icon" class="aspect-square max-w-[24px]">
 			<h1 class="text-ada_red-50 text-[18px] leading-[120%] font-geova font-semibold whitespace-nowrap">Your password has been successfully updated. Please log in.</h1>
 		</div>
-		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-close-button.svg' ); ?>" alt="Close Icon" >
+		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-close-button.svg' ); ?>" alt="Close Icon" class="close-btn">
 
 	</div>
 </div>
