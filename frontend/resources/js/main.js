@@ -350,13 +350,53 @@ jQuery( function( $ ) {
 	/* --- LOGIN CONFIGURATIONS --- */
 	$( '#loginPopup' ).on( 'submit', function( e ) {
 		e.preventDefault();
-		const username = $( 'input[name="login-email"]' ).val();
-		const password = $( 'input[name="login-password"]' ).val();
-		// TODO: Add error on empty state.
-		loginFunction( username, password );
+		const $form = $( this );
+		const $email = $form.find( 'input[name="login-email"]' );
+		const $password = $form.find( 'input[name="login-password"]' );
+		const $emailLabel = $form.find( 'label[for="login-email"]' );
+		const $passwordLabel = $form.find( 'label[for="login-password"]' );
+		const $error = $form.find( '.login-error' );
+		$error.remove();
+		$email.removeClass( 'border-red-500' );
+		$password.removeClass( 'border-red-500' );
+		$emailLabel.removeClass( 'text-red-500' );
+		$passwordLabel.removeClass( 'text-red-500' );
+
+		const $btn = $form.find( 'button[type="submit"]' );
+		const emailVal = $email.val().trim();
+		const passwordVal = $password.val();
+
+		if ( ! /^[^@]+@[^@]+\.[^@]+$/.test( emailVal ) ) {
+			$email.addClass( 'border-red-500' );
+			$emailLabel.addClass( 'text-red-500' );
+			$email.after( '<div class="login-error mt-1 text-sm text-red-500">Please enter a valid email address.</div>' );
+			return;
+		}
+
+		if ( ! passwordVal ) {
+			$password.addClass( 'border-red-500' );
+			$passwordLabel.addClass( 'text-red-500' );
+			$password.after( '<div class="login-error mt-1 text-sm text-red-500">Please enter your password.</div>' );
+			return;
+		}
+
+		$btn.prop( 'disabled', true );
+
+		loginFunction( emailVal, passwordVal, function( errorType, errorMsg ) {
+			$btn.prop( 'disabled', false );
+			if ( errorType === 'user' ) {
+				$email.addClass( 'border-red-500' );
+				$emailLabel.addClass( 'text-red-500' );
+				$email.after( '<div class="login-error mt-1 text-sm text-red-500">' + errorMsg + '</div>' );
+			} else if ( errorType === 'password' ) {
+				$password.addClass( 'border-red-500' );
+				$passwordLabel.addClass( 'text-red-500' );
+				$password.after( '<div class="login-error mt-1 text-sm text-red-500">' + errorMsg + '</div>' );
+			}
+		}, $btn );
 	} );
-	function loginFunction( username, password ) {
-		// TODO: add loading animation in the button, add error.
+	function loginFunction( username, password, errorCallback, $btn ) {
+		// TODO: add loading animation in the button
 		$.ajax( {
 			url: ajaxVar.ajaxUrl,
 			type: 'post',
@@ -367,10 +407,20 @@ jQuery( function( $ ) {
 				password,
 			},
 			success( response ) {
-				window.location.href = response.data.redirect;
+				$btn.prop( 'disabled', false );
+				if ( response.success ) {
+					window.location.href = '/course/testimonies/';
+				} else {
+					errorCallback( response.data.type, response.data.message );
+				}
+			},
+			error( ) {
+				$btn.prop( 'disabled', false );
+				errorCallback( 'user', 'An error occurred. Please try again.' );
 			},
 		} );
 	}
+
 	/* --- LOGIN CONFIGURATIONS --- */
 
 	/* --- Footer Animation --- */

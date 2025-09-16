@@ -8,7 +8,7 @@
 $heading      = get_field( 'section_heading' );
 $culture_rows = get_field( 'culture_rows' );
 ?>
-<section class="culture-section relative px-6 py-[100px] md:px-8 lg:px-10 xl:px-20">
+<section class="culture-section relative px-6 lg:py-20 md:py-[60px] py-10 md:px-8 lg:px-10 xl:px-20">
 	<div class="culture-rows grid w-full grid-cols-1 lg:grid-cols-2 lg:gap-x-6">
 		<?php if ( $heading ) : ?>
 			<header class="culture-section-header w-full">
