@@ -28,7 +28,7 @@ if ( is_wp_error( $user ) ) {
 	<div class="flex h-screen w-full items-center justify-center bg-[#FAFAFA]">
 
 		<div class="w-full rounded-lg border bg-white px-8 py-8" style="max-width: 550px;">
-			<h1 class="mb-6 text-[32px] font-geova font-semibold leading-[40px] tracking-[-0.25px] text-red-600">Set Your Password</h1>
+			<h1 class="mb-6 font-geova text-[20px] font-semibold leading-[28px] tracking-[-0.25px] text-red-600 md:text-[24px] md:leading-[31px] lg:text-[32px] lg:leading-[40px]">Set Your Password</h1>
 
 			<?php
 			if (
