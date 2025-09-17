@@ -74,15 +74,14 @@
 <?php endif; ?>
 
 <div id="password-success" class="hidden">
-	<div class="fixed w-full h-screen bg-black opacity-50 top-0 left-0 z-[998]">
+	<div class="fixed left-0 top-0 z-[998] h-screen w-full bg-black opacity-50">
 	</div>
-	<div  class="py-[25px] px-20 flex fixed bottom-0 items-center left-0 justify-between w-full z-[999] bg-white border-t-[#14141480] border-t-[10px]">
+	<div  class="fixed bottom-0 left-0 z-[999] flex w-full justify-between border-t-[10px] border-t-[#14141480] bg-white px-20 py-[25px] lg:items-center">
 		<div class="flex gap-x-[12px]">
 			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-check-icon.svg' ); ?>" alt="Check Icon" class="aspect-square max-w-[24px]">
-			<h1 class="text-ada_red-50 text-[18px] leading-[120%] font-geova font-semibold whitespace-nowrap">Your password has been successfully updated. Please log in.</h1>
+			<h1 class="w-full max-w-[432px] font-geova text-[14px] font-semibold leading-[120%] text-ada_red-50 md:text-[16px] lg:max-w-[632px] lg:text-[18px]">Your password has been successfully updated. Please log in.</h1>
 		</div>
 		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-close-button.svg' ); ?>" alt="Close Icon" class="close-btn">
-
 	</div>
 </div>
 
@@ -157,7 +156,7 @@
 			<div class="login-button ff-button-primary">
 				<button type="submit" class="relative block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
 					<div class="login-btn">Login</div>
-					<div class="loader hidden mx-auto"></div>
+					<div class="loader mx-auto hidden"></div>
 				</button>
 			</div>
 		</form>
