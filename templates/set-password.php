@@ -57,9 +57,15 @@ if ( is_wp_error( $user ) ) {
 			<form method="post" class="set-password-form flex max-w-[550px] flex-col gap-y-10">
 				<?php wp_nonce_field( 'set_password_action', 'set_password_nonce' ); ?>
 
+				<div class="form-logo mx-auto size-[80px]">
+					<?php
+					the_custom_logo();
+					?>
+				</div>
+
 				<div class="space-y-8">
 					<div>
-						<label for="newpassword" class="block text-sm font-medium text-gray-700">Password</label>
+						<label for="newpassword" class="block text-center text-sm font-medium text-gray-700">Password</label>
 						<input type="password" name="newpassword" id="newpassword" required class="mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
 					</div>
 
