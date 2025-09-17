@@ -576,6 +576,23 @@ jQuery( function( $ ) {
 		} );
 	} );
 
+	$( '.eye-btn, .closed-eye-btn' ).on( 'click', function( e ) {
+		e.preventDefault();
+		const input = $( '#newpassword' );
+		const openEye = $( '.eye-btn[data-eye="open"]' );
+		const closedEye = $( '.closed-eye-btn[data-eye="closed"]' );
+
+		if ( input.attr( 'type' ) === 'password' ) {
+			input.attr( 'type', 'text' );
+			openEye.addClass( 'hidden' );
+			closedEye.removeClass( 'hidden' );
+		} else {
+			input.attr( 'type', 'password' );
+			closedEye.addClass( 'hidden' );
+			openEye.removeClass( 'hidden' );
+		}
+	} );
+
 	const $sidebar = $( '.sidebar-content' );
 	let scrollTimeout;
 

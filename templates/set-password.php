@@ -27,8 +27,13 @@ if ( is_wp_error( $user ) ) {
 <main id="primary" class="site-main rounded-lg border" data-barba="container" data-barba-namespace="<?php echo esc_attr( get_the_title() ); ?>">
 	<div class="flex h-screen w-full items-center justify-center bg-[#FAFAFA]">
 
-		<div class="w-full rounded-lg border bg-white px-8 py-8" style="max-width: 550px;">
-			<h1 class="mb-6 font-geova text-[20px] font-semibold leading-[28px] tracking-[-0.25px] text-red-600 md:text-[24px] md:leading-[31px] lg:text-[32px] lg:leading-[40px]">Set Your Password</h1>
+		<div class="form-container flex w-full flex-col rounded-lg border bg-white px-8 py-8" style="max-width: 550px;">
+			<div class="form-logo mx-auto size-[80px]">
+				<?php
+				the_custom_logo();
+				?>
+			</div>
+			<h1 class="mb-6 text-center font-geova text-[20px] font-semibold leading-[28px] tracking-[-0.25px] text-red-600 md:text-[24px] md:leading-[31px] lg:text-[32px] lg:leading-[40px]">Set Your Password</h1>
 
 			<?php
 			if (
@@ -57,21 +62,32 @@ if ( is_wp_error( $user ) ) {
 			<form method="post" class="set-password-form flex max-w-[550px] flex-col gap-y-10">
 				<?php wp_nonce_field( 'set_password_action', 'set_password_nonce' ); ?>
 
-				<div class="form-logo mx-auto size-[80px]">
-					<?php
-					the_custom_logo();
-					?>
-				</div>
-
 				<div class="space-y-8">
-					<div>
-						<label for="newpassword" class="block text-center text-sm font-medium text-gray-700">Password</label>
-						<input type="password" name="newpassword" id="newpassword" required class="mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
+					<div class="new-password-input relative">
+						<label for="newpassword" class="block text-sm font-medium text-gray-700">Password</label>
+						<input type="password" name="newpassword" id="newpassword" required class="relative mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
+							<button type="button" class="eye-btn" data-eye="open">
+								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-opened-eye.svg' ); ?>"
+							/>
+							</button>
+							<button type="button" class="closed-eye-btn hidden" data-eye="closed">
+								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-closed-eye.svg' ); ?>"
+							/>
+							</button>
+						</input>
 					</div>
 
-					<div>
+					<div class="confirm-password-input relative">
 						<label for="confirmpassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
 						<input type="password" name="confirmpassword" id="confirmpassword" required class="mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
+						<button type="button" class="eye-btn" data-eye="open">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-opened-eye.svg' ); ?>"
+						/>
+						</button>
+						<button type="button" class="closed-eye-btn hidden" data-eye="closed">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-closed-eye.svg' ); ?>"
+						/>
+						</button>
 					</div>
 				</div>
 
