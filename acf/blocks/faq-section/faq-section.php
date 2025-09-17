@@ -9,7 +9,7 @@
 <div class="ff-faq-section overflow-hidden bg-white px-6 py-10 md:px-8 md:py-[60px] lg:px-10 lg:py-20">
 	<div class="ff-c-container mx-auto grid grid-cols-1 gap-x-4 gap-y-10 lg:grid-cols-12 lg:gap-y-0">
 		<div class="flex flex-col gap-y-2 lg:col-span-5">
-			<h2 class="text-center text-ada_red-50 md:mb-0 lg:text-start"><?php echo esc_html( get_field( 'title' ) ); ?></h2>
+			<h3 class="text-center text-ada_red-50 md:mb-0 lg:text-start"><?php echo esc_html( get_field( 'title' ) ); ?></h3>
 			<p class="mx-auto max-w-[411px] text-center text-sm text-ada_gray-90 md:text-base lg:mx-0 lg:text-start lg:text-lg"><?php echo esc_html( get_field( 'description' ) ); ?></p>
 		</div>
 		<div class="faq-container flex flex-col lg:col-span-7">

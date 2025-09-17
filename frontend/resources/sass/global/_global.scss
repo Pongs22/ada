@@ -5,14 +5,12 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	height: auto;
-	overflow: auto;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
 
 html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-div::-webkit-scrollbar {
+body::-webkit-scrollbar {
 	display: none; /* Chrome, Safari, Opera */
 }
 
@@ -313,4 +311,59 @@ input[type="number"] {
 
 .swiper-pagination-bullet-active {
 	background: $primary-red-50 !important;
+}
+
+/* stylelint-disable color-no-hex */
+.loader {
+	width: 20px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: 8px solid #0000;
+	border-right-color: #ffa50097;
+	position: relative;
+	animation: l24 1s infinite linear;
+}
+
+.loader::before,
+.loader::after {
+	content: "";
+	position: absolute;
+	inset: -8px;
+	border-radius: 50%;
+	border: inherit;
+	animation: inherit;
+	animation-duration: 2s;
+}
+
+.loader::after {
+	animation-duration: 4s;
+}
+
+@keyframes l24 {
+
+	100% {
+		transform: rotate(1turn);
+	}
+}
+
+.sidebar-content {
+
+	&::-webkit-scrollbar {
+		width: 2px;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: transparent;
+		transition: background-color 0.3s ease;
+	}
+
+	&.scrolling::-webkit-scrollbar-thumb {
+		background-color: $primary-red-50;
+		transition: background-color 0.3s ease;
+	}
 }

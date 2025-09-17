@@ -139,14 +139,14 @@
 		<form id="loginPopup">
 			<div class="login-form mb-8 space-y-5 md:mb-10 md:space-y-8">
 				<div class="email-field flex flex-col gap-[2px] md:gap-[6px]">
-					<label class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Email
+					<label for="login-email" class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Email
 						address</label>
 					<input placeholder="JohnDoe@gmail.com"
-						class="rounded border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="email" autocomplete="username"
+						class="rounded border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="text" autocomplete="username"
 						name="login-email">
 				</div>
 				<div class="password-field flex flex-col gap-[6px]">
-					<label
+					<label for="login-password"
 						class="font-geova text-[14px] font-normal capitalize leading-[21px] text-ada_gray-90">Password</label>
 					<input 
 						class="rounded border border-ada_gray-30 bg-ada_grey-10 p-2 px-4 pb-[9px] pt-3" type="password"  autocomplete="current-password"
@@ -155,9 +155,9 @@
 			</div>
 
 			<div class="login-button ff-button-primary">
-				<button type="submit"
-					class="block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
-					Log in
+				<button type="submit" class="relative block w-full text-center font-geova text-lg font-medium uppercase leading-[21.6px]">
+					<div class="login-btn">Login</div>
+					<div class="loader hidden mx-auto"></div>
 				</button>
 			</div>
 		</form>

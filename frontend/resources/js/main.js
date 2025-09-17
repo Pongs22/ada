@@ -92,6 +92,10 @@ jQuery( function( $ ) {
 		} );
 		$( '.course-thumbnail' ).click( function() {
 			player.play();
+			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+			setTimeout( function() {
+				$( '.course-thumbnail' ).addClass( 'hidden' );
+			}, 500 );
 		} );
 	} else {
 		$( '.course-thumbnail-locked' ).click( function() {
@@ -108,9 +112,21 @@ jQuery( function( $ ) {
 		}
 		player.on( 'play', function() {
 			$( '.course-thumbnail' ).addClass( 'opacity-0' );
+			const curtainBar = document.querySelectorAll( '.bar-container .bars' );
+			const curtainArray = Array.from( curtainBar );
+			const reversedBars = curtainArray.reverse();
+			reversedBars.forEach( ( bar, i ) => {
+				gsap.to( bar, {
+					height: 0,
+					duration: 0.3,
+					delay: 0.05 * i,
+					ease: 'power1.inOut',
+				} );
+			} );
 			setTimeout( function() {
 				$( '.course-thumbnail' ).addClass( 'hidden' );
-			}, 500 );
+				$( '.bar-container' ).addClass( 'hidden' );
+			}, 1000 );
 		} );
 		player.on( 'timeupdate', function( data ) {
 			if ( data.seconds - lastSaved >= 5 ) {
@@ -249,6 +265,7 @@ jQuery( function( $ ) {
 
 	$( '.primary-login' ).click( function( e ) {
 		e.preventDefault();
+		resetLoginErrors();
 		popupModalFadeIn( '.login-popup-wrapper' );
 		setTimeout( function() {
 			$( '.login-popup-content' ).css( 'transform', '' ).removeClass( 'translate-y-full' ).addClass( 'translate-y-0' );
@@ -258,6 +275,7 @@ jQuery( function( $ ) {
 	function closeLoginPopup() {
 		popupModalFadeOut( '.login-popup-wrapper' );
 		$( '.login-popup-content' ).removeClass( 'translate-y-0' ).addClass( 'translate-y-full' );
+		resetLoginErrors();
 	}
 	$( '.login-close-button' ).click( closeLoginPopup );
 
@@ -305,7 +323,10 @@ jQuery( function( $ ) {
 
 	$( continueWatching ).find( '.start-over-btn' ).click( function() {
 		popupModalFadeOut( continueWatching );
-		$( '.course-thumbnail' ).addClass( 'hidden' );
+		$( '.course-thumbnail' ).addClass( 'opacity-0' );
+		setTimeout( function() {
+			$( '.course-thumbnail' ).addClass( 'hidden' );
+		}, 500 );
 		if ( player ) {
 			player.ready().then( function() {
 				player.play();
@@ -315,6 +336,10 @@ jQuery( function( $ ) {
 
 	$( continueWatching ).find( '.continue-btn' ).click( function() {
 		popupModalFadeOut( continueWatching );
+		$( '.course-thumbnail' ).addClass( 'opacity-0' );
+		setTimeout( function() {
+			$( '.course-thumbnail' ).addClass( 'hidden' );
+		}, 500 );
 		if ( player ) {
 			player.ready().then( function() {
 				return player.setCurrentTime( seekTime );
@@ -325,14 +350,80 @@ jQuery( function( $ ) {
 	} );
 	/* --- POPUP CONFIGURATIONS --- */
 	/* --- LOGIN CONFIGURATIONS --- */
+
+	function resetLoginErrors() {
+		const $form = $( '#loginPopup' );
+		const $email = $form.find( 'input[name="login-email"]' );
+		const $password = $form.find( 'input[name="login-password"]' );
+		const $emailLabel = $form.find( 'label[for="login-email"]' );
+		const $passwordLabel = $form.find( 'label[for="login-password"]' );
+
+		// Remove error messages
+		$form.find( '.login-error' ).remove();
+
+		// Reset input styles
+		$email.removeClass( 'border-red-500' );
+		$password.removeClass( 'border-red-500' );
+		$emailLabel.removeClass( 'text-red-500' );
+		$passwordLabel.removeClass( 'text-red-500' );
+	}
+
 	$( '#loginPopup' ).on( 'submit', function( e ) {
 		e.preventDefault();
-		const username = $( 'input[name="login-email"]' ).val();
-		const password = $( 'input[name="login-password"]' ).val();
-		loginFunction( username, password );
+		const $form = $( this );
+		const $email = $form.find( 'input[name="login-email"]' );
+		const $password = $form.find( 'input[name="login-password"]' );
+		const $emailLabel = $form.find( 'label[for="login-email"]' );
+		const $passwordLabel = $form.find( 'label[for="login-password"]' );
+		const $btn = $form.find( 'button[type="submit"]' );
+		const $error = $form.find( '.login-error' );
+		const $btnText = $btn.find( '.login-btn' );
+		const $loader = $btn.find( '.loader' );
+
+		$error.remove();
+		$email.removeClass( 'border-red-500' );
+		$password.removeClass( 'border-red-500' );
+		$emailLabel.removeClass( 'text-red-500' );
+		$passwordLabel.removeClass( 'text-red-500' );
+
+		const emailVal = $email.val().trim();
+		const passwordVal = $password.val();
+
+		if ( ! /^[^@]+@[^@]+\.[^@]+$/.test( emailVal ) ) {
+			$email.addClass( 'border-red-500' );
+			$emailLabel.addClass( 'text-red-500' );
+			$email.after( '<div class="login-error mt-1 text-sm text-red-500">Please enter a valid email address.</div>' );
+			return;
+		}
+
+		if ( ! passwordVal ) {
+			$password.addClass( 'border-red-500' );
+			$passwordLabel.addClass( 'text-red-500' );
+			$password.after( '<div class="login-error mt-1 text-sm text-red-500">Please enter your password.</div>' );
+			return;
+		}
+
+		$btn.prop( 'disabled', true );
+		$btnText.addClass( 'hidden' );
+		$loader.removeClass( 'hidden' );
+
+		loginFunction( emailVal, passwordVal, function( errorType, errorMsg ) {
+			$btn.prop( 'disabled', false );
+			$btnText.removeClass( 'hidden' );
+			$loader.addClass( 'hidden' );
+			if ( errorType === 'user' ) {
+				$email.addClass( 'border-red-500' );
+				$emailLabel.addClass( 'text-red-500' );
+				$email.after( '<div class="login-error mt-1 text-sm text-red-500">' + errorMsg + '</div>' );
+			} else if ( errorType === 'password' ) {
+				$password.addClass( 'border-red-500' );
+				$passwordLabel.addClass( 'text-red-500' );
+				$password.after( '<div class="login-error mt-1 text-sm text-red-500">' + errorMsg + '</div>' );
+			}
+		}, $btn, $btnText, $loader );
 	} );
-	function loginFunction( username, password ) {
-		// TODO: add loading animation in the button, add error.
+	function loginFunction( username, password, errorCallback, $btn ) {
+		// TODO: add loading animation in the button
 		$.ajax( {
 			url: ajaxVar.ajaxUrl,
 			type: 'post',
@@ -343,10 +434,20 @@ jQuery( function( $ ) {
 				password,
 			},
 			success( response ) {
-				window.location.href = response.data.redirect;
+				$btn.prop( 'disabled', false );
+
+				if ( response.success ) {
+					window.location.href = '/course/testimonies/';
+				} else {
+					errorCallback( response.data.type, response.data.message );
+				}
+			},
+			error( ) {
+				errorCallback( 'user', 'An error occurred. Please try again.' );
 			},
 		} );
 	}
+
 	/* --- LOGIN CONFIGURATIONS --- */
 
 	/* --- Footer Animation --- */
@@ -473,5 +574,24 @@ jQuery( function( $ ) {
 		$( '#password-success' ).fadeOut( 700, function() {
 			$( 'body' ).css( 'overflow', '' );
 		} );
+	} );
+
+	const $sidebar = $( '.sidebar-content' );
+	let scrollTimeout;
+
+	$sidebar.on( 'wheel', function( e ) {
+		const atTop = this.scrollTop === 0;
+		const atBottom = this.scrollHeight - this.scrollTop === this.clientHeight;
+		if ( ! ( ( e.originalEvent.deltaY < 0 && atTop ) || ( e.originalEvent.deltaY > 0 && atBottom ) ) ) {
+			e.stopPropagation();
+		}
+	} );
+
+	$sidebar.on( 'scroll', function() {
+		$sidebar.addClass( 'scrolling' );
+		clearTimeout( scrollTimeout );
+		scrollTimeout = setTimeout( () => {
+			$sidebar.removeClass( 'scrolling' );
+		}, 500 );
 	} );
 } );

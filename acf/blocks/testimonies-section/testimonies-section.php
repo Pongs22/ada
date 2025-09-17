@@ -11,9 +11,9 @@ $testimonies = get_field( 'testimonies' );
 ?>
 <section class="ff-testimonies-section overflow-hidden bg-white px-6 py-10 md:px-8 md:py-[60px] lg:px-10 lg:py-20 xl:px-20">
 	<article class="ff-c-container relative">
-		<h3 class="ff-section-title mb-12 max-w-[519px] text-ada_red-50">
+		<h2 class="ff-section-title mb-12 max-w-[645px] text-ada_red-50">
 			<?php echo esc_html( $section ); ?>
-		</h3>
+		</h2>
 		<?php if ( $testimonies ) : ?>
 			<div class="swiper rounded-lg">
 				<div class="swiper-wrapper items-stretch">
