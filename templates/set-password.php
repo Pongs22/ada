@@ -66,7 +66,7 @@ if ( is_wp_error( $user ) ) {
 					</div>
 				</div>
 
-				<button type="submit" class="w-full rounded-md bg-red-600 px-4 py-2 font-medium text-white">Confirm</button>
+				<button type="submit" class="w-full bg-ada_red-50 pb-[14px] pt-[10px] font-geova text-[18px] font-medium leading-[120%] text-white">Confirm</button>
 			</form>
 
 		</div>
