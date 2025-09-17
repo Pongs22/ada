@@ -40,6 +40,9 @@ if ( is_wp_error( $user ) ) {
 
 				if ( $newpassword === $confirmpassword ) {
 					reset_password( $user, $newpassword );
+
+					wp_logout();
+
 					echo "<script>
 						localStorage.setItem('password_updated', '1');
 						window.location.href = '" . esc_url( home_url() ) . "';
@@ -51,7 +54,7 @@ if ( is_wp_error( $user ) ) {
 			}
 			?>
 
-			<form method="post" class="flex max-w-[550px] flex-col gap-y-10">
+			<form method="post" class="set-password-form flex max-w-[550px] flex-col gap-y-10">
 				<?php wp_nonce_field( 'set_password_action', 'set_password_nonce' ); ?>
 
 				<div class="space-y-8">
@@ -66,7 +69,7 @@ if ( is_wp_error( $user ) ) {
 					</div>
 				</div>
 
-				<button type="submit" class="w-full bg-ada_red-50 pb-[14px] pt-[10px] font-geova text-[18px] font-medium leading-[120%] text-white">Confirm</button>
+				<button type="submit" class="confirm-btn w-full">Confirm</button>
 			</form>
 
 		</div>
