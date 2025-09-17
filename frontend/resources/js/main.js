@@ -556,4 +556,23 @@ jQuery( function( $ ) {
 		startY = 0;
 		currentY = 0;
 	} );
+
+	const $sidebar = $( '.sidebar-content' );
+	let scrollTimeout;
+
+	$sidebar.on( 'wheel', function( e ) {
+		const atTop = this.scrollTop === 0;
+		const atBottom = this.scrollHeight - this.scrollTop === this.clientHeight;
+		if ( ! ( ( e.originalEvent.deltaY < 0 && atTop ) || ( e.originalEvent.deltaY > 0 && atBottom ) ) ) {
+			e.stopPropagation();
+		}
+	} );
+
+	$sidebar.on( 'scroll', function() {
+		$sidebar.addClass( 'scrolling' );
+		clearTimeout( scrollTimeout );
+		scrollTimeout = setTimeout( () => {
+			$sidebar.removeClass( 'scrolling' );
+		}, 500 );
+	} );
 } );

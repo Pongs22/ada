@@ -41,8 +41,8 @@ if ( $user_id ) {
 <main id="primary" class="site-main course-dashboard" data-user="<?php echo esc_attr( get_current_user_id() ); ?>" data-course="<?php echo esc_attr( get_the_ID() ); ?>" data-progress="<?php echo esc_attr( $course['progress_time'] ?? '' ); ?>" data-status="<?php echo esc_attr( $course['status'] ?? '' ); ?>">
 	<div class="relative mt-[65px] flex flex-row !overflow-visible lg:mt-[89px]">
 		<div class="relative hidden w-full max-w-[270px] lg:block">
-			<div class="sticky left-0 top-[89px] flex !h-[calc(100vh-89px)] flex-col divide-y divide-ada_gray-20 overflow-hidden">
-				<div class="h-full overflow-y-auto">
+			<div class="sticky left-0 top-[89px] flex flex-col divide-y divide-ada_gray-20">
+				<div class="sidebar-content max-h-[calc(100vh-89px)] overflow-y-auto transition-all duration-300">
 					<?php
 					$args = array(
 						'post_type'      => 'course',

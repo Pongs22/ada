@@ -5,13 +5,13 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	height: auto;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-	// display: none; /* Chrome, Safari, Opera */
+	display: none; /* Chrome, Safari, Opera */
 }
 
 .site-main {
@@ -343,5 +343,27 @@ input[type="number"] {
 
 	100% {
 		transform: rotate(1turn);
+	}
+}
+
+.sidebar-content {
+
+	&::-webkit-scrollbar {
+		width: 2px;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: transparent;
+		transition: background-color 0.3s ease;
+	}
+
+	&.scrolling::-webkit-scrollbar-thumb {
+		background-color: $primary-red-50;
+		transition: background-color 0.3s ease;
 	}
 }
