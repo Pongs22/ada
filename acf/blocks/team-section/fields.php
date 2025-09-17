@@ -36,6 +36,18 @@ $team
 	)
 	->addText( 'card_name' )
 	->addText( 'card_title' )
+	->addRepeater(
+		'team_socials'
+	)
+	->addImage(
+		'icon',
+		[
+			'preview_size'  => 'medium',
+			'label'         => __( 'Icon', 'firstfold' ),
+			'return_format' => 'id',
+		]
+	)
+	->addLink( 'link' )
 	->endRepeater()
 	->setLocation( 'block', '==', 'acf/team-section' );
 

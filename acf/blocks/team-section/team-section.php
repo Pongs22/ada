@@ -47,9 +47,10 @@ $team_cards    = get_field( 'team_cards' );
 									<?php
 									foreach ( $card_content as $content_row ) :
 
-										$row_image = $content_row['card_image'] ? $content_row['card_image'] : null;
-										$row_name  = $content_row['card_name'] ? $content_row['card_name'] : '';
-										$row_title = $content_row['card_title'] ? $content_row['card_title'] : '';
+										$row_image        = $content_row['card_image'] ? $content_row['card_image'] : null;
+										$row_name         = $content_row['card_name'] ? $content_row['card_name'] : '';
+										$row_title        = $content_row['card_title'] ? $content_row['card_title'] : '';
+										$row_social_media = $content_row['team_socials'] ? $content_row['team_socials'] : null;
 										?>
 										<div class="team-cards-item max-w-[224px] flex-shrink-0 md:max-w-[249px] lg:max-w-[302px]">
 											<div
@@ -57,11 +58,22 @@ $team_cards    = get_field( 'team_cards' );
 												<?php if ( $row_image ) : ?>
 													<div class="relative h-full w-full">
 														<?php echo wp_get_attachment_image( $row_image, 'full', '', [ 'class' => 'w-full h-full object-cover object-center' ] ); ?>
-														<div class="card-icon absolute bottom-2.5 right-2.5">
-															<img class="size-4 md:size-6 lg:size-8"
-																src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-social-icon.svg' ) ); ?>"
-																alt="social icon" />
-														</div>
+														<?php if ( $row_social_media ) : ?>
+															<?php
+															foreach ( $row_social_media as $social ) : 
+
+																$social_icon = $social['icon'];
+																$social_link = $social['link'];
+																?>
+																<?php if ( $social_icon ) : ?>
+																<div class="card-icon absolute bottom-2.5 right-2.5">
+																	<a href="<?php echo esc_url( $social_link['url'] ); ?>">
+																		<?php echo wp_get_attachment_image( $social_icon, 'full', false, [ 'class' => 'social-icon' ] ); ?>
+																	</a>
+																</div>
+															<?php endif; ?>
+															<?php endforeach; ?>
+														<?php endif; ?>
 													</div>
 												<?php else : ?>
 													<img src="<?php echo esc_url( ff_get_block_asset( 'team-section', 'ada-team-placeholder.png' ) ); ?>"
