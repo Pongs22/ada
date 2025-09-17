@@ -41,7 +41,7 @@ $wic_link       = $with_icon_list['link'] ?: '';
 			<?php endif; ?>
 		</div>
 		<div class="content-section flex flex-col gap-6 md:flex-row"> 
-			<div class="image-container order-1 w-full md:order-2 md:flex-1 lg:max-w-[519px]">
+			<div class="image-container order-1 w-full md:order-2 md:flex-1 md:max-w-[313px] xl:max-w-[519px]">
 				<?php echo wp_get_attachment_image( $with_icon_list['image'], 'full', false, array( 'class' => 'w-full shadow-lg object-cover object-center rounded-[8px]' ) ); ?>
 			</div>
 			<?php if ( ! empty( $with_icon_list['icon_list'] ) ) : ?>
