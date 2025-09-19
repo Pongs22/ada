@@ -79,7 +79,7 @@
 	<div  class="fixed bottom-0 left-0 z-[999] flex w-full justify-between border-t-[10px] border-t-[#14141480] bg-white px-20 py-[25px] lg:items-center">
 		<div class="flex gap-x-[12px]">
 			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-check-icon.svg' ); ?>" alt="Check Icon" class="aspect-square max-w-[24px]">
-			<h1 class="w-full max-w-[432px] font-geova text-[14px] font-semibold leading-[120%] text-ada_red-50 md:text-[16px] lg:max-w-[632px] lg:text-[18px]">Your password has been successfully updated. Please log in.</h1>
+			<h1 class="w-full max-w-[432px] font-geova text-[14px] font-bold leading-[120%] text-ada_red-50 md:text-[16px] lg:max-w-[632px] lg:text-[18px]">Your password has been successfully updated. Please log in.</h1>
 		</div>
 		<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-close-button.svg' ); ?>" alt="Close Icon" class="close-btn">
 	</div>

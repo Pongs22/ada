@@ -25,7 +25,7 @@ if ( is_wp_error( $user ) ) {
 ?>
 
 <main id="primary" class="site-main rounded-lg border" data-barba="container" data-barba-namespace="<?php echo esc_attr( get_the_title() ); ?>">
-	<div class="flex h-screen w-full items-center justify-center bg-[#FAFAFA]">
+	<div class="fixed z-[999] flex h-screen w-full items-center justify-center bg-[#FAFAFA]">
 
 		<div class="form-container flex w-full flex-col rounded-lg border bg-white px-8 py-8" style="max-width: 550px;">
 			<div class="form-logo mx-auto size-[80px]">
@@ -65,7 +65,7 @@ if ( is_wp_error( $user ) ) {
 				<div class="space-y-8">
 					<div class="new-password-input relative">
 						<label for="newpassword" class="block text-sm font-medium text-gray-700">Password</label>
-						<input type="password" name="newpassword" id="newpassword" required class="relative mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
+						<input type="password" name="newpassword" id="newpassword" class="relative mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
 							<button type="button" class="eye-btn" data-eye="open">
 								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-opened-eye.svg' ); ?>"
 							/>
@@ -79,7 +79,7 @@ if ( is_wp_error( $user ) ) {
 
 					<div class="confirm-password-input relative">
 						<label for="confirmpassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-						<input type="password" name="confirmpassword" id="confirmpassword" required class="mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
+						<input type="password" name="confirmpassword" id="confirmpassword" class="mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
 						<button type="button" class="eye-btn" data-eye="open">
 							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-opened-eye.svg' ); ?>"
 						/>
@@ -90,12 +90,14 @@ if ( is_wp_error( $user ) ) {
 						</button>
 					</div>
 				</div>
-
-				<button type="submit" class="confirm-btn w-full">Confirm</button>
+				<div class="ff-button-primary">
+					<button type="submit" class="confirm-btn w-full"> 
+						<span class="btn-text">CONFIRM</span>
+						<div class="loader"></div>
+					</button>
+				</div>
 			</form>
-
 		</div>
-
 	</div>
 </main><!-- #main -->
 

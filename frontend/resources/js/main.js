@@ -578,9 +578,11 @@ jQuery( function( $ ) {
 
 	$( '.eye-btn, .closed-eye-btn' ).on( 'click', function( e ) {
 		e.preventDefault();
-		const input = $( '#newpassword' );
-		const openEye = $( '.eye-btn[data-eye="open"]' );
-		const closedEye = $( '.closed-eye-btn[data-eye="closed"]' );
+
+		const wrapper = $( this ).closest( 'div' ); // grab the closest parent div
+		const input = wrapper.find( 'input' ); // only that input
+		const openEye = wrapper.find( '.eye-btn[data-eye="open"]' );
+		const closedEye = wrapper.find( '.closed-eye-btn[data-eye="closed"]' );
 
 		if ( input.attr( 'type' ) === 'password' ) {
 			input.attr( 'type', 'text' );
@@ -591,6 +593,20 @@ jQuery( function( $ ) {
 			closedEye.addClass( 'hidden' );
 			openEye.removeClass( 'hidden' );
 		}
+	} );
+
+	$( '.set-password-form' ).on( 'submit', function( e ) {
+		e.preventDefault();
+
+		const form = $( this );
+		const btn = form.find( '.confirm-btn' );
+
+		btn.addClass( 'loading' ).prop( 'disabled', true );
+
+		setTimeout( function() {
+			form.off( 'submit' );
+			form.submit();
+		}, 1000 );
 	} );
 
 	const $sidebar = $( '.sidebar-content' );
