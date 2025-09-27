@@ -36,10 +36,16 @@ if ( is_wp_error( $user ) ) {
 			<h1 class="mb-6 text-center font-geova text-[20px] font-semibold leading-[28px] tracking-[-0.25px] text-red-600 md:text-[24px] md:leading-[31px] lg:text-[32px] lg:leading-[40px]">Set Your Password</h1>
 
 			<?php
+				$error_message               = '';
+				$newpassword_class           = '';
+				$confirmpassword_class       = '';
+				$newpassword_label_class     = 'text-ada_grey-80';
+				$confirmpassword_label_class = 'text-ada_grey-80';
+
 			if (
-				isset( $_POST['newpassword'], $_POST['confirmpassword'], $_POST['set_password_nonce'] )
-				&& wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['set_password_nonce'] ) ), 'set_password_action' )
-			) {
+					isset( $_POST['newpassword'], $_POST['confirmpassword'], $_POST['set_password_nonce'] )
+					&& wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['set_password_nonce'] ) ), 'set_password_action' )
+				) {
 				$newpassword     = sanitize_text_field( wp_unslash( $_POST['newpassword'] ) );
 				$confirmpassword = sanitize_text_field( wp_unslash( $_POST['confirmpassword'] ) );
 
@@ -49,22 +55,29 @@ if ( is_wp_error( $user ) ) {
 					wp_logout();
 
 					echo "<script>
-						localStorage.setItem('password_updated', '1');
-						window.location.href = '" . esc_url( home_url() ) . "';
-					</script>";
+							localStorage.setItem('password_updated', '1');
+							window.location.href = '" . esc_url( home_url() ) . "';
+						</script>";
 					exit;
 				} else {
-					echo '<p class="text-red-600">Passwords do not match. Please try again.</p>';
+					$error_message               = 'Passwords do not match. Please try again.';
+					$confirmpassword_class       = 'border-ada_red-50';
+					$confirmpassword_label_class = 'text-ada_red-50';
 				}
 			}
 			?>
+
 
 			<form method="post" class="set-password-form flex max-w-[550px] flex-col gap-y-10">
 				<?php wp_nonce_field( 'set_password_action', 'set_password_nonce' ); ?>
 
 				<div class="space-y-8">
+					<?php if ( ! empty( $error_message ) ) : ?>
+						<p class="font-medium text-red-600"><?php echo esc_html( $error_message ); ?></p>
+					<?php endif; ?>
+
 					<div class="new-password-input relative">
-						<label for="newpassword" class="block text-sm font-medium text-gray-700">Password</label>
+						<label for="newpassword" class="block text-sm font-medium <?php echo esc_attr( $newpassword_label_class ); ?>">Password</label>
 						<input type="password" name="newpassword" id="newpassword" class="relative mt-1 w-full rounded-md border px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
 							<button type="button" class="eye-btn" data-eye="open">
 								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/frontend/resources/img/ada-opened-eye.svg' ); ?>"
