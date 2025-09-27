@@ -600,6 +600,38 @@ jQuery( function( $ ) {
 
 		const form = $( this );
 		const btn = form.find( '.confirm-btn' );
+		const pass1 = form.find( '#newpassword' ).val().trim();
+		const pass2 = form.find( '#confirmpassword' ).val().trim();
+
+		const newPasswordInput = form.find( '#newpassword' );
+		const confirmPasswordInput = form.find( '#confirmpassword' );
+		const newPasswordLabel = form.find( 'label[for="newpassword"]' );
+		const confirmPasswordLabel = form.find( 'label[for="confirmpassword"]' );
+
+		form.find( '.error-msg' ).remove();
+
+		newPasswordInput.removeClass( 'border-ada_red-50 bg-[#FFF4F4]' );
+		confirmPasswordInput.removeClass( 'border-ada_red-50 bg-[#FFF4F4]' );
+		newPasswordLabel.removeClass( 'text-ada_red-50' ).addClass( 'text-ada_grey-80' );
+		confirmPasswordLabel.removeClass( 'text-ada_red-50' ).addClass( 'text-ada_grey-80' );
+
+		if ( ! pass1 || ! pass2 ) {
+			form.prepend( '<p class="error-msg mb-4 font-geova text-[14px] font-medium leading-[150%] text-ada_red-50">Password fields cannot be empty.</p>' );
+
+			newPasswordInput.addClass( 'border-ada_red-50 bg-[#FFF4F4]' );
+			confirmPasswordInput.addClass( 'border-ada_red-50 bg-[#FFF4F4]' );
+			newPasswordLabel.removeClass( 'text-ada_grey-80' ).addClass( 'text-ada_red-50' );
+			confirmPasswordLabel.removeClass( 'text-ada_grey-80' ).addClass( 'text-ada_red-50' );
+			return;
+		}
+
+		if ( pass1 !== pass2 ) {
+			form.prepend( '<p class="error-msg mb-4 font-geova text-[14px] font-medium leading-[150%] text-ada_red-50">Passwords do not match.</p>' );
+
+			confirmPasswordInput.addClass( 'border-ada_red-50 bg-[#FFF4F4]' );
+			confirmPasswordLabel.removeClass( 'text-ada_grey-80' ).addClass( 'text-ada_red-50' );
+			return;
+		}
 
 		btn.addClass( 'loading' ).prop( 'disabled', true );
 
